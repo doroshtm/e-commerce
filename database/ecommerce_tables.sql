@@ -32,9 +32,3 @@ create table usuarios(
     endereco varchar(255),
     cep varchar(8)
 );
-
-SELECT * FROM produtos;
-SELECT * FROM usuarios;
-SELECT * FROM categorias;
-
-SELECT produtos .*, categorias.nome as categoria_nome FROM produtos INNER JOIN categorias ON produtos.categoria_id = categorias.id_categorias; 
