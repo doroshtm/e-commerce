@@ -200,7 +200,7 @@ body {
     margin-bottom: 70px;
     transition: 0.4s;
 }
-#container-video .conteudo-mp{
+#container-video .conteudo-mp-video{
     padding: 10px 15px 20px 50px;
     margin-top:15px;
     margin-bottom: 4    0px;
@@ -245,7 +245,7 @@ body {
 #container-mascote-produtos .texto-destaque, #container-video .texto-destaque {
     font-size:25px;
 }
-.conteudo-mp {
+.conteudo-mp,.conteudo-mp-video {
     border-radius:10px;
     padding-left:120px;
     margin-bottom: 15px;
