@@ -259,6 +259,10 @@ body {
     background-image:linear-gradient(#6688f5,#9d96e9);
     color:white;
 }
+.conteudo-mp:hover .texto-destaque{
+    transition: 0.4s;
+    color:#2715ec
+}
 .texto-mp {
     font-size:23px; 
 }
