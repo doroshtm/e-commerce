@@ -171,22 +171,8 @@ body {
 
 
 /* Home */
-
-.content {
-    max-width:100%;
-    flex:1;
-    transition: 0.4s;
-}
-
-.container-geral {
-    margin-top:130px;
-    display: flex;
-    flex-direction: column;
-    align-items:center;
-    justify-content: center;
-    width:100%;
-}
 #container-video {
+    margin-top:10px;
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -201,7 +187,7 @@ body {
     padding: 20px 15px 20px;
     width:90vw;
     border-radius:10px;
-    margin-bottom: 70px;
+    margin-bottom: 40px;
     transition: 0.4s;
 }
 #container-video .conteudo-mp-video{
@@ -240,11 +226,6 @@ body {
     border-radius:360px;
     height:10px; width:10px;
     background: var(--cor-interac);
-}
-.texto-destaque {
-    font-weight: 700;
-    color: var(--cor-interac);
-    font-size: 30px;
 }
 #container-mascote-produtos .texto-destaque, #container-video .texto-destaque {
     font-size:25px;
@@ -298,8 +279,50 @@ body {
     align-items:center;
 
 }
+
+#sobre-mascotero {
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+    margin-top:20px;
+}
+#sobre-mascotero-logo {
+/* border: 1px solid var(--cor-texto);
+ */display:flex;
+align-items:center;
+justify-content: center;
+background: var(--cor-destaque);
+height:400px; width:400px;
+z-index:1;
+margin-bottom:-100px;
+border-radius:50%;
+}
+#sobre-mascotero-texto {
+/*     border: 1px solid var(--cor-texto);
+ */    height:400px; width:80vw;
+    background: var(--cor-destaque);
+    border-radius: 15px;
+    margin-bottom:150px;
+}
+#sobre-mascotero-titulo {
+    height:100px;
+    max-height:100px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-content: center;
+    align-items:center;
+    width:100%; max-width:100%;
+}
+#sobre-mascotero-titulo .texto-destaque {
+    justify-self: center;
+    font-size:40px;
+}
+
+/* Utilidade geral */
+
 .separador {
-    width:200px;
+    width:50%;
     max-height:2px;
     border: 2px solid var(--cor-interac);
     z-index: 0;
@@ -315,4 +338,33 @@ body {
     width: 5px; height: 5px;
     border: 10px solid var(--cor-fundo);
     margin:20px;
+}
+
+.centraliza
+{
+    display: flex; 
+    align-items:center;
+    justify-content:center;
+    width:100%;
+}
+
+.texto-destaque {
+    font-weight: 700;
+    color: var(--cor-interac);
+    font-size: 30px;
+}
+
+.content {
+    max-width:100%;
+    flex:1;
+    transition: 0.4s;
+}
+
+.container-geral {
+    margin-top:130px;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    width:100%;
 }
