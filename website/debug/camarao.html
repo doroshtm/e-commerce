@@ -4,15 +4,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    div {
+	perspective: 800px;	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.square {
+	width: 200px;
+	height: 200px;
+	background: grey;
+  border-radius: 50%;
+	transform: rotateY(45deg);
+	animation: rotateAnimation 1s linear infinite;
+}
+
+@keyframes rotateAnimation {
+	from {transform: rotateY(45deg);}
+	to {transform: rotateY(225deg);}
+}
+  </style>
+  <script>
+    const char_total = 15
+    const angulo_interno = 360/char_total
+    const tamanho_lado = 1
+    const raio = tamanho_lado / Math.sin(angulo_interno/(180/Math.PI))
+  </script>
   <title>Product Showcase</title>
 </head>
 <body>
-  <div class="containerpai">
-    <div class="bola">
-      <img src="/website/imagens/Emblema_Mascotero.svg" width="300px">
-    </div>
-  <div class="container">
-    QUEM                   SOMOS
+  <div>
+    <div class="square"></div>
+  </div>
+    
   </div>
 </div>
 </body>
