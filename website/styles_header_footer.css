@@ -242,8 +242,10 @@ body {
     transition: 0.4s;
 }
 .conteudo-mp:hover {
-    background-image:linear-gradient(#6688f5,#9d96e9);
-    color:white;
+     background-image:linear-gradient(#6688f5,#9d96e9); 
+     background: #6688f5; 
+    color: white;
+    box-shadow: 5px 5px 5px #cccccc;
 }
 .conteudo-mp:hover .texto-destaque{
     transition: 0.4s;
@@ -288,26 +290,61 @@ body {
     margin-top:20px;
 }
 #sobre-mascotero-logo {
-/* border: 1px solid var(--cor-texto);
- */display:flex;
-align-items:center;
-justify-content: center;
-background: var(--cor-destaque);
-height:400px; width:400px;
-z-index:1;
-margin-bottom:-100px;
-border-radius:50%;
+    perspective: 100vh;
+    border: 2px solid var(--cor-texto);
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    background: var(--cor-destaque);
+    height:25vw; width:25vw;
+    z-index:1;
+    margin-bottom: -12.5vw;
+    border-radius:50%;
+    box-shadow: 5px 5px 5px #cccccc;
+    user-select: none;
+}
+#sobre-mascotero-logo img {
+    transform:rotateY(0deg);
+    height: 20vw; width: 20vw; 
+}
+
+@keyframes roda3d {
+    0% {
+        transform: rotateY(0deg);
+        content:url(./imagens/Emblema_Mascotero.svg);
+    }
+
+    100% {
+        transform: rotateY(180deg);
+        content:url("./imagens/Emblema_Mascotero_Alternativo.svg");
+    }
+}
+@keyframes roda3dREVERSO{
+    0% {
+        transform: rotateY(180deg);
+        content:url(./imagens/Emblema_Mascotero_Alternativo.svg);
+    }
+
+    100% {
+        transform: rotateY(360deg);
+        content:url("./imagens/Emblema_Mascotero.svg");
+    } 
 }
 #sobre-mascotero-texto {
-/*     border: 1px solid var(--cor-texto);
- */    height:400px; width:80vw;
+    display:flex;
+    justify-content: center;
+    border: 2px solid var(--cor-texto);
+    height:50vw; width:80vw;
     background: var(--cor-destaque);
     border-radius: 15px;
     margin-bottom:150px;
 }
+#sobre-mascotero-texto .texto-destaque {
+    margin-top: calc(12.5vw + 5px);
+}
 #sobre-mascotero-titulo {
-    height:100px;
-    max-height:100px;
+    height:12.5vw;
+    max-height: 12.5vw;
     display: grid;
     grid-template-columns: 50% 50%;
     justify-content: center;
@@ -332,7 +369,7 @@ border-radius:50%;
     margin: 10px; 
 }
 .bola-separador {
-    border-radius: 360px;
+    border-radius: 50%;
     background-color: var(--cor-interac);
     z-index: 1;
     width: 5px; height: 5px;
