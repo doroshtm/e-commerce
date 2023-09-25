@@ -147,6 +147,7 @@ body {
 
     max-width:50vw;
 }
+
 @media (max-width: 900px) {
     #header {
         grid-template-columns: 1fr; 
@@ -178,7 +179,7 @@ body {
     align-items:center;
     justify-content:left;   
 }
-#container-mascote-produtos {
+#container-mascote-produtos{
     background: var(--cor-destaque);
     margin-top:15px;
     justify-content:left;
@@ -241,7 +242,7 @@ body {
     grid-template-columns: 60% 40%; 
     transition: 0.4s;
 }
-.conteudo-mp:hover {
+.conteudo-mp::not(#sobre-mascotero-texto.conteudo-mp):hover {
      background-image:linear-gradient(#6688f5,#9d96e9); 
      background: #6688f5; 
     color: white;
@@ -300,8 +301,13 @@ body {
     z-index:1;
     margin-bottom: -12.5vw;
     border-radius:50%;
-    box-shadow: 5px 5px 5px #cccccc;
     user-select: none;
+    transition: 0.4s
+}
+#sobre-mascotero-logo:hover {
+    cursor:pointer;
+    border: 2px double var(--cor-interac);
+    border-color: var(--cor-interac);
 }
 #sobre-mascotero-logo img {
     transform:rotateY(0deg);
@@ -316,13 +322,13 @@ body {
 
     100% {
         transform: rotateY(180deg);
-        content:url("./imagens/Emblema_Mascotero_Alternativo.svg");
+        content:url("./imagens/Emblema_Mascotero_Alternativo_Equipe.svg");
     }
 }
 @keyframes roda3dREVERSO{
     0% {
         transform: rotateY(180deg);
-        content:url(./imagens/Emblema_Mascotero_Alternativo.svg);
+        content:url(./imagens/Emblema_Mascotero_Alternativo_Equipe.svg);
     }
 
     100% {
@@ -330,11 +336,28 @@ body {
         content:url("./imagens/Emblema_Mascotero.svg");
     } 
 }
+@keyframes desaparece {
+    0% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(90deg);
+    }
+}
+@keyframes aparece {
+    0% {
+        transform: rotateY(270deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
+}
 #sobre-mascotero-texto {
     display:flex;
     justify-content: center;
     border: 2px solid var(--cor-texto);
-    height:50vw; width:80vw;
+    width:80vw;
+    padding-bottom:15px;
     background: var(--cor-destaque);
     border-radius: 15px;
     margin-bottom:150px;
@@ -342,20 +365,44 @@ body {
 #sobre-mascotero-texto .texto-destaque {
     margin-top: calc(12.5vw + 5px);
 }
-#sobre-mascotero-titulo {
-    height:12.5vw;
-    max-height: 12.5vw;
-    display: grid;
-    grid-template-columns: 50% 50%;
-    justify-content: center;
-    align-items:center;
-    width:100%; max-width:100%;
-}
 #sobre-mascotero-titulo .texto-destaque {
     justify-self: center;
     font-size:40px;
 }
 
+#sobre-mascotero-marca .conteudo-mp {
+    grid-template-columns: 90% 10%;
+    padding-left: 40px !important;
+}
+#sobre-mascotero-texto .centraliza{
+    margin-bottom:20px;
+}
+#sobre-mascotero-marca {
+    min-width:100%;
+}
+#sobre-mascotero-equipe {
+    min-width:100%;
+    display:none;
+}
+#sobre-mascotero-equipe , #sobre-mascotero-marca {
+    perspective: 100vh;
+}
+#sobre-mascotero-equipe .conteudo-mp{
+    width:100%;
+    grid-template-columns: 20% 80%;
+    padding-right: 40px;
+}
+#sobre-mascotero-equipe .texto-mp {
+    align-self:left;
+}
+#texto-nossa-equipe {
+    margin-top: -10px;
+    max-width:90%;
+    text-align:center;
+    font-size: 20px;
+    font-weight: 600;
+
+}
 /* Utilidade geral */
 
 .separador {
