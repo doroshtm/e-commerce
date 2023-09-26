@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let chave = false;
   let isAnimationInProgress = false;
 
-addEventListener('click', () => {
+imagem.addEventListener('click', () => {
     if (!isAnimationInProgress) {
       isAnimationInProgress = true;
       imagem.style.pointerEvents = 'none';
