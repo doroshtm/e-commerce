@@ -305,11 +305,11 @@ body {
     margin-bottom: -12.5vw;
     border-radius:50%;
     user-select: none;
-    transition: 0.4s
+    transition: 0.2s
 }
 #sobre-mascotero-logo:hover {
     cursor:pointer;
-    border: 2px double var(--cor-interac);
+    border: 10px double var(--cor-interac);
     border-color: var(--cor-interac);
 }
 #sobre-mascotero-logo img {
@@ -325,13 +325,13 @@ body {
 
     100% {
         transform: rotateY(180deg);
-        content:url("./imagens/Emblema_Mascotero_Alternativo_Equipe.svg");
+        content:url("./imagens/Emblema_Mascotero_Alternativo_Equipe_Escuro.svg");
     }
 }
 @keyframes roda3dREVERSO{
     0% {
         transform: rotateY(180deg);
-        content:url(./imagens/Emblema_Mascotero_Alternativo_Equipe.svg);
+        content:url(./imagens/Emblema_Mascotero_Alternativo_Equipe_Escuro.svg);
     }
 
     100% {
@@ -388,9 +388,7 @@ body {
     min-width:100%;
     display:none;
 }
-#sobre-mascotero-equipe , #sobre-mascotero-marca {
-    perspective: 100vh;
-}
+
 #sobre-mascotero-equipe .conteudo-mp{
     width:100%;
     grid-template-columns: 20% 80%;
