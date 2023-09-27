@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+    <?php
+        session_start();
+    ?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +30,7 @@
         <div id="container-usuario">
             <span>Olá, </span>
             <span id="nome-usuario"> Nomeusuario!</span>
-            <img src="imagens/user_icon.svg" alt="Foto do cliente">
+            <a href = './login.php'> <img src="imagens/user_icon.svg" alt="Foto do cliente"> </a>
             <img src="imagens/carrinho.svg" alt="Carrinho de compras">
         </div>
     </header>
