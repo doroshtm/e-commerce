@@ -1,6 +1,6 @@
 :root {
     /* Cores seguindo a regra do 60% 30% 10%. Podem ser modificadas dependendo do caso*/
-    --cor-fundo: #ccccf7;
+    --cor-fundo: #e0e0f7;
     --cor-destaque: #FFFFFF; 
     --cor-interac: #4A3AFF;
     --cor-texto: #170F49;
@@ -27,6 +27,7 @@ body {
 }
 
 #header {
+    transition: 0.4s;
     display: grid;
     grid-template-columns: 25% 50% 25%;
     position: absolute;
@@ -410,6 +411,133 @@ body {
     margin-left: 0;
     margin-right:15px;
 }
+
+/* Produtos */
+
+#barra-pesquisa {
+    display:flex;
+    flex-direction:row;
+    /* justify-content: left; */
+    align-items: center;
+    min-width:80vw;
+    margin-top:50px;
+    margin-bottom:25px;
+}
+#barra-pesquisa input[type=text] {
+    background-image: url("/website/imagens/Lupa-Pesquisar.svg");
+    background-repeat: no-repeat;
+    background-position: 8px 50%;
+    width: 60vw;
+    height:50px;
+    border-radius: 8px 0 0 8px;
+    border: 2px solid grey;
+    font-size: 16px;
+    padding-left:35px;
+    font-family: Montserrat;
+    font-weight: 400;
+    font-style: normal;
+}
+#barra-pesquisa input[type=text]:focus{
+    outline: none !important;
+    border: 2px solid var(--cor-interac);
+    border-right: 2px solid var(--cor-interac) !important;
+    border-right:none;
+}
+#filtro {
+    cursor:pointer;
+    user-select:none;
+    height:52px;
+    max-width:20vw;
+    min-width:20vw;
+    background-color: #EFEAEA;
+    border:2px solid grey;
+    border-left:none;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    padding-left:15px;
+    font-style: medium;
+    font-weight:600;
+    position: relative;
+}
+#filtro img {
+    position:absolute;
+    right:20px;
+    height:7px;
+}
+
+#grid-produtos {
+    transition: 0.4s;
+    display:grid;
+    width:95vw;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top:30px;
+    margin-bottom:50px
+}
+.produto {
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-self:center;
+    align-self:center;
+    width: 450px;
+    height: 333px;
+    box-shadow: 3.4px 6.9px 6.9px hsl(0deg 0% 0% / 0.25);
+    border-radius: 15px;
+    margin-bottom:50px;
+}
+.produto-imagem {
+    height: 45%;
+    width: 100%;
+    background: #D9D9D9;
+    border-radius: 15px 15px 0 0;
+}
+.produto-corpo {
+    display: flex;
+    flex-direction: column;
+    min-height: 55%;
+    max-width:100%;
+    padding-left:15px;
+    padding-top:10px;
+    background: var(--cor-destaque);
+    border-radius: 0 0 15px 15px;    
+}
+.nome-produto {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom:10px;
+}
+.tags-produto {
+    color: var(--cor-interac);
+    font-size:16px;
+    font-weight:400;
+    margin-bottom:20px;
+}
+.descricao-produto {
+    font-size:17px;
+    font-weight:500;
+}
+.preco-produto{
+    position:absolute;
+    right:10px;
+    bottom:10px;
+
+}
+
+@media (max-width:1400px)
+{
+
+    #grid-produtos{
+        grid-template-columns: 1fr 1fr !important; 
+    }
+}
+@media (max-width: 920px)
+{
+    #grid-produtos {
+        grid-template-columns: 1fr !important;
+    }
+}
 /* Utilidade geral */
 
 .separador {
@@ -447,6 +575,7 @@ body {
 
 .content {
     max-width:100%;
+    min-height: 100vh;
     flex:1;
     transition: 0.4s;
 }
