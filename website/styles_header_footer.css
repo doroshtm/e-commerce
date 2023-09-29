@@ -27,7 +27,6 @@ body {
 }
 
 #header {
-    transition: 0.4s;
     display: grid;
     grid-template-columns: 25% 50% 25%;
     position: absolute;
@@ -476,6 +475,8 @@ body {
     margin-bottom:50px
 }
 .produto {
+    user-select: none;
+    cursor: pointer;
     position:relative;
     display:flex;
     flex-direction:column;
@@ -532,7 +533,7 @@ body {
         grid-template-columns: 1fr 1fr !important; 
     }
 }
-@media (max-width: 920px)
+@media (max-width: 1000px)
 {
     #grid-produtos {
         grid-template-columns: 1fr !important;
