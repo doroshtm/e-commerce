@@ -19,11 +19,17 @@
 
    return true;
 
-  }
+  }q
 
-  function defineCookie($name, $value, $time) 
-  {
-   echo "Cookie: $name Valor: $value";  
-   setcookie($name, $value, time() + $time); 
+  function getUsername($cookie, $connection) {
+    if ($cookie != NULL) {
+        $select = $connection->prepare('select nome from usuarios where id_usuario = :id_usuario');
+        $select->execute(['id_usuario' => $cookie]);
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        return explode(' ', $result['nome'], 2)[0];
+    }
+    else {
+        return 'visitante';
+    }
   }
 ?>
