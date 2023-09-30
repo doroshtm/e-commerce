@@ -1,17 +1,19 @@
 <html>
 <body>
     <?php
-        session_start();
-        $connection = new PDO('pgsql:dbname=projetoscti24; user=projetoscti24; password=721369; host=pgsql.projetoscti.com.br') or die("Erro!");
+        $sessID = isset($_COOKIE['loginCookie']) ? $_COOKIE['loginCookie'] : session_id();
+        session_start($sessID);
+        include("util.php");
+        $connection = connect();
         $date = date('m/d/Y');
-        $email = $_POST['email'];
-        if ($email != NULL) {
+        if (isset($_POST['email'])) {
+            $email = $_POST['email'];
             $select = $connection->prepare('select id_usuario from usuarios where email = :email');
             $select->execute(['email' => $email]);
             $result = $select->fetch(PDO::FETCH_ASSOC);
             if ($result != NULL) {
                 echo "E-mail já cadastrado!";
-                setcookie('loginCookie', $result['id_usuario'], time() + 1209600);
+                setcookie('loginCookie', session_id(), time() + 1209600);
                 die();
             }
 
@@ -21,7 +23,7 @@
             $select = $connection->prepare('SELECT currval(pg_get_serial_sequence(\'usuarios\', \'id_usuario\'))');
             $select->execute();
             $result = $select->fetch(PDO::FETCH_ASSOC);
-            setcookie('loginCookie', $result['currval'], time() + 1209600);
+            setcookie('loginCookie', session_id(), time() + 1209600);
             header('Location: ./');
         }
     ?>

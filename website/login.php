@@ -1,22 +1,5 @@
 <?php
-
-  // se nao estiver conectado vai pedir o login
-  if (isset($_SESSION['sessionConnected'])) {
-      $sessionConnected = $_SESSION['sessionConnected'];
-  } else { 
-    $sessionConnected = false; 
-  }
-
-  // se sessao nao conectada ...
-  if (!$sessionConnected) { 
-     
-     $loginCookie = '';
-
-     // recupera o valor do cookie com o usuario    
-     if (isset($_COOKIE['loginCookie'])) {
-        $loginCookie = $_COOKIE['loginCookie']; 
-     }
-    }
+  session_start();
 ?>
 
 <html>
