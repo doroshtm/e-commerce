@@ -1,9 +1,8 @@
 <html>
 <body>
     <?php
-        $sessID = isset($_COOKIE['loginCookie']) ? $_COOKIE['loginCookie'] : session_id();
-        session_start($sessID);
         include("util.php");
+        $sessID = startSession();
         $connection = connect();
         $date = date('m/d/Y');
         if (isset($_POST['email'])) {
@@ -13,17 +12,23 @@
             $result = $select->fetch(PDO::FETCH_ASSOC);
             if ($result != NULL) {
                 echo "E-mail já cadastrado!";
-                setcookie('loginCookie', session_id(), time() + 1209600);
                 die();
             }
 
             $user = ['nome' => $_POST['name'], 'email' => $email, 'senha' => $_POST['password'], 'telefone' => $_POST['phone'], 'cpf' => $_POST['cpf'], 'cep' => $_POST['cep'], 'endereco' => $_POST['address'], 'data_cadastro' => $date];
             $insert = $connection->prepare('insert into usuarios (id_usuario, nome, email, senha, telefone, cpf, cep, endereco, data_cadastro) values (DEFAULT, :nome, :email, :senha, :telefone, :cpf, :cep, :endereco, :data_cadastro)');
             $insert->execute($user);
-            $select = $connection->prepare('SELECT currval(pg_get_serial_sequence(\'usuarios\', \'id_usuario\'))');
+            $select = $connection->prepare('SELECT * FROM usuarios WHERE id_usuario = currval(\'usuarios_id_usuario_seq\')');
             $select->execute();
             $result = $select->fetch(PDO::FETCH_ASSOC);
-            setcookie('loginCookie', session_id(), time() + 1209600);
+            $_SESSION['id_usuario'] = $result['id_usuario'];
+            $_SESSION['name'] = $result['nome'];
+            $_SESSION['email'] = $result['email'];
+            $_SESSION['password'] = $result['senha'];
+            $_SESSION['phone'] = $result['telefone'];
+            $_SESSION['cpf'] = $result['cpf'];
+            $_SESSION['date'] = $result['data_cadastro'];
+            setcookie('loginCookie', $sessID, time() + 1209600);
             header('Location: ./');
         }
     ?>

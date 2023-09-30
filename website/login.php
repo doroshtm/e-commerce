@@ -1,5 +1,11 @@
 <?php
-  session_start();
+  include("util.php");
+  startSession();
+
+  if (isset($_SESSION['id_usuario'])) {
+    echo "Você já está logado!";
+    header('Refresh: 5; URL = ./logout.php');
+  }
 ?>
 
 <html>
