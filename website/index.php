@@ -12,6 +12,17 @@
 <body>    
     <?php
         session_start();
+        $connection = new PDO('pgsql:dbname=projetoscti24; user=projetoscti24; password=721369; host=pgsql.projetoscti.com.br') or die("Erro!");
+        $cookie = $_COOKIE['loginCookie'];
+        if ($cookie != NULL) {
+            $select = $connection->prepare('select nome from usuarios where id_usuario = :id_usuario');
+            $select->execute(['id_usuario' => $cookie]);
+            $result = $select->fetch(PDO::FETCH_ASSOC);
+            $nome = $result['nome'];
+        }
+        else {
+            $nome = 'visitante';
+        }
     ?>
     <header id="header">
         <div class="container-logo"> 
@@ -29,7 +40,7 @@
         </nav>
         <div id="container-usuario">
             <span>Olá, </span>
-            <span id="nome-usuario"> Nomeusuario!</span>
+            <span id="nome-usuario"> <?php echo "$nome" ?>! </span>
             <a href = './login.php'> <img src="imagens/user_icon.svg" alt="Foto do cliente"> </a>
             <img src="imagens/carrinho.svg" alt="Carrinho de compras">
         </div>
