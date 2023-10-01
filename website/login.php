@@ -5,7 +5,7 @@
   if (isset($_SESSION['id_usuario'])) {
     header('Location: ./logout.php?url=login.php');
   }
-  if (isset($_POST['email'])) {
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $connection = connect();
@@ -22,6 +22,7 @@
     $_SESSION['email'] = $result['email'];
     $_SESSION['password'] = $result['senha'];
     $_SESSION['phone'] = $result['telefone'];
+    $_SESSION['isAdmin'] = $result['admin'];
     $_SESSION['cpf'] = $result['cpf'];
     $_SESSION['date'] = $result['data_cadastro'];
     setcookie('loginCookie', $sessID, time() + 1209600);
