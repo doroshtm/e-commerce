@@ -28,12 +28,13 @@
                 <li><a href="estatisticas.html">Estatísticas</a></li>
             </ul>
         </nav>
-        <?php 
+        <?php
             $name = isset($_SESSION['name']) ? explode(' ', $_SESSION['name'], 2)[0] : 'visitante';
+            $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : false;
         ?>
         <div id="container-usuario">
             <span>Olá, </span>
-            <span id="nome-usuario"> <?php echo "$name" ?>! </span>
+            <span id="nome-usuario"> <?php echo "$name - você é " . ($isAdmin ? 'admin' : 'cliente') ?> </span>
             <a href = './login.php'> <img src="imagens/user_icon.svg" alt="Foto do cliente"> </a>
             <img src="imagens/carrinho.svg" alt="Carrinho de compras">
         </div>

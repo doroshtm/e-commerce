@@ -29,6 +29,7 @@ create table usuarios(
     data_cadastro timestamp not null,
     telefone varchar(14) not null,
     cpf varchar(11) not null,
+    admin boolean default false not null,
     endereco varchar(255),
     cep varchar(8)
 );
