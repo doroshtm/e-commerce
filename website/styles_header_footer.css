@@ -464,8 +464,19 @@ body {
     position:absolute;
     right:20px;
     height:7px;
+    transition: 0.4s;
 }
-
+#dropdown {
+    transition: 0.4s;
+    display:none;
+    height:100px;
+    background: red;
+}
+ #dropdown-corpo {
+    display:flex;
+    flex-direction: column;
+    position:relative;
+} 
 #grid-produtos {
     transition: 0.4s;
     display:grid;
@@ -541,6 +552,8 @@ body {
 }
 
 /* Contato */
+
+
 #contato-corpo {
     min-height:100vh;
     display: flex;
@@ -568,6 +581,7 @@ body {
     width: 100%;
     display: flex;
     flex-direction: row;
+    align-items:center; 
     padding-left:50px;
     position:relative;
     font-size: 22px;
@@ -576,11 +590,10 @@ body {
 .contato .texto-destaque
 {
     font-size:22px;
+    margin-bottom: 0px !important;
+    margin-left:10px;
 }
 .contato img {
-    position:absolute;
-    left:10px;
-    bottom: 50%;
     width: 20px; height: 20px;
 
 }

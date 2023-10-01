@@ -42,4 +42,5 @@ imagem.addEventListener('click', () => {
       });
     }
   });
+  
 });
