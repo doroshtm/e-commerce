@@ -14,7 +14,7 @@
 
   function startSession() {
     if (isset($_COOKIE['loginCookie'])) {
-        session_id($_COOKIE['loginCookie']);
+        $sessID = $_COOKIE['loginCookie'];
     }
     session_start();
     return session_id();
