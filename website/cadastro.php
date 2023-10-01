@@ -5,7 +5,7 @@
         $sessID = startSession();
         $connection = connect();
         $date = date('m/d/Y');
-        if (isset($_POST['email'])) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $email = $_POST['email'];
             $select = $connection->prepare('select id_usuario from usuarios where email = :email');
             $select->execute(['email' => $email]);
@@ -26,6 +26,7 @@
             $_SESSION['email'] = $result['email'];
             $_SESSION['password'] = $result['senha'];
             $_SESSION['phone'] = $result['telefone'];
+            $_SESSION['isAdmin'] = $result['admin'];
             $_SESSION['cpf'] = $result['cpf'];
             $_SESSION['date'] = $result['data_cadastro'];
             setcookie('loginCookie', $sessID, time() + 1209600);
