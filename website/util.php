@@ -12,6 +12,14 @@
     } else { return $varConn; }
   }
 
+  function startSession() {
+    if (isset($_COOKIE['loginCookie'])) {
+        session_id($_COOKIE['loginCookie']);
+    }
+    session_start();
+    return session_id();
+  }
+
   function login ($email, $password, &$isAdmin)  
   {
    $isAdmin = ($email == 'marcelo.peres@unesp.br' and 
@@ -19,11 +27,5 @@
 
    return true;
 
-  }
-
-  function defineCookie($name, $value, $time) 
-  {
-   echo "Cookie: $name Valor: $value";  
-   setcookie($name, $value, time() + $time); 
   }
 ?>

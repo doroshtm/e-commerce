@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+        include("util.php");
+        startSession();
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +14,6 @@
     <link rel="icon" type="image/x-cion" href="/website/imagens/MC_Logo_Footer.svg">
 </head>
 <body>    
-    <?php
-        session_start();
-    ?>
     <header id="header">
         <div class="container-logo"> 
             <div id="imagem-logo"><img src="imagens/MC_Logo_Header.svg"> </div>
@@ -27,9 +28,12 @@
                 <li><a href="estatisticas.html">Estatísticas</a></li>
             </ul>
         </nav>
+        <?php 
+            $name = isset($_SESSION['name']) ? explode(' ', $_SESSION['name'], 2)[0] : 'visitante';
+        ?>
         <div id="container-usuario">
             <span>Olá, </span>
-            <span id="nome-usuario"> Nomeusuario!</span>
+            <span id="nome-usuario"> <?php echo "$name" ?>! </span>
             <a href = './login.php'> <img src="imagens/user_icon.svg" alt="Foto do cliente"> </a>
             <img src="imagens/carrinho.svg" alt="Carrinho de compras">
         </div>

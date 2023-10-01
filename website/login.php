@@ -1,28 +1,38 @@
 <?php
+  include("util.php");
+  $sessID = startSession();
 
-  // se nao estiver conectado vai pedir o login
-  if (isset($_SESSION['sessionConnected'])) {
-      $sessionConnected = $_SESSION['sessionConnected'];
-  } else { 
-    $sessionConnected = false; 
+  if (isset($_SESSION['id_usuario'])) {
+    header('Location: ./logout.php?url=login.php');
   }
-
-  // se sessao nao conectada ...
-  if (!$sessionConnected) { 
-     
-     $loginCookie = '';
-
-     // recupera o valor do cookie com o usuario    
-     if (isset($_COOKIE['loginCookie'])) {
-        $loginCookie = $_COOKIE['loginCookie']; 
-     }
+  if (isset($_POST['email'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $connection = connect();
+    $select = $connection->prepare('select * from usuarios where email = :email and senha = :password');
+    $select->execute(['email' => $email, 'password' => $password]);
+    $result = $select->fetch(PDO::FETCH_ASSOC);
+    if ($result == NULL) {
+      echo "E-mail ou senha incorretos!
+      <a href='login.php'>Tente novamente</a>";
+      die();
     }
+    $_SESSION['id_usuario'] = $result['id_usuario'];
+    $_SESSION['name'] = $result['nome'];
+    $_SESSION['email'] = $result['email'];
+    $_SESSION['password'] = $result['senha'];
+    $_SESSION['phone'] = $result['telefone'];
+    $_SESSION['cpf'] = $result['cpf'];
+    $_SESSION['date'] = $result['data_cadastro'];
+    setcookie('loginCookie', $sessID, time() + 1209600);
+    header('Location: ./');
+  }
 ?>
 
 <html>
 <header></header>
 <body>
-    <form name='formlogin' method='post' action='login2.php'>
+    <form name='formlogin' method='post' action='login.php'>
         <table><tr>
           <td>E-mail<br>
           <input type='text' name='email' size=30 required></td>
