@@ -8,7 +8,6 @@
 ?>
 
 <html>
-<header></header>
 <body>
     <form name='formlogin' method='post' action='login.php'>
         <table><tr>
