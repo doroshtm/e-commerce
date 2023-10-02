@@ -4,64 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap"> 
   <script src="script.js"></script>
   <style>
-    @keyframes aumenta {
-      from {
-        height: 0px;
-      }
-      to {
-        height: 200px;
-      }
-    }
-    @keyframes diminui {
-      from {
-        height: 200px;
-      }
-      to {
-        height: 0px;
-      }
-    }
-    #pai {
-      position: relative;
-      display:flex;
-      flex-direction:column;
-
-    }
-    #emcima {
-      background:red;
-      color:white;
-      font-size: 20px;
-      height: 100px; width: 100px;
-      /* Add position: relative; to keep it in place */
-      z-index: 1;
-      position: relative;
-    }
-    #embaixo {
-      font-size:30px;
-      background:blue;
-      overflow: hidden;
-      color :white;
-      height: 0px;
-      width: 100px;
-      margin-top:100px;
-      height:0px;
-      /* Add position: absolute; and top: 0; to make it overlap with emcima */
-      position: absolute;
-      top: 0;
-    }
-
+    #dropdown {
+    font-family: 'DM Sans';
+    font-weight: 700;
+    padding-left:15px;
+    max-width:20vw;
+    min-width: 20vw;
+    z-index: 9;
+    position:absolute;
+    top:0;
+    margin-top:52px;
+    transition: 0.4s;
+    height: 200px;
+    overflow:hidden;
+    background: white;
+    border-radius:8px;
+    box-shadow: 3.45px 6.9px 6.9px hsl(0deg 0% 0% / 0.13);
+}
     </style>
   <title>Product Showcase</title>
 </head>
 <body>
-  <div id="pai">
-    <div id="emcima">
-      Em cima
-    </div>
-    <div id="embaixo">
-      <div class="embaixo-content"> Em baixo </div>
-    </div>
+  <div id="dropdown">
+    <span class="texto-destaque">Cursos</span>
+    <input type="checkbox" id="cti">
   </div>
 </body>
 </html>
