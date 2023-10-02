@@ -19,23 +19,39 @@ filtro.addEventListener('click', () => {
 
 
 const checkboxes = document.querySelectorAll('.checkboxes input[type=checkbox]');
+let nomes = ["CTI", "Informática", "Mecânica" , "Eletrônica"];
 const corpo = document.getElementById('corpo-filtro-display');
 
-function criarElemento(nome){
-  console.log("Palmeiras");
-  let htmlString = '<div class="filtro-display">';
-  htmlString += nome + '</div>';
-  corpo.innerHTML = htmlString;
+function criarElemento(nome) {
+  console.log("Na função");
+  const novoElemento = document.createElement('div');
+  novoElemento.className = 'filtro-display';
+  novoElemento.id = nome;
+  novoElemento.textContent = nome;
+
+  corpo.appendChild(novoElemento);
+
+  novoElemento.addEventListener('click', () => {
+    corpo.removeChild(novoElemento);
+    const checkboxIndex = nomes.indexOf(nome);
+    checkboxes[checkboxIndex].checked = false;
+  });
 }
+
 for (let i=0; i<checkboxes.length; i++) {
   console.log("Palmeiras");
   checkboxes[i].addEventListener('change', () => {	
-    console.log("Mudou o " + this.getAttribute('name'));
-    if (this.checked)
+    console.log("Mudou o " + nomes[i]);
+    if (checkboxes[i].checked)
     {
-      let nome = this.getAttribute('name');
-      criarElemento(nome);
+      console.log("TÁ CHECADO");
+      criarElemento(nomes[i]);
     }
+    else {
+      corpo.removeChild(document.getElementById(nomes[i]));
+    }
+
   });
-}
+}   
+
 });
