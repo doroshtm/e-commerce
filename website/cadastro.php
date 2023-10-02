@@ -50,7 +50,7 @@
                     echo "CPF inválido!";
                     die();
                 }
-                if (isset($_POST['cep'])) {
+                if (isset($_POST['cep']) && $_POST['cep'] != "") {
                     $cep = $_POST["cep"];
                     $cep = preg_replace('/\D+/', '', $cep);
                     if (!preg_match("/^(\d{5})(\d{3})$/", $cep, $matches)) {
