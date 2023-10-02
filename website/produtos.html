@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mascotero</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles_header_footer.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap">
-    <link rel="stylesheet" href="styles_paginas.css">
     <link rel="icon" type="image/x-cion" href="/website/imagens/MC_Logo_Footer.svg">
     <script src="script_produtos.js"></script>
 </head>
@@ -46,9 +48,30 @@
                         Filtros  <img src="./imagens/Seta-dropdown-baixo.svg"> 
                     </div>
                         <div id="dropdown">
-                            oioi
+                            <span class="texto-destaque">Cursos:</span>
+                            <div class="checkboxes">
+                                <div class="linha-checkbox">
+                                    <input type="checkbox" id="cti" name="cti"> 
+                                    <label for="cti">CTI</label>
+                                </div>
+                                <div class="linha-checkbox">
+                                    <input type="checkbox" id="info" name="info"> 
+                                    <label for="info">Informática</label>
+                                </div>
+                                <div class="linha-checkbox">
+                                    <input type="checkbox" id="mec" name="mec"> 
+                                    <label for="mec">Mecânica</label>
+                                </div>
+                                <div class="linha-checkbox">
+                                    <input type="checkbox" id="eletro" name="eletro"> 
+                                    <label for="eletro">Eletrônica</label>
+                                </div>
+                            </div>
                         </div>
                 </div>
+            </div>
+            <div id="corpo-filtro-display">
+                Filtros: 
             </div>
             <div class="centraliza"><div class="texto-destaque">Produtos</div></div>
             <div id="grid-produtos">
@@ -110,10 +133,10 @@
         </div>
     </div>
     <footer id="footer">
-        <div id="footer-lado1">
-            <div id="container-logo">
-                <img src="imagens/MC_Logo_Footer.svg" width="75px" height="75px"> Mascotero
-            </div>
+        <div id="footer-lado1" style="align-items:center;">
+            <div class="container-logo">
+                <img src="imagens/MC_Logo_Footer.svg" width="75px" height="75px" alt= "Logo do footer"> Mascotero        
+             </div>
         </div>
         <div id="footer-lado2">Copyright © 2023 Mascotero Ltda | Todos os direitos reservados</div>
     </footer>

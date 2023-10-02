@@ -149,7 +149,7 @@ body {
     max-width:50vw;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
     #header {
         grid-template-columns: 1fr; 
         grid-template-rows: repeat(3, auto); 
@@ -162,7 +162,8 @@ body {
     .container-logo,
     #nav-header,
     #container-usuario {
-        text-align: center; 
+        align-self:center;
+        justify-self:center;
     }
 }
 
@@ -233,6 +234,8 @@ body {
     font-size:25px;
 }
 .conteudo-mp,.conteudo-mp-video {
+    padding-top:5px;
+    padding-bottom:5px;
     border-radius:10px;
     padding-left:120px;
     margin-bottom: 15px;
@@ -421,7 +424,7 @@ body {
     align-items: center;
     min-width:80vw;
     margin-top:50px;
-    margin-bottom:25px;
+    margin-bottom:20px;
 }
 #barra-pesquisa input[type=text] {
     background-image: url("/website/imagens/Lupa-Pesquisar.svg");
@@ -483,22 +486,36 @@ body {
     background: var(--cor-destaque);
     border-radius:8px;
     box-shadow: 3.4px 6.9px 6.9px hsl(0deg 0% 0% / 0.13);
+    display:flex;
+    flex-direction: column;
+
 }
 @keyframes mostra-dropdown {
     from {
         height: 0px;
+        padding-top: 0px;
     }
     to {
         height: 200px;
+        padding-top: 10px;
     }
 }
 @keyframes esconde-dropdown {
     from {
         height: 200px;
+        padding-top: 10px;
     }
     to {
         height: 0px;
+        padding-top: 0px;
     }
+}
+.linha-checkbox {
+    display:flex;
+    flex-direction:row;
+    width:100%;
+    margin-bottom:7px;
+    align-items: center;
 }
  #dropdown-corpo {
     display:flex;
@@ -506,6 +523,86 @@ body {
     flex-direction: column;
     position:relative;
 } 
+.checkboxes {
+    display:flex;
+    flex-direction: column;
+    margin-left:5px;
+}
+.checkboxes label {
+    font-size: 18px;
+    font-weight: 700;
+    color: #737373;
+    transition: 0.4s;
+}
+.checkboxes label:hover{
+    cursor:pointer;
+    color: var(--cor-texto);
+}
+.checkboxes input[type=checkbox] {
+    appearance: none;
+    border-radius:5px;
+    width: 25px;
+    height: 25px;
+    border: 1px solid #DCDCDC;
+    border-radius: 5px;
+    margin-right:10px;
+    transition: 0.4s;
+}
+.checkboxes input[type=checkbox]:hover{
+    background: #cccccc;
+}
+.checkboxes input[type=checkbox]:checked {
+    background: var(--cor-interac);
+    border: 1px solid var(--cor-interac);
+    background-image: url(./imagens/Check.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 15px 15px;
+}
+.checkboxes input[type=checkbox]:checked + label {
+    color: var(--cor-texto);
+}
+#dropdown .texto-destaque {
+    font-family: Montserrat;
+    color: var(--cor-texto);
+    font-size: 22px;
+    margin-bottom: 8px;
+    font-style: normal;
+    font-weight: 700;
+    
+}
+#corpo-filtro-display {
+    transition: 0.4s;
+    width:80vw;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    gap:30px;
+    margin-bottom: 20px;
+    margin-top:0px;
+    font-size: 16px;
+    font-weight: 600;
+}
+.filtro-display {
+    transition: 0.4s;
+    display:flex;
+    font-weight: 400;
+    font-size:17px;
+    align-items:center;
+    padding-left:20px;
+    color: var(--cor-destaque);
+    cursor:pointer;
+    transition:0.4s;
+    width: 162px;
+    max-width:162px;
+    height: 36px;
+    border-radius:20px;
+    background: var(--cor-interac);
+    background-image:url(./imagens/Fechar.svg);
+    background-repeat: no-repeat;
+    background-position: right 10px top 10px;
+    background-position-y: 50%;
+}
 #grid-produtos {
     gap:20px;
     transition: 0.4s;
