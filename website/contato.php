@@ -1,5 +1,9 @@
+<?php
+    include("util.php");
+    startSession();
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,16 +22,19 @@
         </div>
         <nav id="nav-header">
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="sobre.html">Sobre</a></li>
-                <li><a href="produtos.html">Produtos</a></li>
-                <li><a href="contato.html" id="nav-atual">Contato</a></li>
-                <li><a href="estatisticas.html">Estatísticas</a></li>
+                <li><a href="./">Home</a></li>
+                <li><a href="sobre.php">Sobre</a></li>
+                <li><a href="produtos.php">Produtos</a></li>
+                <li><a href="contato.php" id="nav-atual">Contato</a></li>
             </ul>
         </nav>
+        <?php
+            $name = isset($_SESSION['name']) ? explode(' ', $_SESSION['name'], 2)[0] : 'visitante';
+            $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : false;
+        ?>
         <div id="container-usuario">
             <span>Olá, </span>
-            <span id="nome-usuario"> Nomeusuario!</span>
+            <span id="nome-usuario"> <?php echo "$name - você é " . ($isAdmin ? 'admin' : 'cliente') ?> </span>
             <img src="imagens/user_icon.svg" alt="Foto do cliente">
             <img src="imagens/carrinho.svg" alt="Carrinho de compras">
         </div>

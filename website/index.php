@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
-        include("util.php");
-        startSession();
+    include("util.php");
+    startSession();
 ?>
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,10 +22,9 @@
         <nav id="nav-header">
             <ul>
                 <li><a href="#" id="nav-atual">Home</a></li>
-                <li><a href="sobre.html">Sobre</a></li>
-                <li><a href="produtos.html">Produtos</a></li>
-                <li><a href="contato.html">Contato</a></li>
-                <li><a href="estatisticas.html">Estatísticas</a></li>
+                <li><a href="sobre.php">Sobre</a></li>
+                <li><a href="produtos.php">Produtos</a></li>
+                <li><a href="contato.php">Contato</a></li>
             </ul>
         </nav>
         <?php
