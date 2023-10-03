@@ -44,7 +44,7 @@
             </div>
             <div id="label-input-login">
                 <label for="address">Endereço (opcional)</label>
-                <input type='address' name='address' id="address" placeholder="Seu endereço aqui..." maxlength=255 required>
+                <input type='address' name='address' id="address" placeholder="Seu endereço aqui..." maxlength=255>
             </div>
             <div id="label-input-login">
                 <label for="cep">CEP (opcional)</label>
@@ -83,7 +83,7 @@
                 }
                 $connection = connect();
                 $date = date('m/d/Y');
-                $select = $connection->prepare('select id_usuario from usuarios where email = :email');
+                $select = $connection->prepare('select id_usuario from tbl_usuario where email = :email');
                 $select->execute(['email' => $email]);
                 $result = $select->fetch(PDO::FETCH_ASSOC);
                 if ($result != NULL) {
@@ -92,9 +92,9 @@
                 }
 
                 $user = ['nome' => $_POST['name'], 'email' => $email, 'senha' => $_POST['password'], 'telefone' => $_POST['phone'], 'cpf' => $_POST['cpf'], 'cep' => $_POST['cep'], 'endereco' => $_POST['address'], 'data_cadastro' => $date];
-                $insert = $connection->prepare('insert into usuarios (id_usuario, nome, email, senha, telefone, cpf, cep, endereco, data_cadastro) values (DEFAULT, :nome, :email, :senha, :telefone, :cpf, :cep, :endereco, :data_cadastro)');
+                $insert = $connection->prepare('insert into tbl_usuario (id_usuario, nome, email, senha, telefone, cpf, cep, endereco, data_cadastro) values (DEFAULT, :nome, :email, :senha, :telefone, :cpf, :cep, :endereco, :data_cadastro)');
                 $insert->execute($user);
-                $select = $connection->prepare('SELECT * FROM usuarios WHERE id_usuario = currval(\'usuarios_id_usuario_seq\')');
+                $select = $connection->prepare('SELECT * FROM tbl_usuario WHERE id_usuario = currval(\'tbl_usuario_id_usuario_seq\')');
                 $select->execute();
                 $result = $select->fetch(PDO::FETCH_ASSOC);
                 $_SESSION['id_usuario'] = $result['id_usuario'];
