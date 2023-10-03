@@ -42,7 +42,7 @@
     $email = $_POST['email'];
     $password = $_POST['password'];
     $connection = connect();
-    $select = $connection->prepare('select * from usuarios where email = :email and senha = :password');
+    $select = $connection->prepare('select * from tbl_usuario where email = :email and senha = :password');
     $select->execute(['email' => $email, 'password' => $password]);
     $result = $select->fetch(PDO::FETCH_ASSOC);
     if ($result == NULL) {
