@@ -572,12 +572,12 @@ body {
     
 }
 #corpo-filtro-display {
+    gap:30px;
     transition: 0.4s;
     width:80vw;
     display:flex;
     flex-direction:row;
     align-items:center;
-    gap:30px;
     margin-bottom: 20px;
     margin-top:0px;
     font-size: 16px;
