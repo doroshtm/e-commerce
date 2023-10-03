@@ -1,5 +1,9 @@
+<?php
+    include("util.php");
+    $sessID = startSession();
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles_header_footer.css">
@@ -10,10 +14,6 @@
     <script src="js/util.js?v=0.21"></script>
     <title>Cadastro</title>
 </head>
-<?php
-            include("util.php");
-            $sessID = startSession();
-        ?>
 <body>
     <div id="pai">
         <form name='formcadastro' method='post' action='./cadastro.php' id="formlogin">
@@ -52,7 +52,7 @@
                 onkeyup='formatCEP(this, event)'>
             </div>
             <input type='submit' value='Cadastre-se'>
-            <a href='cadastro.php'>Não tem conta? Cadastre-se</a>
+            <a href='cadastro.php'>Já tem conta? Cadastre-se</a>
         <?php
             
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
