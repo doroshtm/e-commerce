@@ -1,3 +1,8 @@
+<?php
+    include("util.php");
+    $sessID = startSession();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,60 +80,26 @@
             </div>
             <div class="centraliza"><div class="texto-destaque">Produtos</div></div>
             <div id="grid-produtos">
-                <div class="produto">
-                    <div class="produto-imagem"></div>
-                    <div class="produto-corpo">
-                        <span class="nome-produto">Nome do produto</span>
-                        <span class="tags-produto">Informática, personalizado</span>
-                        <span class="descricao-produto">Eu sou uma descrição de produto, olá, tudo bem com o senhor?</span>
-                        <span class="preco-produto"> <span class="texto-destaque">R$2,50</span> </span>
-                    </div>
-                </div>
-                <div class="produto">
-                    <div class="produto-imagem"></div>
-                    <div class="produto-corpo">
-                        <span class="nome-produto">Nome do produto</span>
-                        <span class="tags-produto">Informática, personalizado</span>
-                        <span class="descricao-produto">Eu sou uma descrição de produto, olá, tudo bem com o senhor?</span>
-                        <span class="preco-produto"> <span class="texto-destaque">R$2,50</span> </span>
-                    </div>
-                </div>
-                <div class="produto">
-                    <div class="produto-imagem"></div>
-                    <div class="produto-corpo">
-                        <span class="nome-produto">Nome do produto</span>
-                        <span class="tags-produto">Informática, personalizado</span>
-                        <span class="descricao-produto">Eu sou uma descrição de produto, olá, tudo bem com o senhor?</span>
-                        <span class="preco-produto"> <span class="texto-destaque">R$2,50</span> </span>
-                    </div>
-                </div>
-                <div class="produto">
-                    <div class="produto-imagem"></div>
-                    <div class="produto-corpo">
-                        <span class="nome-produto">Nome do produto</span>
-                        <span class="tags-produto">Informática, personalizado</span>
-                        <span class="descricao-produto">Eu sou uma descrição de produto, olá, tudo bem com o senhor?</span>
-                        <span class="preco-produto"> <span class="texto-destaque">R$2,50</span> </span>
-                    </div>
-                </div>
-                <div class="produto">
-                    <div class="produto-imagem"></div>
-                    <div class="produto-corpo">
-                        <span class="nome-produto">Nome do produto</span>
-                        <span class="tags-produto">Informática, personalizado</span>
-                        <span class="descricao-produto">Eu sou uma descrição de produto, olá, tudo bem com o senhor?</span>
-                        <span class="preco-produto"> <span class="texto-destaque">R$2,50</span> </span>
-                    </div>
-                </div>
-                <div class="produto">
-                    <div class="produto-imagem"></div>
-                    <div class="produto-corpo">
-                        <span class="nome-produto">Nome do produto</span>
-                        <span class="tags-produto">Informática, personalizado</span>
-                        <span class="descricao-produto">Eu sou uma descrição de produto, olá, tudo bem com o senhor?</span>
-                        <span class="preco-produto"> <span class="texto-destaque">R$2,50</span> </span>
-                    </div>
-                </div>
+            <?php
+                $connection = connect();
+                $select = $connection->prepare('select nome, preco, descricao, categoria_id, imagem, id_produto from produtos WHERE excluido = false');
+                $select->execute();
+                
+                while ($linha = $select->fetch()) {
+                    $categoria = $linha['categoria_id'];
+                    $select2 = $connection->prepare('select nome from categorias where id_categorias = :categoria');
+                    $select2->execute(['categoria' => $categoria]);
+                    $categoria = $select2->fetch();
+                    echo "<div class='produto'>
+                    <div class='produto-imagem'><img src='imagens/produtos/" . $linha['imagem'] . "'></div>
+                    <div class='produto-corpo'>
+                        <span class='nome-produto'>" . $linha['nome'] . "</span>
+                        <span class='tags-produto'>" . $categoria['nome'] . "</span>
+                        <span class='descricao-produto'>" . $linha['descricao'] . "</span>
+                        <span class='preco-produto'> <span class='texto-destaque'>R$" . $linha['preco'] . "</span> </span>
+                    </div> </div>";
+                }
+            ?>
             </div>
         </div>
     </div>
