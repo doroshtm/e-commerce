@@ -3,34 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap"> 
-  <script src="script.js"></script>
   <style>
-    #dropdown {
-    font-family: 'DM Sans';
-    font-weight: 700;
-    padding-left:15px;
-    max-width:20vw;
-    min-width: 20vw;
-    z-index: 9;
-    position:absolute;
-    top:0;
-    margin-top:52px;
-    transition: 0.4s;
-    height: 200px;
-    overflow:hidden;
-    background: white;
-    border-radius:8px;
-    box-shadow: 3.45px 6.9px 6.9px hsl(0deg 0% 0% / 0.13);
-}
-    </style>
-  <title>Product Showcase</title>
+    .input-container {
+      position: relative;
+      margin: 20px;
+    }
+
+    .transition-label {
+      background:white;
+      border-radius:5px;
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      pointer-events: none;
+      transition: 0.3s ease-out;
+    }
+
+    .transition-input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 16px;
+    }
+
+    .input-focused .transition-label {
+      font-size: 12px;
+      top: 0;
+      transform: translateY(0);
+      color: #999;
+    }
+  </style>
+  <title>Label to Placeholder Transition</title>
 </head>
 <body>
-  <div id="dropdown">
-    <span class="texto-destaque">Cursos</span>
-    <input type="checkbox" id="cti">
+  <div class="input-container">
+    <label for="myInput" class="transition-label">Your Label</label>
+    <input type="text" id="myInput" class="transition-input">
   </div>
+
+  <script>
+    const input = document.getElementById('myInput');
+    const label = document.querySelector('.transition-label');
+
+    input.addEventListener('focus', () => {
+      label.parentElement.classList.add('input-focused');
+    });
+
+    input.addEventListener('blur', () => {
+      if (!input.value) {
+        label.parentElement.classList.remove('input-focused');
+      }
+    });
+  </script>
 </body>
 </html>

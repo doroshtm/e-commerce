@@ -7,20 +7,36 @@
   }
 ?>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles_header_footer.css">
+    <link rel="icon" type="image/x-cion" href="/website/imagens/MC_Logo_Footer.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/script.js"></script>
+    <title>Login</title>
+</head>
 <body>
-    <form name='formlogin' method='post' action='login.php'>
-        <table><tr>
-          <td>E-mail<br>
-          <input type='text' name='email' size=30 required></td>
-          <td>Senha<br>
-          <input type='password' name='password' size=8 required>
-        </tr></table>
-          <input type='submit' value='Enviar'></td>
-      </form>
-<a href='cadastro.php'>Não tem login? Cadastre-se</a>
-</body>
-</html>
+    <div id="pai">
+        <form name='formlogin' method='post' action='login.php' id="formlogin">
+            <div id="logo-login">
+                <img src="imagens/Emblema_Mascotero.svg" alt="Logo Mascotero">
+                Mascotero
+            </div>
+            <div id="label-input-login">
+                <label for="email">Email</label>
+                <input type='text' name='email' id="email" placeholder="Seu email aqui..." required>
+            </div>
+            <div id="label-input-login">
+                <label for="password">Senha</label>
+                <input type='password' name='password' id="password" placeholder="Sua senha aqui..." required>
+            </div>
+            <input type='submit' value='Enviar'>
+            <a href='cadastro.php'>Não tem conta? Cadastre-se</a>
+
 
 <?php
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -31,8 +47,8 @@
     $select->execute(['email' => $email, 'password' => $password]);
     $result = $select->fetch(PDO::FETCH_ASSOC);
     if ($result == NULL) {
-      echo "E-mail ou senha incorretos!
-      Tente novamente ou cadastre-se";
+      echo "<div class='mensagem-erro'>E-mail ou senha incorretos!
+      Tente novamente ou cadastre-se</div>";
       die();
     }
     $_SESSION['id_usuario'] = $result['id_usuario'];
@@ -47,3 +63,7 @@
     header('Location: ./');
   }
 ?>
+        </form>
+    </div>
+</body>
+</html>

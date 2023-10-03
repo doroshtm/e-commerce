@@ -4,19 +4,29 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles_header_footer.css">
     <link rel="icon" type="image/x-cion" href="/website/imagens/MC_Logo_Footer.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documento</title>
+    <script src="./js/script.js"></script>
+    <title>Login</title>
 </head>
 <body>
     <div id="pai">
         <form name='formlogin' method='post' action='login.php' id="formlogin">
-            <label for="email">Email</label>
-            <input type='text' name='email' id="email" required>
-            <label for="password">Senha</label>
-            <input type='password' name='password' id="password" required>
+            <div id="logo-login">
+                <img src="imagens/Emblema_Mascotero.svg" alt="Logo Mascotero">
+                Mascotero
+            </div>
+            <div id="label-input-login">
+                <label for="email">Email</label>
+                <input type='text' name='email' id="email" placeholder="Seu email aqui..." required>
+            </div>
+            <div id="label-input-login">
+                <label for="password">Senha</label>
+                <input type='password' name='password' id="password" placeholder="Sua senha aqui..." required>
+            </div>
             <input type='submit' value='Enviar'>
-            <a href='cadastro.php'>Não tem login? Cadastre-se</a>
+            <a href='cadastro.php'>Não tem conta? Cadastre-se</a>
         </form>
     </div>
 </body>

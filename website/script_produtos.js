@@ -28,9 +28,8 @@ function criarElemento(nome) {
   novoElemento.className = 'filtro-display';
   novoElemento.id = nome;
   novoElemento.textContent = nome;
-
   corpo.appendChild(novoElemento);
-
+  document.getElementById(nome).style.animation = 'mostra-filtro 0.2s linear forwards';
   novoElemento.addEventListener('click', () => {
     corpo.removeChild(novoElemento);
     const checkboxIndex = nomes.indexOf(nome);
@@ -48,7 +47,11 @@ for (let i=0; i<checkboxes.length; i++) {
       criarElemento(nomes[i]);
     }
     else {
-      corpo.removeChild(document.getElementById(nomes[i]));
+      let elemento = document.getElementById(nomes[i])
+      elemento.style.animation = 'esconde-filtro 0.2s linear forwards';
+      elemento.addEventListener('animationend', () => {
+      corpo.removeChild(elemento);
+      });
     }
 
   });
