@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 100vh;
+            min-height:100vh;
+            background: powderblue;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content: center;
+        }
+        #pai {
+            position:relative;
+            display:flex;
+            flex-direction:column;
+            justify-content: end;
+            width: 26vw;
+            height:10vw;
+            background:grey;
+        }
+        #bolas {
+            position:relative;
+            z-index:10;
+            display:flex;
+            gap: 2vw;
+            flex-direction: row;
+            position:absolute;
+            margin-bottom:30px;
+            width:100%;
+            align-items:center;
+            justify-content: center;
+            height: auto;
+        }
+        .bola {
+            border-radius:10px;
+            height: 1vw; width: 1vw;
+            background:red;
+
+        }
+
+    </style>
+</head>
+<body>
+    <div id="pai">
+        <div id="filho"></div>
+        <div id="bolas">
+            <div class="bola"></div>
+            <div class="bola"></div>
+            <div class="bola"></div>
+            <div class="bola"></div>
+            <div class="bola"></div>
+        </div>
+    </div>
+</body>
+</html>

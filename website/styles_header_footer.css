@@ -192,6 +192,7 @@ body {
     transition: 0.4s;
 }
 #container-video .conteudo-mp-video{
+    flex-wrap: wrap;
     padding: 10px 15px 20px 50px;
     margin-top:15px;
     margin-bottom: 4    0px;
@@ -358,6 +359,7 @@ body {
     }
 }
 #sobre-mascotero-texto {
+    flex-wrap: wrap;
     display:flex;
     justify-content: center;
     border: 2px solid var(--cor-texto);
@@ -570,6 +572,7 @@ body {
     
 }
 #corpo-filtro-display {
+    flex-wrap: wrap;
     gap:30px;
     transition: 0.4s;
     width:80vw;
