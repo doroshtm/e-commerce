@@ -1,60 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    .input-container {
-      position: relative;
-      margin: 20px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+:root {
+    /* Cores seguindo a regra do 60% 30% 10%. Podem ser modificadas dependendo do caso*/
+    --cor-fundo: #e0e0f7;
+    --cor-destaque: #FFFFFF; 
+    --cor-interac: #4A3AFF;
+    --cor-texto: #170F49;
 
-    .transition-label {
-      background:white;
-      border-radius:5px;
-      position: absolute;
-      top: 50%;
-      left: 10px;
-      transform: translateY(-50%);
-      pointer-events: none;
-      transition: 0.3s ease-out;
-    }
+    /* Tamanhos para texto */
+    --tamanho-grande: 22px;
+    --tamanho-medio: 14px;
+    --tamanho-pequeno: 8px; 
+}
 
-    .transition-input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      font-size: 16px;
-    }
+/* Header e Footer */
 
-    .input-focused .transition-label {
-      font-size: 12px;
-      top: 0;
-      transform: translateY(0);
-      color: #999;
+html {
+    width:100%;
+}
+
+body {
+    color: var(--cor-texto);
+    background: var(--cor-fundo);
+    font-family: 'DM Sans';
+    min-height: 100vh;
+    display:flex;
+    flex-direction:column;
+    margin: 0;
+    padding:0;
+}
+
+#header {
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%;
+    box-sizing: border-box;
+    max-width:100%;
+    height: auto;
+    align-items: center;
+    padding: 25px 0px 25px 64px;
+    background: var(--cor-destaque);
+    border-radius: 0px 0px 10px 10px;
+    user-select: none;
+    z-index: 20;
+}
+.container-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size:28px;
+    font-weight: 700;
+    margin-right:15vw;
+}
+#texto-logo {
+    margin-left:10px;
+}
+#nav-header {
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    margin-right:10vw;
+    
+}
+#nav-header ul {
+    display: flex;
+    flex-direction: row;
+    list-style:none;
+    margin: 0;
+    padding: 0;
+}
+#nav-header a {
+    text-decoration: none;
+    color: var(--cor-texto);
+    font-size:18px;
+    font-weight: 500;
+}
+#nav-header li {
+    margin: 0 1vw;
+}
+#nav-atual {
+    color: var(--cor-interac) !important;
+}
+#nav-header a:not(#nav-atual):hover {
+    color: var(--cor-interac)
+}
+#imagem-logo:hover {
+    animation: rodalogo 1s infinite;
+}
+#imagem-logo img {
+    width:75px;
+    height:75px;
+}
+#container-usuario {
+    display: flex;
+    flex-direction: row;
+}
+#container-usuario img {
+    margin-right: 12px;
+}
+#container-usuario span {
+    font-size:18px;
+    text-decoration:none;
+}
+#nome-usuario {
+    margin-left: 4px;
+    color: var(--cor-interac);
+    margin-right:20px;
+}
+@keyframes rodalogo {
+    from {
+        transform:rotate(0deg);
     }
-  </style>
-  <title>Label to Placeholder Transition</title>
+    to {
+        transform:rotate(360deg);
+    }
+}
+
+#footer {
+    width: 100%;
+    max-width:100%;
+    height: 200px;
+    padding-left:64px;
+    box-sizing: border-box;
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content:left;
+    background: var(--cor-texto);
+    color:white !important;
+    user-select:none;
+}
+#footer-lado1 {
+    width: 50vw;
+    max-width:50vw;
+}
+#footer-lado1 img {
+    margin-right:10px;
+}
+#footer-lado2 {
+    width: 50vw;
+    padding-right:10vw;
+    text-align: right;
+    font-size: 12px;
+
+    max-width:50vw;
+}
+.texto-destaque {
+    font-weight: 700;
+    color: var(--cor-interac);
+    font-size: 30px;
+}
+
+.content {
+    
+    flex:1;
+    transition: 0.4s;
+}
+
+.container-geral {
+    margin-top:130px;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    width:100%;
+}
+    </style>
+    <title>Sticky Footer</title>
 </head>
 <body>
-  <div class="input-container">
-    <label for="myInput" class="transition-label">Your Label</label>
-    <input type="text" id="myInput" class="transition-input">
-  </div>
+  <header id="header">
+    <div class="container-logo"> 
+        <div id="imagem-logo"><img src="imagens/MC_Logo_Header.svg"> </div>
+        <div id="texto-logo">Mascotero</div>
+    </div>
+    <nav id="nav-header">
+        <ul>
+            <li><a href="./">Home</a></li>
+            <li><a href="sobre.php">Sobre</a></li>
+            <li><a href="produtos.php" id="nav-atual">Produtos</a></li>
+            <li><a href="contato.php">Contato</a></li>
+        </ul>
+    </nav>
+    <div id="container-usuario">
+        <span>Olá, </span>
+        <span id="nome-usuario"> <?php echo "$name - você é " . ($isAdmin ? 'admin' : 'cliente') ?> </span>
+        <img src="imagens/user_icon.svg" alt="Foto do cliente">
+        <img src="imagens/carrinho.svg" alt="Carrinho de compras">
+    </div>
+</header>
+    <div class="content">
+      <div class="container-geral">
+        asdasda
+<!--         <img src="/website/imagens/G. Carraro.jpg">
+        <img src="/website/imagens/G. Carraro.jpg">
+        <img src="/website/imagens/G. Carraro.jpg">
+        <img src="/website/imagens/G. Carraro.jpg">
+        <img src="/website/imagens/G. Carraro.jpg"> -->
+      </div>
+    </div>
 
-  <script>
-    const input = document.getElementById('myInput');
-    const label = document.querySelector('.transition-label');
-
-    input.addEventListener('focus', () => {
-      label.parentElement.classList.add('input-focused');
-    });
-
-    input.addEventListener('blur', () => {
-      if (!input.value) {
-        label.parentElement.classList.remove('input-focused');
-      }
-    });
-  </script>
+    <footer id="footer">
+      <div id="footer-lado1" style="align-items:center;">
+          <div class="container-logo">
+              <img src="imagens/MC_Logo_Footer.svg" width="75px" height="75px" alt= "Logo do footer"> Mascotero        
+           </div>
+      </div>
+      <div id="footer-lado2">Copyright © 2023 Mascotero Ltda | Todos os direitos reservados</div>
+  </footer>
 </body>
 </html>
