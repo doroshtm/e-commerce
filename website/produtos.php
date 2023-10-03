@@ -16,7 +16,8 @@
     <link rel="stylesheet" href="styles_header_footer.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap">
     <link rel="icon" type="image/x-cion" href="/website/imagens/MC_Logo_Footer.svg">
-    <script src="script_produtos.js"></script>
+    <script src="js/script_produtos.js"></script>
+    <script src="js/produtos.js?v=0.89"></script>
 </head>
 <body>
     <header id="header">
@@ -27,15 +28,18 @@
         <nav id="nav-header">
             <ul>
                 <li><a href="./">Home</a></li>
-                <li><a href="sobre.html">Sobre</a></li>
-                <li><a href="produtos.html" id="nav-atual">Produtos</a></li>
-                <li><a href="contato.html">Contato</a></li>
-                <li><a href="estatisticas.html">Estatísticas</a></li>
+                <li><a href="sobre.php">Sobre</a></li>
+                <li><a href="produtos.php" id="nav-atual">Produtos</a></li>
+                <li><a href="contato.php">Contato</a></li>
             </ul>
         </nav>
+        <?php
+            $name = isset($_SESSION['name']) ? explode(' ', $_SESSION['name'], 2)[0] : 'visitante';
+            $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : false;
+        ?>
         <div id="container-usuario">
             <span>Olá, </span>
-            <span id="nome-usuario"> Nomeusuario!</span>
+            <span id="nome-usuario"> <?php echo "$name - você é " . ($isAdmin ? 'admin' : 'cliente') ?> </span>
             <img src="imagens/user_icon.svg" alt="Foto do cliente">
             <img src="imagens/carrinho.svg" alt="Carrinho de compras">
         </div>
@@ -43,10 +47,10 @@
     <div id="content">
         <div class="container-geral">
             <div id="barra-pesquisa">
-                <form method="POST" action="http://200.145.153.91/fernandotheodoro/">
+                <form method="POST" action="produtos.php">
                    <input type="text" name="pesquisa" id="pesquisa" 
                     placeholder="Pesquisar..."  
-                    \> 
+                    \>
                 </form>
                 <div id="dropdown-corpo">
                     <div id="filtro"> 
@@ -56,7 +60,7 @@
                             <span class="texto-destaque">Cursos:</span>
                             <div class="checkboxes">
                                 <div class="linha-checkbox">
-                                    <input type="checkbox" id="cti" name="cti"> 
+                                    <input type="checkbox" id="cti" name="cti">
                                     <label for="cti">CTI</label>
                                 </div>
                                 <div class="linha-checkbox">
@@ -90,13 +94,13 @@
                     $select2 = $connection->prepare('select nome from categorias where id_categorias = :categoria');
                     $select2->execute(['categoria' => $categoria]);
                     $categoria = $select2->fetch();
-                    echo "<div class='produto'>
+                    echo "<div class='produto' data-categoria='". $categoria['nome'] ."' data-nome='" . $linha['nome'] . "'>
                     <div class='produto-imagem'><img src='imagens/produtos/" . $linha['imagem'] . "'></div>
                     <div class='produto-corpo'>
                         <span class='nome-produto'>" . $linha['nome'] . "</span>
                         <span class='tags-produto'>" . $categoria['nome'] . "</span>
                         <span class='descricao-produto'>" . $linha['descricao'] . "</span>
-                        <span class='preco-produto'> <span class='texto-destaque'>R$" . $linha['preco'] . "</span> </span>
+                        <span class='preco-produto texto-destaque'>R$ " . number_format($linha['preco'], 2, ',', '.') . "</span>
                     </div> </div>";
                 }
             ?>

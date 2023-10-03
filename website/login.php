@@ -28,7 +28,7 @@
             </div>
             <div id="label-input-login">
                 <label for="email">Email</label>
-                <input type='text' name='email' id="email" placeholder="Seu email aqui..." required>
+                <input type='email' name='email' id="email" placeholder="Seu email aqui..." required>
             </div>
             <div id="label-input-login">
                 <label for="password">Senha</label>
@@ -36,7 +36,6 @@
             </div>
             <input type='submit' value='Enviar'>
             <a href='cadastro.php'>Não tem conta? Cadastre-se</a>
-
 
 <?php
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -63,7 +62,9 @@
     header('Location: ./');
   }
 ?>
-        </form>
-    </div>
+
+          </form>
+        </div>
+
 </body>
 </html>
