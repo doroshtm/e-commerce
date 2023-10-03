@@ -3,7 +3,7 @@
     $sessID = startSession();
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles_header_footer.css">
