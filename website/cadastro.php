@@ -44,7 +44,7 @@
             </div>
             <div id="label-input-login">
                 <label for="address">Endereço (opcional)</label>
-                <input type='address' name='address' id="address" placeholder="Seu endereço aqui..." maxlength=255 required>
+                <input type='address' name='address' id="address" placeholder="Seu endereço aqui..." maxlength=255>
             </div>
             <div id="label-input-login">
                 <label for="cep">CEP (opcional)</label>

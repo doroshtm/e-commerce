@@ -582,6 +582,7 @@ body {
     font-weight: 600;
 }
 .filtro-display {
+    user-select:none;
     transition: 0.4s;
     display:flex;
     font-weight: 400;
@@ -825,6 +826,7 @@ body {
     font-family: Inter;
 }
 #formlogin input[type='submit']{
+    cursor:pointer;
     background: var(--cor-interac);
     border-radius:10px;
     width:360px;
@@ -833,6 +835,9 @@ body {
     font-size: 18px;
     font-weight:600;
     border:none;
+}
+#formlogin input[type='submit']:hover {
+    background: #4034C7;
 }
 
 .mensagem-erro {

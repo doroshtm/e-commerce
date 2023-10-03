@@ -16,8 +16,7 @@
     <link rel="stylesheet" href="styles_header_footer.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap">
     <link rel="icon" type="image/x-cion" href="/website/imagens/MC_Logo_Footer.svg">
-    <script src="js/script_produtos.js"></script>
-    <script src="js/produtos.js?v=0.89"></script>
+    <script src="js/produtos.js?v=0.98"></script>
 </head>
 <body>
     <header id="header">
@@ -86,12 +85,12 @@
             <div id="grid-produtos">
             <?php
                 $connection = connect();
-                $select = $connection->prepare('select nome, preco, descricao, categoria_id, imagem, id_produto from produtos WHERE excluido = false');
+                $select = $connection->prepare('select nome, preco, descricao, categoria, imagem, id_produto from tbl_produto WHERE excluido = false');
                 $select->execute();
                 
                 while ($linha = $select->fetch()) {
-                    $categoria = $linha['categoria_id'];
-                    $select2 = $connection->prepare('select nome from categorias where id_categorias = :categoria');
+                    $categoria = $linha['categoria'];
+                    $select2 = $connection->prepare('select nome from tbl_categoria where id_categoria = :categoria');
                     $select2->execute(['categoria' => $categoria]);
                     $categoria = $select2->fetch();
                     echo "<div class='produto' data-categoria='". $categoria['nome'] ."' data-nome='" . $linha['nome'] . "'>
