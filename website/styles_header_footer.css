@@ -589,11 +589,11 @@ body {
     font-weight: 400;
     font-size:17px;
     align-items:center;
-    padding-left:20px;
+    padding-left:0px;
     color: var(--cor-destaque);
     cursor:pointer;
     transition:0.4s;
-    width: 162px;
+    width: 0px;
     max-width:162px;
     height: 36px;
     border-radius:20px;
@@ -602,6 +602,27 @@ body {
     background-repeat: no-repeat;
     background-position: right 10px top 10px;
     background-position-y: 50%;
+    overflow: hidden;
+}
+@keyframes mostra-filtro {
+    from {
+        width: 0px;
+        padding-left:0px;
+    }
+    to {
+        width: 162px;
+        padding-left:20px;
+    }
+}
+@keyframes esconde-filtro{
+    from {
+        width: 162px;
+        padding-left:20px;
+    }
+    to {
+        width: 0px;
+        padding-left:0px;
+    }
 }
 #grid-produtos {
     gap:20px;
@@ -743,6 +764,85 @@ body {
     align-items: center;
     padding-bottom:54px;
 }
+
+/* Login */
+#pai {
+    display:flex;
+    min-width:100vw;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+#formlogin {
+    background: var(--cor-destaque);
+    border-radius:10px;
+    padding:70px 40px;
+    gap:31px;
+    display:flex;
+    align-items:center;
+    flex-direction: column;
+
+}
+#logo-login {
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    font-size:33px;
+    font-weight: 700;
+}
+#logo-login img {
+    height: 80px;
+    width: 80px;
+    margin-right:10px;
+}
+#label-input-login {
+    display:flex;
+    flex-direction:column;
+    width:360px;
+    gap:7px;
+}
+#label-input-login label {
+    font-size: 16px;
+    font-weight:500;
+    font-family: Inter;
+    color: #979899;
+} 
+#label-input-login input{
+    width: 100%;
+    height: 40px;
+    border-radius:10px;
+    border: 1.5px solid black;
+    transition: 0.4s;
+    font-size: 16px;
+    padding-left:10px;
+}
+#label-input-login input:focus {
+    outline:none;
+    border: 1.5px solid var(--cor-interac);
+}
+#label-input-login input::placeholder {
+    color: #979899;
+    font-size: 16px;
+    font-weight:500;
+    font-family: Inter;
+}
+#formlogin input[type='submit']{
+    background: var(--cor-interac);
+    border-radius:10px;
+    width:360px;
+    padding: 15px 0;
+    color: var(--cor-destaque);
+    font-size: 18px;
+    font-weight:600;
+    border:none;
+}
+
+.mensagem-erro {
+    color:red;
+    font-size: 16px;
+    font-weight: 500;
+}
+
 /* Utilidade geral */
 
 .separador {
