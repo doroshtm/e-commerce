@@ -1,17 +1,14 @@
-<?php
-    include("util.php");
-    startSession();
-?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mascotero</title>
-    <link rel="stylesheet" href="styles_header_footer.css">
+    <link rel="stylesheet" href="/website/styles_header_footer.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap"> 
     <link rel="stylesheet" href="styles_paginas.css">
-    <script src="js/script.js"></script>
+    <script src="/website/js/script.js"></script>
     <link rel="icon" type="image/x-cion" href="/website/imagens/MC_Logo_Footer.svg">
 
 </head>
@@ -29,10 +26,6 @@
                 <li><a href="contato.php">Contato</a></li>
             </ul>
         </nav>
-        <?php
-            $name = isset($_SESSION['name']) ? explode(' ', $_SESSION['name'], 2)[0] : 'visitante';
-            $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : false;
-        ?>
         <div id="container-usuario">
             <span>Olá, </span>
             <span id="nome-usuario"> <?php echo "$name - você é " . ($isAdmin ? 'admin' : 'cliente') ?> </span>
