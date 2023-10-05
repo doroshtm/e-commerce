@@ -350,8 +350,6 @@ a {
     font-size:20px;
 }
 .voltar-logo .texto-destaque {
-    position:relative;
-    bottom:3px;
     text-decoration-line: underline;
 }
 .voltar-logo .texto-destaque:hover {
@@ -754,6 +752,12 @@ a {
 {
     #grid-produtos {
         grid-template-columns: 1fr !important;
+    }
+}
+@media (max-width: 450px) 
+{
+    .produto {
+        width: 100%;
     }
 }
 
