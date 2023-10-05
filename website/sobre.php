@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap"> 
     <link rel="stylesheet" href="styles_paginas.css">
     <script src="js/script.js"></script>
-    <link rel="icon" type="image/x-cion" href="/website/imagens/MC_Logo_Footer.svg">
+    <link rel="icon" type="image/svg+xml" href="./imagens/MC_Logo_Footer.svg">
 
 </head>
 <body>

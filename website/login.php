@@ -8,15 +8,14 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles_header_footer.css">
-    <link rel="icon" type="image/x-cion" href="/website/imagens/MC_Logo_Footer.svg">
+    <link rel="icon" type="image/svg+xml" href="./imagens/MC_Logo_Footer.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./js/script.js"></script>
     <title>Login</title>
 </head>
 <body>
@@ -36,6 +35,7 @@
             </div>
             <input type='submit' value='Enviar'>
             <a href='cadastro.php'>Não tem conta? Cadastre-se</a>
+            <a href='esqueci.php'>Esqueceu a senha?</a>
 
 <?php
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
