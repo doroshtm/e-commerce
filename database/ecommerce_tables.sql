@@ -43,9 +43,10 @@ create table tbl_compra(
 );
 
 create table tbl_tmp_compra(
-    sessao varchar(255) primary key,
+    sessao varchar(255) not null,
     compra integer not null,
-    foreign key (compra) references tbl_compra(id_compra)
+    foreign key (compra) references tbl_compra(id_compra),
+    PRIMARY KEY (sessao, compra)
 );
 
 create table tbl_compra_produto(
