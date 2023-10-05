@@ -96,7 +96,8 @@
                     echo "<div class='produto' data-categoria='". $categoria['nome'] ."' data-nome='" . $linha['nome'] . "'>
                     <div class='produto-imagem'><img src='imagens/produtos/" . $linha['imagem'] . "'></div>
                     <div class='produto-corpo'>
-                        <span class='nome-produto'>" . $linha['nome'] . "</span>";
+                        <span class='nome-produto'>" . $linha['nome'] . "</span>
+                        <span class='tags-produto'>" . $categoria['nome'] . "</span>";
                         echo isset($linha['descricao']) ? "<span class='descricao-produto'>" . $linha['descricao'] . "</span>" : "";
                         echo "<span class='preco-produto texto-destaque'>R$ " . number_format($linha['preco'], 2, ',', '.') . "</span>
                     </div> </div>";
