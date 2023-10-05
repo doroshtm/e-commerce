@@ -36,10 +36,10 @@
         <div id="container-usuario">
             <span>Olá, </span>
             <span id="nome-usuario"> <?php echo "$name - você é " . ($isAdmin ? 'admin' : 'cliente') ?> </span>
-            <img src="imagens/user_icon.svg" alt="Foto do cliente">
+            <a href = './login.php'> <img src="imagens/user_icon.svg" alt="Foto do cliente"> </a>
             <img src="imagens/carrinho.svg" alt="Carrinho de compras">
         </div>
-    </header>
+        </header>
     <div id="content">
         <div class="container-geral">
             <div id=sobre-containerlogo>
@@ -88,7 +88,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="voltar-logo">Clique na logo para ver sobre a &nbsp<a href="#sobre-mascotero-logo"><span class="texto-destaque">equipe</span></a></div>
+                            <div class="voltar-logo"><a href="#sobre-mascotero-logo">Clique na logo para ver sobre a &nbsp<span class="texto-destaque">equipe</span></a></div>
                         </div>
                         <div id="sobre-mascotero-equipe">
                             <div class="centraliza"><span class="texto-destaque">Nossa equipe</span></div>
@@ -102,7 +102,7 @@
                             </div>
                             <div class="conteudo-mp">
                                 <div class="imagem-mp">
-                                        <img src="/website/imagens/Emily.png">
+                                        <img src="./imagens/Emily.png">
                                 </div>
                                     <div class="texto-mp">
                                         <span class="texto-destaque"> #11 - Emily Rocha<br></span>
@@ -150,7 +150,7 @@
                                 </span>
                             </div>
                     </div>
-                    <div class="voltar-logo">Clique na logo para ver sobre a &nbsp<a href="#sobre-mascotero-logo"><span class="texto-destaque">marca</span></a></div>
+                    <div class="voltar-logo"><a href="#sobre-mascotero-logo">Clique na logo para ver sobre a &nbsp<span class="texto-destaque">marca</span></a></div>
                         </div>
                     </div>
                 </div>

@@ -39,11 +39,12 @@
         <div id="container-usuario">
             <span>Olá, </span>
             <span id="nome-usuario"> <?php echo "$name - você é " . ($isAdmin ? 'admin' : 'cliente') ?> </span>
-            <img src="imagens/user_icon.svg" alt="Foto do cliente">
+            <a href = './login.php'> <img src="imagens/user_icon.svg" alt="Foto do cliente"> </a>
             <img src="imagens/carrinho.svg" alt="Carrinho de compras">
         </div>
     </header>
     <div id="content">
+    <img src="./imagens/Lupa-Pesquisar.svg">
         <div class="container-geral">
             <div id="barra-pesquisa">
                 <form method="POST" action="produtos.php">
