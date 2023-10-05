@@ -36,14 +36,13 @@
         <div id="container-usuario">
             <span>Olá, </span>
             <span id="nome-usuario"> <?php echo "$name - você é " . ($isAdmin ? 'admin' : 'cliente') ?> </span>
-            <img src="imagens/user_icon.svg" alt="Foto do cliente">
+            <a href = './login.php'> <img src="imagens/user_icon.svg" alt="Foto do cliente"> </a>
             <img src="imagens/carrinho.svg" alt="Carrinho de compras">
         </div>
         </header>
     <div id="content">
         <div class="container-geral">
             <div id=sobre-containerlogo>
-                <img src=".imagens/Lupa-Pesquisa.svg">
                 <span class="texto-destaque">Sobre</span>
                 <div class="separador">
                     <div class="bola-separador"></div>
