@@ -48,9 +48,9 @@
                     <div class="bola-separador"></div>
                 </div>
                 <div id="sobre-mascotero">
-                        <div id="sobre-mascotero-logo">
-                            <img src="./imagens/Emblema_Mascotero.svg" id="foto_logo">
-                        </div>
+                    <div id="sobre-mascotero-logo">
+                        <img src="./imagens/Emblema_Mascotero.svg" id="foto_logo">
+                    </div>
 <!--                     <img src="/website/imagens/Sobre_Mascotero.svg"> -->
                     <div id="sobre-mascotero-texto">
                         <div id="sobre-mascotero-marca">
@@ -102,26 +102,26 @@
                             </div>
                             <div class="conteudo-mp">
                                 <div class="imagem-mp">
-                                        <img src="./imagens/Emily.png">
+                                    <img src="./imagens/Emily.png">
                                 </div>
-                                    <div class="texto-mp">
-                                        <span class="texto-destaque"> #11 - Emily Rocha<br></span>
-                                        <span> Coleta de satisfação dos mascotes, assistente em <em>design</em>
-                                        </span>
-                                    </div>
+                                <div class="texto-mp">
+                                    <span class="texto-destaque"> #11 - Emily Rocha<br></span>
+                                    <span> Coleta de satisfação dos mascotes, assistente em <em>design</em>
+                                    </span>
+                                </div>
                             </div>
-                    <div class="conteudo-mp">
-                        <div class="imagem-mp">
+                        <div class="conteudo-mp">
+                            <div class="imagem-mp">
                                 <img src="./imagens/Ellen.jpg">
-                        </div>
+                            </div>
                             <div class="texto-mp">
                                 <span class="texto-destaque"> #12 - Ellen Caroline Carvalho<br></span>
                                 <span><em>Marketing</em> e busca de fornecedores
                                 </span>
                             </div>
-                    </div>
-                    <div class="conteudo-mp">
-                        <div class="imagem-mp">
+                        </div>
+                        <div class="conteudo-mp">
+                            <div class="imagem-mp">
                                 <img src="./imagens/Fernando.jpg">
                             </div>
                             <div class="texto-mp">
@@ -129,9 +129,9 @@
                                 <span>Gerente Geral do projeto, desenvolvedor <em>front-end</em> do site
                                 </span>
                             </div>
-                    </div>
-                    <div class="conteudo-mp">
-                        <div class="imagem-mp">
+                        </div>
+                        <div class="conteudo-mp">
+                            <div class="imagem-mp">
                                 <img src="./imagens/G. Carraro.jpg">
                             </div>
                             <div class="texto-mp">
@@ -139,9 +139,9 @@
                                 <span>Líder técnico do projeto, desenvolvedor <em>back-end</em> do site
                                 </span>
                             </div>
-                    </div>
-                    <div class="conteudo-mp">
-                        <div class="imagem-mp">
+                        </div>
+                        <div class="conteudo-mp">
+                            <div class="imagem-mp">
                                 <img src="./imagens/G. Menegazzo_alt.jpg">
                             </div>
                             <div class="texto-mp">
@@ -149,9 +149,8 @@
                                 <span>Líder da equipe de <em>design</em>, principal artista de produtos e logo
                                 </span>
                             </div>
-                    </div>
-                    <div class="voltar-logo"><a href="#sobre-mascotero-logo">Clique na logo para ver sobre a &nbsp<span class="texto-destaque">marca</span></a></div>
                         </div>
+                        <div class="voltar-logo"><a href="#sobre-mascotero-logo">Clique na logo para ver sobre a &nbsp<span class="texto-destaque">marca</span></a></div>
                     </div>
                 </div>
             </div>
