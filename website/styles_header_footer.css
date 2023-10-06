@@ -75,6 +75,9 @@ body {
     margin: 0;
     padding: 0;
 }
+#header a {
+    height:0;
+}
 #nav-header a {
     text-decoration: none;
     color: var(--cor-texto);
@@ -340,7 +343,6 @@ body {
 }
 a {
     text-decoration: none;
-    height: 0;
 }
 .voltar-logo {
     width:100%;
@@ -883,7 +885,7 @@ a {
     font-weight:500;
     font-family: Inter;
 }
-#formlogin input[type='submit']{
+#formlogin input[type='submit'], #botao-finalizar{
     cursor:pointer;
     background: var(--cor-interac);
     border-radius:10px;
@@ -894,7 +896,7 @@ a {
     font-weight:600;
     border:none;
 }
-#formlogin input[type='submit']:hover {
+#formlogin input[type='submit']:hover, #botao-finalizar:hover {
     background: #4034C7;
 }
 
@@ -929,7 +931,7 @@ a {
 #container-lista-produtos {
     display:flex;
     flex-direction:row;
-
+    gap:30px;
 }
 .produto-carrinho{
     max-width:100%;
@@ -1010,6 +1012,7 @@ a {
     display:flex;
     justify-content:flex-end;
     padding-right:50px;
+    margin-bottom: 80px;
 }
 #carrinho-lista {
     padding: 20px 0 20px 0;
@@ -1034,7 +1037,7 @@ a {
     font-size: 26px;
     line-height:20px;
 }
-#lista-compras-carrinho {
+#lista-compras-carrinho, #resultado-carrinho {
     display:grid;
     width:100%;
     grid-template-columns: 60% 40%;
@@ -1053,6 +1056,44 @@ a {
     justify-self: flex-end;
     align-self:center;
     margin-right:40px;
+}
+#botao-finalizar {
+    padding: 8px;
+    margin-top: 25px;
+}
+
+
+ @media (max-width: 1100px) 
+{
+    #container-lista-produtos {
+        flex-direction: column;
+        align-items:center;
+        justify-content: center;
+    }
+    #container-carrinho-produtos {
+        margin:5px 0px 30px 0px;
+    }
+    #container-carrinho-lista {
+        margin: 20px 0 50px 0;
+        padding: 0;
+        width: fit-content;
+    }
+    
+} 
+@media (max-width:680px)
+{
+    .produto-carrinho{
+        width:100%;
+        height:fit-content;
+    }
+    #lista-compras-carrinho, #resultado-carrinho {
+        grid-template-columns: 1fr;
+    }
+    .nome-produto-carrinho, .preco-produto-carrinho{
+        align-self:center;
+        justify-self: center;
+        margin:0;
+    }
 }
 /* Utilidade geral */
 
