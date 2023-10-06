@@ -40,7 +40,7 @@
             <span>Olá, </span>
             <span id="nome-usuario"> <?php echo "$name - você é " . ($isAdmin ? 'admin' : 'cliente') ?> </span>
             <a href = './login.php'> <img src="imagens/user_icon.svg" alt="Foto do cliente"> </a>
-            <img src="imagens/carrinho.svg" alt="Carrinho de compras">
+            <a href = './carrinho.html'> <img src="imagens/carrinho.svg" alt="Carrinho de compras"> </a>
         </div>
     </header>
     <div id="content">
