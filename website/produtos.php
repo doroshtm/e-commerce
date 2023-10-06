@@ -85,6 +85,15 @@
             <div class="centraliza"><div class="texto-destaque">Produtos</div></div>
             <div id="grid-produtos">
             <?php
+                if($isAdmin) {
+                    echo "<a class='produto' data-categoria='admin' data-nome='Adicionar produto' href='cadastro_produto.php'>
+                    <div class='produto-imagem'><img src='imagens/produtos/adicionar.png'></div>
+                    <div class='produto-corpo'>
+                        <span class='nome-produto'>Adicionar produto</span>
+                        <span class='tags-produto'>admin</span>
+                        <span class='preco-produto texto-destaque'>++++++++++++++</span>
+                    </div> </a>";
+                }
                 $connection = connect();
                 $select = $connection->prepare('select nome, preco, descricao, categoria, imagem, id_produto from tbl_produto WHERE excluido = false');
                 $select->execute();

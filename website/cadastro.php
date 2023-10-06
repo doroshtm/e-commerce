@@ -38,6 +38,10 @@
                 <input type='password' name='password' id="password" maxlength="255" placeholder="Sua senha aqui..." required>
             </div>
             <div id="label-input-login">
+                <label for="password">Confirme a senha</label>
+                <input type='password' name='password2' id="password" maxlength="255" placeholder="Sua senha aqui..." required>
+            </div>
+            <div id="label-input-login">
                 <label for="cpf">CPF</label>
                 <input type='text' id="cpf" name='cpf' minlength=14 maxlength=14 required placeholder="Seu CPF aqui..."
                 pattern='[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}' onkeyup='formatCPF(this, event)'>
@@ -58,6 +62,10 @@
         <?php
             
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                if (count($_POST) != 8)
+                    echo "Preencha todos os campos!";
+                    die();
+                }
                 $phone = $_POST["phone"];
                 $phone = preg_replace('/\D+/', '', $phone);
                 if (!preg_match("/^(\d{2})(\d{5})(\d{4})$/", $phone, $matches)) {
@@ -82,6 +90,10 @@
                         echo "<div class='mensagem-erro'>CEP inválido!</div>";
                         die();
                     }
+                }
+                if ($_POST['password'] != $_POST['password2']) {
+                    echo "<div class='mensagem-erro'>Senhas não coincidem!</div>";
+                    die();
                 }
                 $connection = connect();
                 $date = date('m/d/Y');
