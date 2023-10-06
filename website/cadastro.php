@@ -51,8 +51,10 @@
                 <input type='text' id='cep' name='cep' minlength=9 maxlength=9 pattern='[0-9]{5}-[0-9]{3}' placeholder="Seu CEP aqui..."
                 onkeyup='formatCEP(this, event)'>
             </div>
+            <label for="lembrar-senha">Mantenha-me conectado</label>
+            <input type='checkbox' name='lembrar-senha' id="lembrar-senha">
             <input type='submit' value='Cadastre-se'>
-            <a href='cadastro.php'>Já tem conta? Cadastre-se</a>
+            <a href='login.php'>Já tem conta? Conecte-se</a>
         <?php
             
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -105,7 +107,10 @@
                 $_SESSION['isAdmin'] = $result['admin'];
                 $_SESSION['cpf'] = $result['cpf'];
                 $_SESSION['date'] = $result['data_cadastro'];
-                setcookie('loginCookie', $sessID, time() + 1209600);
+                if ($_POST['lembrar-senha'] == 'on') {
+                    setcookie('loginCookie', $sessID, time() + 1209600);
+                }
+                setcookie('email', $email, time() + 1209600);
                 header('Location: ./');
             }
         ?>

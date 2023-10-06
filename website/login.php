@@ -27,11 +27,13 @@
             </div>
             <div id="label-input-login">
                 <label for="email">Email</label>
-                <input type='email' name='email' id="email" placeholder="Seu email aqui..." required>
+                <input type='email' name='email' id="email" placeholder="Seu email aqui..." required <?php echo isset($_COOKIE['email']) ? "value='{$_COOKIE['email']}'" : '' ?>>
             </div>
             <div id="label-input-login">
                 <label for="password">Senha</label>
                 <input type='password' name='password' id="password" placeholder="Sua senha aqui..." required>
+                <label for="lembrar-senha">Mantenha-me conectado</label>
+                <input type='checkbox' name='lembrar-senha' id="lembrar-senha">
             </div>
             <input type='submit' value='Enviar'>
             <a href='cadastro.php'>Não tem conta? Cadastre-se</a>
@@ -58,7 +60,11 @@
     $_SESSION['isAdmin'] = $result['admin'];
     $_SESSION['cpf'] = $result['cpf'];
     $_SESSION['date'] = $result['data_cadastro'];
-    setcookie('loginCookie', $sessID, time() + 1209600);
+
+    if ($_POST['lembrar-senha'] == 'on') {
+      setcookie('loginCookie', $sessID, time() + 1209600);
+    }
+    setcookie('email', $email, time() + 1209600);
     header('Location: ./');
   }
 ?>
