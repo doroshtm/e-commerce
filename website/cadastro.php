@@ -16,7 +16,7 @@
 </head>
 <body>
     <div id="pai">
-        <form name='formcadastro' method='post' action='./cadastro.php' id="formlogin">
+        <form name='formcadastro' method='post' action='./cadastro.php?url=<?php echo isset($_GET['url']) ? $_GET['url'] : 'index.php'; ?>' id="formlogin">
             <div id="logo-login">
                 <img src="imagens/Emblema_Mascotero.svg" alt="Logo Mascotero">
                 Mascotero
@@ -62,7 +62,7 @@
         <?php
             
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                if (count($_POST) != 8)
+                if (count($_POST) != 8){
                     echo "Preencha todos os campos!";
                     die();
                 }
@@ -123,7 +123,8 @@
                     setcookie('loginCookie', $sessID, time() + 1209600);
                 }
                 setcookie('email', $email, time() + 1209600);
-                header('Location: ./');
+                $url = isset($_GET['url']) ? $_GET['url'] : '';
+                header('Location: ' . $url);
             }
         ?>
         </form>

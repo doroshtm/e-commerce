@@ -39,7 +39,7 @@
         <input type='number' name='preco' placeholder='Preço do produto' max=99.99 min=0 required><br>
         <input type='number' name='custo' placeholder='Custo do produto' max=99.99 min=0 required><br>
         <label for='icms'>ICMS (porcentagem)</label>
-        <input type='number' name='icms' max=99.99 required value=<?php echo $icms ?>><br>
+        <input type='number' id='icms' name='icms' max=99.99 required value=<?php echo $icms ?>><br>
         <input type='number' name='estoque' placeholder='Quantidade em estoque' min=0 required><br>
         <input type='text' name='imagem' placeholder='Link da imagem do produto' maxlength=255 required><br>
         <input type='text' name='codigovisual' placeholder='Código visual do produto' required maxlength=50><br>
