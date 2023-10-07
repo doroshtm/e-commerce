@@ -32,8 +32,10 @@
             <div id="label-input-login">
                 <label for="password">Senha</label>
                 <input type='password' name='password' id="password" placeholder="Sua senha aqui..." required>
-                <label for="lembrar-senha">Mantenha-me conectado</label>
-                <input type='checkbox' name='lembrar-senha' id="lembrar-senha">
+                <div id="container-lembrar-senha">
+                  <input type='checkbox' name='lembrar-senha' id="lembrar-senha">
+                  <label for="lembrar-senha">Mantenha-me conectado</label>
+                </div>
             </div>
             <input type='submit' value='Enviar'>
             <a href='cadastro.php?url=<?php echo isset($_GET['url']) ? $_GET['url'] : 'index.php'; ?>'>Não tem conta? Cadastre-se</a>
