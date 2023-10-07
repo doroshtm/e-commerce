@@ -56,7 +56,6 @@
             criarElemento(nomes[i]);
         } else {
             const elementoParaRemover = elementosCriados[nomes[i]];
-            console.log(elementoParaRemover);
             if (elementoParaRemover) {
                 destruirElemento(document.getElementById(nomes[i]));
                 elementosCriados[nomes[i]] = false;
@@ -89,6 +88,7 @@
             filterProducts();
         });
 
+        
 
         function filterProducts() {
             const products = document.querySelectorAll('.produto');
@@ -135,6 +135,101 @@
                     if (search.value == '' || product.getAttribute('data-nome').toLowerCase().includes(search.value.toLowerCase())) {
                         product.style.display = 'block';
                     }
+                });
+            }
+        }
+
+        const orderName = document.getElementById('seta-baixo-nome');
+        const orderPrice = document.getElementById('seta-baixo-preco');
+        const orderName2 = document.getElementById('seta-cima-nome');
+        const orderPrice2 = document.getElementById('seta-cima-preco');
+
+        orderName.addEventListener('click', function() {
+            orderByName('decreasing');
+        });
+        orderPrice.addEventListener('click', function() {
+            orderByPrice('decreasing');
+        });
+        orderName2.addEventListener('click', function() {
+            orderByName('increasing');
+        });
+        orderPrice2.addEventListener('click', function() {
+            orderByPrice('increasing');
+        });
+
+        function orderByName(order) {
+            var products = document.querySelectorAll('.produto');
+            var productsArray = Array.prototype.slice.call(products, 0);
+            var productsContainer = document.querySelector('#grid-produtos');
+            if (order == 'increasing') {
+                productsArray.sort(function(a, b) {
+                    var nameA = a.getAttribute('data-nome').toLowerCase();
+                    var nameB = b.getAttribute('data-nome').toLowerCase();
+                    if (nameA < nameB) {
+                        return -1;
+                    }
+                    if (nameA > nameB) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                
+                productsArray.forEach(function(item) {
+                    productsContainer.appendChild(item);
+                });
+            } else {
+                productsArray.sort(function(a, b) {
+                    var nameA = a.getAttribute('data-nome').toLowerCase();
+                    var nameB = b.getAttribute('data-nome').toLowerCase();
+                    if (nameA > nameB) {
+                        return -1;
+                    }
+                    if (nameA < nameB) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                
+                productsArray.forEach(function(item) {
+                    productsContainer.appendChild(item);
+                });
+            }
+        }
+        function orderByPrice(order) {
+            var products = document.querySelectorAll('.produto');
+            var productsArray = Array.prototype.slice.call(products, 0);
+            var productsContainer = document.querySelector('#grid-produtos');
+            if(order == 'increasing') {
+                productsArray.sort(function(a, b) {
+                    var priceA = parseFloat(a.getAttribute('data-preco'));
+                    var priceB = parseFloat(b.getAttribute('data-preco'));
+                    if (priceA < priceB) {
+                        return -1;
+                    }
+                    if (priceA > priceB) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                
+                productsArray.forEach(function(item) {
+                    productsContainer.appendChild(item);
+                });
+            } else {
+                productsArray.sort(function(a, b) {
+                    var priceA = parseFloat(a.getAttribute('data-preco'));
+                    var priceB = parseFloat(b.getAttribute('data-preco'));
+                    if (priceA > priceB) {
+                        return -1;
+                    }
+                    if (priceA < priceB) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                
+                productsArray.forEach(function(item) {
+                    productsContainer.appendChild(item);
                 });
             }
         }

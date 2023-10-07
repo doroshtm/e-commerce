@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="styles_header_footer.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap">
     <link rel="icon" type="image/svg+xml" href="./imagens/MC_Logo_Footer.svg">
-    <script src="js/produtos.js?v=0.98"></script>
+    <script src="js/produtos.js?v=1.09"></script>
 </head>
 <body>
     <header id="header">
@@ -70,6 +70,19 @@
                                     <label for="eletro">Eletrônica</label>
                                 </div>
                             </div>
+                            <span class="texto-destaque">Ordenar por:</span>
+                            <div class="checkboxes">
+                                <div class="linha-checkbox">
+                                    <img src="./imagens/seta_baixo.jpg" alt="Seta para baixo para indicar ordem decrescente" id="seta-baixo-nome" width="20px" height="20px">
+                                    <img src="./imagens/seta_cima.jpeg" alt="Seta para cima para indicar ordem crescente" id="seta-cima-nome" width="20px" height="20px">
+                                    <label for="ordem_nome">Nome</label>
+                                </div>
+                                <div class="linha-checkbox">
+                                    <img src="./imagens/seta_baixo.jpg" alt="Seta para baixo para indicar ordem decrescente" id="seta-baixo-preco" width="20px" height="20px">
+                                    <img src="./imagens/seta_cima.jpeg" alt="Seta para cima para indicar ordem crescente" id="seta-cima-preco" width="20px" height="20px">
+                                    <label for="ordem_preco">Preço</label>
+                                </div>
+                            </div>
                         </div>
                 </div>
             </div>
@@ -89,7 +102,7 @@
                     </div> </a>";
                 }
                 $connection = connect();
-                $select = $connection->prepare('select nome, preco, descricao, categoria, imagem, id_produto from tbl_produto WHERE excluido = false');
+                $select = $connection->prepare('select nome, preco, descricao, categoria, imagem, id_produto from tbl_produto WHERE excluido = false ORDER BY nome');
                 $select->execute();
                 
                 while ($linha = $select->fetch()) {
@@ -97,7 +110,7 @@
                     $select2 = $connection->prepare('select nome from tbl_categoria where id_categoria = :categoria');
                     $select2->execute(['categoria' => $categoria]);
                     $categoria = $select2->fetch();
-                    echo "<div class='produto' data-categoria='". $categoria['nome'] ."' data-nome='" . $linha['nome'] . "'>
+                    echo "<div class='produto' data-categoria='". $categoria['nome'] ."' data-nome='" . $linha['nome'] . "' data-preco = '" . $linha['preco'] . "'>
                     <div class='produto-imagem'><img src='imagens/produtos/" . $linha['imagem'] . "'></div>
                     <div class='produto-corpo'>
                         <span class='nome-produto'>" . $linha['nome'] . "</span>
