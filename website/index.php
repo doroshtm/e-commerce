@@ -28,15 +28,9 @@
             </ul>
         </nav>
         <?php
-            $name = isset($_SESSION['name']) ? explode(' ', $_SESSION['name'], 2)[0] : 'visitante';
             $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : false;
+            header_pag($isAdmin, "index.php");
         ?>
-        <div id="container-usuario">
-            <span>Olá, </span>
-            <span id="nome-usuario"> <?php echo "$name - você é " . ($isAdmin ? 'admin' : 'cliente') ?> </span>
-            <a href = './login.php'> <img src="imagens/user_icon.svg" alt="Foto do cliente"> </a>
-            <a href = './carrinho.html'> <img src="imagens/carrinho.svg" alt="Carrinho de compras"> </a>
-        </div>
     </header>
 <div id="content">
     <div class="container-geral">

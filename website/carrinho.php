@@ -1,5 +1,9 @@
+<?php
+    include("util.php");
+    startSession();
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles_header_footer.css">
     <link rel="icon" type="image/svg+xml" href="./imagens/MC_Logo_Footer.svg">
@@ -17,22 +21,16 @@
         </div>
         <nav id="nav-header">
             <ul>
-                <li><a href="#">Home</a></li>
+                <li><a href="./">Home</a></li>
                 <li><a href="sobre.php">Sobre</a></li>
                 <li><a href="produtos.php">Produtos</a></li>
                 <li><a href="contato.php">Contato</a></li>
             </ul>
         </nav>
         <?php
-            $name = isset($_SESSION['name']) ? explode(' ', $_SESSION['name'], 2)[0] : 'visitante';
             $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : false;
+            header_pag($isAdmin);
         ?>
-        <div id="container-usuario">
-            <span>Olá, </span>
-            <span id="nome-usuario"> <?php echo "$name - você é " . ($isAdmin ? 'admin' : 'cliente') ?> </span>
-            <a href = './login.php'> <img src="imagens/user_icon.svg" alt="Foto do cliente"> </a>
-            <img src="imagens/carrinho.svg" alt="Carrinho de compras" style="filter: brightness(0) invert(19%) sepia(95%) saturate(3970%) hue-rotate(244deg) brightness(101%) contrast(106%);">
-        </div>
     </header>
     <div id="content">
         <div class="container-geral-nocenter">

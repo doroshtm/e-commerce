@@ -20,7 +20,7 @@
 </head>
 <body>
     <div id="pai">
-        <form name='formlogin' method='post' action='login.php' id="formlogin">
+        <form name='formlogin' method='post' action='login.php?url=<?php echo isset($_GET['url']) ? $_GET['url'] : 'index.php'; ?>' id="formlogin">
             <div id="logo-login">
                 <img src="imagens/Emblema_Mascotero.svg" alt="Logo Mascotero">
                 Mascotero
@@ -36,7 +36,7 @@
                 <input type='checkbox' name='lembrar-senha' id="lembrar-senha">
             </div>
             <input type='submit' value='Enviar'>
-            <a href='cadastro.php'>Não tem conta? Cadastre-se</a>
+            <a href='cadastro.php?url=<?php echo isset($_GET['url']) ? $_GET['url'] : 'index.php'; ?>'>Não tem conta? Cadastre-se</a>
             <a href='esqueci.php'>Esqueceu a senha?</a>
 
 <?php
@@ -65,7 +65,8 @@
       setcookie('loginCookie', $sessID, time() + 1209600);
     }
     setcookie('email', $email, time() + 1209600);
-    header('Location: ./');
+    $url = isset($_GET['url']) ? $_GET['url'] : '';
+    header('Location: ' . $url);
   }
 ?>
 
