@@ -29,7 +29,7 @@
         </nav>
         <?php
             $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : false;
-            header_pag($isAdmin);
+            header_pag($isAdmin, "carrinho.php");
         ?>
     </header>
     <div id="content">
