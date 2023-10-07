@@ -55,8 +55,10 @@
                 <input type='text' id='cep' name='cep' minlength=9 maxlength=9 pattern='[0-9]{5}-[0-9]{3}' placeholder="Seu CEP aqui..."
                 onkeyup='formatCEP(this, event)'>
             </div>
-            <label for="lembrar-senha">Mantenha-me conectado</label>
-            <input type='checkbox' name='lembrar-senha' id="lembrar-senha">
+            <div id="container-lembrar-senha">
+                  <input type='checkbox' name='lembrar-senha' id="lembrar-senha">
+                  <label for="lembrar-senha">Mantenha-me conectado</label>
+            </div>
             <input type='submit' value='Cadastre-se'>
             <a href='login.php'>Já tem conta? Conecte-se</a>
         <?php
