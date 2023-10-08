@@ -8,7 +8,11 @@
     $select_product = $connection->prepare('select * from tbl_produto where id_produto = ' . $_GET['id']);
     $select_product->execute();
     $result = $select_product->fetch(PDO::FETCH_ASSOC);
-    
+    if($result == NULL) {
+        echo "Produto não encontrado! Redirecionando para a página de produtos...";
+        header('Refresh: 3; url=./produtos.php');
+        die();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
