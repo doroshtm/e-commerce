@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="styles_header_footer.css">
         <link rel="stylesheet" href="styles_paginas.css">
         <link rel="icon" type="image/svg+xml" href="./imagens/MC_Logo_Footer.svg">
-        <title>Alterar produto | Mascotero</title>
+        <title>Alterar produto | <?php echo $_GET['id'] ?> | Mascotero</title>
     </head>
     <body>
         <form name='alterarProduto' method='post' action='./alteracao_produto.php?id=<?php echo $_GET['id'] ?>' id='formAltProduto'>
