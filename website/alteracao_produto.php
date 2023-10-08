@@ -52,6 +52,12 @@
             <input type='text' id='codigovisual' name='codigovisual' placeholder='Código visual do produto' required maxlength=50 value=<?php echo $result['codigovisual'] ?>><br>
             <br><br>
             <input type='submit' value='Alterar'>
+            <input type='button' value='Cancelar' onclick='window.history.back()'>
+        </form>
+        <form method='post' action='./remocao_produto.php' id='formDelProduto'>
+            <input type='hidden' name='delete' value=<?php echo $_GET['id'] ?>>
+            <input type='submit' value='Excluir'>
+        </form>
     </body>
     <?php
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
