@@ -16,14 +16,14 @@
         <form method='post' action='./remocao_produto.php' id='formDelProduto'>
         <label for='confirm'>VOCÊ TEM CERTEZA?</label>
             <input type='checkbox' name='confirm' required>
-            <input type='hidden' name='delete' value=" . $_POST['delete'] . ">
+            <input type='hidden' name='delete' value="<?php echo $_POST['delete'] ?>">
             <input type='submit' value='Excluir'>
             <input type='button' value='Cancelar' onclick='window.history.back()'>
         </form>
     </body>
 </html>
 <?php
-    if(!isset($_POST['confirm'] || !$_POST['confirm'])) {
+    if(!isset($_POST['confirm']) || !$_POST['confirm']) {
         die();
     }
     $connection = connect();
