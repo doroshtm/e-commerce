@@ -18,13 +18,23 @@
         <title>Cadastro de produtos | Mascotero</title>
     </head>
     <body>
-        <form name='cadastroProduto' method='post' action='./cadastro_produto.php' id='formCadProduto'>
-            <label for='nome'>Nome do produto</label>
-            <input type='text' id='nome' name='nome' placeholder='Nome do produto' required><br>
-            <label for='descricao'>Descrição do produto</label>
-            <input type='text' id='descricao' name='descricao' placeholder='Descrição do produto' required><br>
-            <label for='categoria'>Categoria</label>
-            <select name='categoria' id='categoria' required>
+        <div id='pai'>
+        <form name='cadastroProduto' method='post' action='./cadastro_produto.php' id='formlogin'>
+            <div id="logo-login">
+                <img src="imagens/Emblema_Mascotero.svg" alt="Logo Mascotero">
+                Mascotero
+            </div>
+            <div class="label-input-login">
+                <label for='nome'>Nome do produto</label>
+                <input type='text' id='nome' name='nome' placeholder='Nome do produto' required><br>
+            </div>
+            <div class="label-input-login">
+                <label for='descricao'>Descrição do produto</label>
+                <input type='text' id='descricao' name='descricao' placeholder='Descrição do produto' required><br>
+            </div>
+            <div class="label-input-login">
+                <label for='categoria'>Categoria</label>
+                <select name='categoria' id='categoria' required>
                 <?php
                     $connection = connect();
                     $select = $connection->prepare('select * from tbl_categoria');
@@ -35,8 +45,11 @@
                     }
                 ?>
             </select><br>
-            <label for='preco'>Preço do produto</label>
-            <input type='number' id='preco' name='preco' placeholder='Preço do produto' max=99.99 min=0 required step=0.01><br>
+            </div>
+            <div class="label-input-login">
+                <label for='preco'>Preço do produto</label>
+                <input type='number' id='preco' name='preco' placeholder='Preço do produto' max=99.99 min=0 required step=0.01><br>
+            </div>
             <label for='custo'>Custo do produto</label>
             <input type='number' id='custo' name='custo' placeholder='Custo do produto' max=99.99 min=0 required step=0.01><br>
             <label for='icms'>ICMS (porcentagem)</label>
@@ -49,7 +62,6 @@
             <input type='text' id='codigovisual' name='codigovisual' placeholder='Código visual do produto' required maxlength=50><br>
             <br><br>
             <input type='submit' value='Cadastrar'>
-        </form>
         <?php
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (count($_POST) < 9) {
@@ -114,5 +126,7 @@
             }
 
         ?>
+        </form>
+        </div>
     </body>
 </html>

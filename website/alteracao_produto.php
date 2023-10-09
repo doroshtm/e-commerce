@@ -26,6 +26,10 @@
     </head>
     <body>
         <form name='alterarProduto' method='post' action='./alteracao_produto.php?id=<?php echo $_GET['id'] ?>' id='formAltProduto'>
+        <div id="logo-login">
+                  <img src="imagens/Emblema_Mascotero.svg" alt="Logo Mascotero">
+                  Mascotero
+              </div>
             <label for='nome'>Nome do produto</label>
             <input type='text' id='nome' name='nome' placeholder='Nome do produto' required value=<?php echo $result['nome'] ?>><br>
             <label for='descricao'>Descrição do produto</label>

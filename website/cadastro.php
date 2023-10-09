@@ -21,36 +21,36 @@
                     <img src="imagens/Emblema_Mascotero.svg" alt="Logo Mascotero">
                     Mascotero
                 </div>
-                <div id="label-input-login">
+                <div class="label-input-login">
                     <label for="email">Email</label>
                     <input type='text' name='email' id="email" placeholder="Seu email aqui..." required>
                 </div>
-                <div id="label-input-login">
+                <div class="label-input-login">
                     <label for="name">Nome</label>
                     <input type='text' name='name' id="name" placeholder="Seu nome completo aqui..." required>
                 </div>
-                <div id="label-input-login">
+                <div class="label-input-login">
                     <label for="phone">Telefone</label>
                     <input type='tel' name='phone' minLength=15 maxlength=15 onkeyup='formatPhone(this, event)' placeholder="Seu telefone aqui..."
                     pattern='\([0-9]{2}\) [0-9]{5}-[0-9]{4}' required>            </div>
-                <div id="label-input-login">
+                <div class="label-input-login">
                     <label for="password">Senha</label>
                     <input type='password' name='password' id="password" maxlength="255" placeholder="Sua senha aqui..." required>
                 </div>
-                <div id="label-input-login">
+                <div class="label-input-login">
                     <label for="password">Confirme a senha</label>
                     <input type='password' name='password2' id="password" maxlength="255" placeholder="Sua senha aqui..." required>
                 </div>
-                <div id="label-input-login">
+                <div class="label-input-login">
                     <label for="cpf">CPF</label>
                     <input type='text' id="cpf" name='cpf' minlength=14 maxlength=14 required placeholder="Seu CPF aqui..."
                     pattern='[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}' onkeyup='formatCPF(this, event)'>
                 </div>
-                <div id="label-input-login">
+                <div class="label-input-login">
                     <label for="address">Endereço (opcional)</label>
                     <input type='address' name='address' id="address" placeholder="Seu endereço aqui..." maxlength=255>
                 </div>
-                <div id="label-input-login">
+                <div class="label-input-login">
                     <label for="cep">CEP (opcional)</label>
                     <input type='text' id='cep' name='cep' minlength=9 maxlength=9 pattern='[0-9]{5}-[0-9]{3}' placeholder="Seu CEP aqui..."
                     onkeyup='formatCEP(this, event)'>

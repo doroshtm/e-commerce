@@ -25,19 +25,19 @@
                   <img src="imagens/Emblema_Mascotero.svg" alt="Logo Mascotero">
                   Mascotero
               </div>
-              <div id="label-input-login">
+              <div class="label-input-login">
                   <label for="email">Email</label>
                   <input type='email' name='email' id="email" placeholder="Seu email aqui..." required <?php echo isset($_COOKIE['email']) ? "value='{$_COOKIE['email']}'" : '' ?>>
               </div>
-              <div id="label-input-login">
+              <div class="label-input-login">
                   <label for="password">Senha</label>
                   <input type='password' name='password' id="password" placeholder="Sua senha aqui..." required>
-                  <div id="container-lembrar-senha">
+              </div>
+              <input type='submit' value='Entrar'>
+              <div id="container-lembrar-senha">
                     <input type='checkbox' name='lembrar-senha' id="lembrar-senha">
                     <label for="lembrar-senha">Mantenha-me conectado</label>
-                  </div>
               </div>
-              <input type='submit' value='Enviar'>
               <a href='cadastro.php?url=<?php echo isset($_GET['url']) ? $_GET['url'] : 'index.php'; ?>'>Não tem conta? Cadastre-se</a>
               <a href='esqueci.php'>Esqueceu a senha?</a>
 
