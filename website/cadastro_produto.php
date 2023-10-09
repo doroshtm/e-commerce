@@ -35,6 +35,13 @@
             <div class="label-input-login">
                 <label for='categoria'>Categoria</label>
                 <select name='categoria' id='categoria' required>
+        <form name='cadastroProduto' method='post' action='./cadastro_produto.php' id='formCadProduto' enctype='multipart/form-data'>
+            <label for='nome'>Nome do produto</label>
+            <input type='text' id='nome' name='nome' placeholder='Nome do produto' required><br>
+            <label for='descricao'>Descrição do produto</label>
+            <input type='text' id='descricao' name='descricao' placeholder='Descrição do produto' required><br>
+            <label for='categoria'>Categoria</label>
+            <select name='categoria' id='categoria' required>
                 <?php
                     $connection = connect();
                     $select = $connection->prepare('select * from tbl_categoria');
@@ -57,14 +64,15 @@
             <label for='estoque'>Quantidade em estoque</label>
             <input type='number' id='estoque' name='estoque' placeholder='Quantidade em estoque' min=0 required><br>
             <label for='imagem'>Imagem do produto</label>
-            <input type='text' id='imagem' name='imagem' placeholder='Link da imagem do produto' maxlength=255 required><br>
+            <input type='file' id='imagem' name='imagem' placeholder='Link da imagem do produto' maxlength=255 required><br>
             <label for='codigovisual'>Código visual do produto</label>
             <input type='text' id='codigovisual' name='codigovisual' placeholder='Código visual do produto' required maxlength=50><br>
             <br><br>
             <input type='submit' value='Cadastrar'>
         <?php
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
-                if (count($_POST) < 9) {
+                var_dump($_FILES['imagem']);
+                if (count($_POST) < 8 || !isset($_FILES['imagem'])) {
                     echo "Preencha todos os campos!";
                     die();
                 }
@@ -75,7 +83,7 @@
                 $cost = round($_POST['custo'], 2);
                 $icms_form = $_POST['icms'];
                 $stock = $_POST['estoque'];
-                $image = $_POST['imagem'];
+                $image = $_FILES['imagem'];
                 $codigovisual = $_POST['codigovisual'];
 
                 if ($icms >= 100) {
@@ -94,10 +102,6 @@
                     echo "Estoque inválido!";
                     die();
                 }
-                if (strlen($image) > 255) {
-                    echo "Link da imagem inválido!";
-                    die();
-                }
                 if (strlen($codigovisual) > 50) {
                     echo "Código visual inválido!";
                     die();
@@ -109,7 +113,7 @@
 
                 $gross_profit = $price - $cost;
                 $connection = connect();
-                $insert = $connection->prepare('insert into tbl_produto (nome, descricao, categoria, preco, custo, icms, quantidade_estoque, imagem, codigovisual, margem_lucro) VALUES (:nome, :descricao, :categoria, :preco, :custo, :icms, :estoque, :imagem, :codigovisual, :margem_lucro)');
+                $insert = $connection->prepare("insert into tbl_produto (nome, descricao, categoria, preco, custo, icms, quantidade_estoque, imagem, codigovisual, margem_lucro) VALUES (:nome, :descricao, :categoria, :preco, :custo, :icms, :estoque, :image, :codigovisual, :margem_lucro)");
                 $insert->execute(array(
                     ':nome' => $name,
                     ':descricao' => $description,
@@ -118,10 +122,11 @@
                     ':custo' => $cost,
                     ':icms' => $icms_form,
                     ':estoque' => $stock,
-                    ':imagem' => $image,
+                    ':image' => $_FILES['imagem']['name'],
                     ':codigovisual' => $codigovisual,
                     ':margem_lucro' => $gross_profit - ($gross_profit * ($icms_form / 100))
                 ));
+                move_uploaded_file($_FILES['imagem']['tmp_name'], './imagens/produtos/' . $_FILES['imagem']['name']);
                 header('Location: ./produtos.php');
             }
 

@@ -31,9 +31,9 @@
                   Mascotero
               </div>
             <label for='nome'>Nome do produto</label>
-            <input type='text' id='nome' name='nome' placeholder='Nome do produto' required value=<?php echo $result['nome'] ?>><br>
+            <input type='text' id='nome' name='nome' placeholder='Nome do produto' required value='<?php echo $result['nome'] ?>'><br>
             <label for='descricao'>Descrição do produto</label>
-            <input type='text' id='descricao' name='descricao' placeholder='Descrição do produto' required value=<?php echo $result['descricao'] ?>><br>
+            <input type='text' id='descricao' name='descricao' placeholder='Descrição do produto' required value='<?php echo $result['descricao'] ?>'><br>
             <label for='categoria'>Categoria</label>
             <select name='categoria' id='categoria' required>
                 <?php
@@ -55,9 +55,9 @@
             <label for='estoque'>Quantidade em estoque</label>
             <input type='number' id='estoque' name='estoque' placeholder='Quantidade em estoque' min=0 required value=<?php echo $result['quantidade_estoque'] ?>><br>
             <label for='imagem'>Imagem do produto</label>
-            <input type='text' id='imagem' name='imagem' placeholder='Link da imagem do produto' maxlength=255 required value=<?php echo $result['imagem'] ?>><br>
+            <input type='file' id='imagem' name='imagem' placeholder='Imagem do produto'><br>
             <label for='codigovisual'>Código visual do produto</label>
-            <input type='text' id='codigovisual' name='codigovisual' placeholder='Código visual do produto' required maxlength=50 value=<?php echo $result['codigovisual'] ?>><br>
+            <input type='text' id='codigovisual' name='codigovisual' placeholder='Código visual do produto' required maxlength=50 value='<?php echo $result['codigovisual'] ?>'><br>
             <br><br>
             <input type='submit' value='Alterar'>
             <input type='button' value='Cancelar' onclick='window.history.back()'>
@@ -68,6 +68,7 @@
         </form>
     </body>
     <?php
+        var_dump($_FILES['imagem']);
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $name = $_POST['nome'];
             $description = $_POST['descricao'];
@@ -76,11 +77,11 @@
             $cost = $_POST['custo'];
             $icms = $_POST['icms'];
             $stock = $_POST['estoque'];
-            $image = $_POST['imagem'];
+            isset($_FILES['imagem']) ? $image = $_FILES['imagem'] : '';
             $codigovisual = $_POST['codigovisual'];
-            $update = $connection->prepare("update tbl_produto set nome = '{$name}', descricao = '{$description}', categoria = {$category}, preco = {$price}, custo = {$cost}, icms = {$icms}, quantidade_estoque = {$stock}, imagem = '{$image}', codigovisual = '{$codigovisual}' where id_produto = {$_GET['id']}");
+            $update = $connection->prepare("update tbl_produto set nome = '{$name}', descricao = '{$description}', categoria = {$category}, preco = {$price}, custo = {$cost}, icms = {$icms}, quantidade_estoque = {$stock}, " . (isset($image) ? "imagem = '{$image}', " : '') . "codigovisual = '{$codigovisual}' where id_produto = " . $_GET['id']);
             $update->execute();
-            header('Location: ./produtos.php');
+            // header('Location: ./produtos.php');
         }
     ?>
 </html>
