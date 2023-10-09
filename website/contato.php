@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mascotero</title>
+    <title>Contatos | Mascotero</title>
     <link rel="stylesheet" href="styles_header_footer.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap">
     <link rel="stylesheet" href="styles_paginas.css">

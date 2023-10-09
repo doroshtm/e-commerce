@@ -45,6 +45,7 @@
                         <div id="sobre-mascotero-logo">
                             <img src="./imagens/Emblema_Mascotero.svg" id="foto_logo">
                         </div>
+    <!--                     <img src="/website/imagens/Sobre_Mascotero.svg"> -->
                         <div id="sobre-mascotero-texto">
                             <div id="sobre-mascotero-marca">
                                 <div class="centraliza"><span class="texto-destaque">Nossa marca</span> </div>
