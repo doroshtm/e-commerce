@@ -93,13 +93,13 @@
                 <div id="grid-produtos">
                 <?php
                     if($isAdmin) {
-                        echo "<a class='produto' data-categoria='admin' data-nome='Adicionar produto' href='cadastro_produto.php'>
-                        <div class='produto-imagem'><img src='imagens/produtos/adicionar.png'></div>
-                        <div class='produto-corpo'>
-                            <span class='nome-produto'>Adicionar produto</span>
-                            <span class='tags-produto'>admin</span>
-                            <span class='preco-produto texto-destaque'>++++++++++++++</span>
-                        </div> </a>";
+                        echo "<a id='produto-adicionar' data-categoria='admin' data-nome='Adicionar produto' href='cadastro_produto.php'>
+                        <svg width='24' height='75' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                        <path d='M12 22.5C6.20101 22.5 1.5 17.799 1.5 12C1.5 6.20101 6.20101 1.5 12 1.5C17.799 1.5 22.5 6.20101 22.5 12C22.5 17.799 17.799 22.5 12 22.5ZM12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z' />
+                        <path d='M12 6C12.4142 6 12.75 6.33579 12.75 6.75V11.25H17.25C17.6642 11.25 18 11.5858 18 12C18 12.4142 17.6642 12.75 17.25 12.75H12.75V17.25C12.75 17.6642 12.4142 18 12 18C11.5858 18 11.25 17.6642 11.25 17.25V12.75H6.75C6.33579 12.75 6 12.4142 6 12C6 11.5858 6.33579 11.25 6.75 11.25H11.25V6.75C11.25 6.33579 11.5858 6 12 6Z'/>
+                    </svg>
+                    <span>Adicionar</span>
+                        </a>";
                     }
                     $connection = connect();
                     $select = $connection->prepare('select nome, preco, descricao, categoria, imagem, id_produto from tbl_produto WHERE excluido = false ORDER BY lower(nome)');
