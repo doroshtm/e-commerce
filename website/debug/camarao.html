@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">,
+    <link rel="stylesheet" href="/website/styles_header_footer.css">
+    <link rel="icon" type="image/svg+xml" href="./imagens/MC_Logo_Footer.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&display=swap" rel="stylesheet">
     <style>
 :root {
     /* Cores seguindo a regra do 60% 30% 10%. Podem ser modificadas dependendo do caso*/
@@ -19,201 +26,17 @@
 
 /* Header e Footer */
 
-html {
-    width:100%;
-}
 
-body {
-    color: var(--cor-texto);
-    background: var(--cor-fundo);
-    font-family: 'DM Sans';
-    min-height: 100vh;
-    display:flex;
-    flex-direction:column;
-    margin: 0;
-    padding:0;
-}
-
-#header {
-    display: grid;
-    grid-template-columns: 25% 50% 25%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width:100%;
-    box-sizing: border-box;
-    max-width:100%;
-    height: auto;
-    align-items: center;
-    padding: 25px 0px 25px 64px;
-    background: var(--cor-destaque);
-    border-radius: 0px 0px 10px 10px;
-    user-select: none;
-    z-index: 20;
-}
-.container-logo {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    font-size:28px;
-    font-weight: 700;
-    margin-right:15vw;
-}
-#texto-logo {
-    margin-left:10px;
-}
-#nav-header {
-    display: flex;
-    align-items:center;
-    justify-content: center;
-    margin-right:10vw;
-    
-}
-#nav-header ul {
-    display: flex;
-    flex-direction: row;
-    list-style:none;
-    margin: 0;
-    padding: 0;
-}
-#nav-header a {
-    text-decoration: none;
-    color: var(--cor-texto);
-    font-size:18px;
-    font-weight: 500;
-}
-#nav-header li {
-    margin: 0 1vw;
-}
-#nav-atual {
-    color: var(--cor-interac) !important;
-}
-#nav-header a:not(#nav-atual):hover {
-    color: var(--cor-interac)
-}
-#imagem-logo:hover {
-    animation: rodalogo 1s infinite;
-}
-#imagem-logo img {
-    width:75px;
-    height:75px;
-}
-#container-usuario {
-    display: flex;
-    flex-direction: row;
-}
-#container-usuario img {
-    margin-right: 12px;
-}
-#container-usuario span {
-    font-size:18px;
-    text-decoration:none;
-}
-#nome-usuario {
-    margin-left: 4px;
-    color: var(--cor-interac);
-    margin-right:20px;
-}
-@keyframes rodalogo {
-    from {
-        transform:rotate(0deg);
-    }
-    to {
-        transform:rotate(360deg);
-    }
-}
-
-#footer {
-    width: 100%;
-    max-width:100%;
-    height: 200px;
-    padding-left:64px;
-    box-sizing: border-box;
-    display:flex;
-    flex-direction: row;
-    align-items:center;
-    justify-content:left;
-    background: var(--cor-texto);
-    color:white !important;
-    user-select:none;
-}
-#footer-lado1 {
-    width: 50vw;
-    max-width:50vw;
-}
-#footer-lado1 img {
-    margin-right:10px;
-}
-#footer-lado2 {
-    width: 50vw;
-    padding-right:10vw;
-    text-align: right;
-    font-size: 12px;
-
-    max-width:50vw;
-}
-.texto-destaque {
-    font-weight: 700;
-    color: var(--cor-interac);
-    font-size: 30px;
-}
-
-.content {
-    
-    flex:1;
-    transition: 0.4s;
-}
-
-.container-geral {
-    margin-top:130px;
-    display: flex;
-    flex-direction: column;
-    align-items:center;
-    justify-content: center;
-    width:100%;
-}
     </style>
     <title>Sticky Footer</title>
 </head>
 <body>
-  <header id="header">
-    <div class="container-logo"> 
-        <div id="imagem-logo"><img src="imagens/MC_Logo_Header.svg"> </div>
-        <div id="texto-logo">Mascotero</div>
-    </div>
-    <nav id="nav-header">
-        <ul>
-            <li><a href="./">Home</a></li>
-            <li><a href="sobre.php">Sobre</a></li>
-            <li><a href="produtos.php" id="nav-atual">Produtos</a></li>
-            <li><a href="contato.php">Contato</a></li>
-        </ul>
-    </nav>
-    <div id="container-usuario">
-        <span>Olá, </span>
-        <span id="nome-usuario"> <?php echo "$name - você é " . ($isAdmin ? 'admin' : 'cliente') ?> </span>
-        <img src="imagens/user_icon.svg" alt="Foto do cliente">
-        <img src="imagens/carrinho.svg" alt="Carrinho de compras">
-    </div>
-</header>
-    <div class="content">
-      <div class="container-geral">
-        asdasda
-<!--         <img src="/website/imagens/G. Carraro.jpg">
-        <img src="/website/imagens/G. Carraro.jpg">
-        <img src="/website/imagens/G. Carraro.jpg">
-        <img src="/website/imagens/G. Carraro.jpg">
-        <img src="/website/imagens/G. Carraro.jpg"> -->
-      </div>
-    </div>
-
-    <footer id="footer">
-      <div id="footer-lado1" style="align-items:center;">
-          <div class="container-logo">
-              <img src="imagens/MC_Logo_Footer.svg" width="75px" height="75px" alt= "Logo do footer"> Mascotero        
-           </div>
-      </div>
-      <div id="footer-lado2">Copyright © 2023 Mascotero Ltda | Todos os direitos reservados</div>
-  </footer>
+  <div id="produto-adicionar">
+    <svg width="24" height="75" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 22.5C6.20101 22.5 1.5 17.799 1.5 12C1.5 6.20101 6.20101 1.5 12 1.5C17.799 1.5 22.5 6.20101 22.5 12C22.5 17.799 17.799 22.5 12 22.5ZM12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" />
+        <path d="M12 6C12.4142 6 12.75 6.33579 12.75 6.75V11.25H17.25C17.6642 11.25 18 11.5858 18 12C18 12.4142 17.6642 12.75 17.25 12.75H12.75V17.25C12.75 17.6642 12.4142 18 12 18C11.5858 18 11.25 17.6642 11.25 17.25V12.75H6.75C6.33579 12.75 6 12.4142 6 12C6 11.5858 6.33579 11.25 6.75 11.25H11.25V6.75C11.25 6.33579 11.5858 6 12 6Z"/>
+    </svg>
+    <span>Adicionar</span>
+  </div>
 </body>
 </html>
