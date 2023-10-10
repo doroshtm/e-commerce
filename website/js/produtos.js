@@ -83,6 +83,7 @@
         });
         checkbox_eletro.addEventListener('change', function() {
             filterProducts();
+            console.log("teste")
         });
         search.addEventListener('keyup', function() {
             filterProducts();

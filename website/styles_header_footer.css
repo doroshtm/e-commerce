@@ -558,13 +558,13 @@ a {
         padding-top: 0px;
     }
     to {
-        height: 200px;
+        height: 300px;
         padding-top: 10px;
     }
 }
 @keyframes esconde-dropdown {
     from {
-        height: 200px;
+        height: 300px;
         padding-top: 10px;
     }
     to {
