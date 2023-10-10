@@ -64,7 +64,7 @@
             <?php
                 
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    if (count($_POST) != 8){
+                    if (count($_POST) < 6){
                         echo "Preencha todos os campos!";
                         die();
                     }
@@ -81,7 +81,7 @@
                     }
                     $cpf = $_POST["cpf"];
                     $cpf = preg_replace('/\D+/', '', $cpf);
-                    if (!preg_match("/^(\d{3})(\d{3})(\d{3})(\d{2})$/", $cpf, $matches)) {
+                    if (isset($_POST["cpf"]) && !preg_match("/^(\d{3})(\d{3})(\d{3})(\d{2})$/", $cpf, $matches)) {
                         echo "<div class='mensagem-erro'>CPF inválido!</div>";
                         die();
                     }
@@ -110,17 +110,14 @@
                     $user = ['nome' => $_POST['name'], 'email' => $email, 'senha' => $_POST['password'], 'telefone' => $_POST['phone'], 'cpf' => $_POST['cpf'], 'cep' => $_POST['cep'], 'endereco' => $_POST['address'], 'data_cadastro' => $date];
                     $insert = $connection->prepare('insert into tbl_usuario (id_usuario, nome, email, senha, telefone, cpf, cep, endereco, data_cadastro) values (DEFAULT, :nome, :email, :senha, :telefone, :cpf, :cep, :endereco, :data_cadastro)');
                     $insert->execute($user);
-                    $select = $connection->prepare('SELECT * FROM tbl_usuario WHERE id_usuario = currval(\'tbl_usuario_id_usuario_seq\')');
-                    $select->execute();
-                    $result = $select->fetch(PDO::FETCH_ASSOC);
-                    $_SESSION['id_usuario'] = $result['id_usuario'];
-                    $_SESSION['name'] = $result['nome'];
-                    $_SESSION['email'] = $result['email'];
-                    $_SESSION['password'] = $result['senha'];
-                    $_SESSION['phone'] = $result['telefone'];
-                    $_SESSION['isAdmin'] = $result['admin'];
-                    $_SESSION['cpf'] = $result['cpf'];
-                    $_SESSION['date'] = $result['data_cadastro'];
+                    $_SESSION['id_usuario'] = $connection->lastInsertId();
+                    $_SESSION['name'] = $_POST['name'];
+                    $_SESSION['email'] = $_POST['email'];
+                    $_SESSION['password'] = $_POST['password'];
+                    $_SESSION['phone'] = $_POST['phone'];
+                    $_SESSION['isAdmin'] = false;
+                    $_SESSION['cpf'] = $_POST['cpf'];
+                    $_SESSION['date'] = $date;
                     if ($_POST['lembrar-senha'] == 'on') {
                         setcookie('loginCookie', $sessID, time() + 1209600);
                     }
