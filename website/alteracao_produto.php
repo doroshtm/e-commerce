@@ -91,8 +91,8 @@
     </div>
     </body>
     <?php
-        var_dump($_FILES['imagem']);
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            var_dump($_FILES['imagem']);
             $name = $_POST['nome'];
             $description = $_POST['descricao'];
             $category = $_POST['categoria'];
@@ -104,7 +104,7 @@
             $codigovisual = $_POST['codigovisual'];
             $update = $connection->prepare("update tbl_produto set nome = '{$name}', descricao = '{$description}', categoria = {$category}, preco = {$price}, custo = {$cost}, icms = {$icms}, quantidade_estoque = {$stock}, " . (isset($image) ? "imagem = '{$image}', " : '') . "codigovisual = '{$codigovisual}' where id_produto = " . $_GET['id']);
             $update->execute();
-            // header('Location: ./produtos.php');
+            header('Location: ./produtos.php');
         }
     ?>
 </html>
