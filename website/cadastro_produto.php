@@ -15,11 +15,12 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Montserrat&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&display=swap" rel="stylesheet">
         <title>Cadastro de produtos | Mascotero</title>
     </head>
     <body>
         <div id='pai'>
-        <form name='cadastroProduto' method='post' action='./cadastro_produto.php' id='formlogin'>
+        <form name='cadastroProduto' method='post' action='./cadastro_produto.php' id='formlogin' style="justify-content: flex-start;   ">
             <div id="logo-login">
                 <img src="imagens/Emblema_Mascotero.svg" alt="Logo Mascotero">
                 Mascotero
@@ -35,11 +36,12 @@
             <div class="label-input-login">
                 <label for='categoria'>Categoria</label>
                 <select name='categoria' id='categoria' required>
+            </div>
         <form name='cadastroProduto' method='post' action='./cadastro_produto.php' id='formCadProduto' enctype='multipart/form-data'>
             <label for='nome'>Nome do produto</label>
             <input type='text' id='nome' name='nome' placeholder='Nome do produto' required><br>
             <label for='descricao'>Descrição do produto</label>
-            <input type='text' id='descricao' name='descricao' placeholder='Descrição do produto' required><br>
+            <input type='text' id='descricao' name='descricao' placesholder='Descrição do produto' required><br>
             <label for='categoria'>Categoria</label>
             <select name='categoria' id='categoria' required>
                 <?php
