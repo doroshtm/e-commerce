@@ -20,10 +20,12 @@
     </head>
     <body>
         <header id="header">
-            <div class="container-logo"> 
+        <div class="container-logo"> 
                 <div id="imagem-logo"><img src="imagens/MC_Logo_Header.svg"> </div>
+                <a href="index.php" style="all:unset;">
                 <div id="texto-logo">Mascotero</div>
-            </div>
+            </a> 
+        </div>
             <nav id="nav-header">
                 <ul>
                     <li><a href="./">Home</a></li>
@@ -51,7 +53,7 @@
                             Filtros  <img src="./imagens/Seta-dropdown-baixo.svg"> 
                         </div>
                             <div id="dropdown">
-                                <span class="texto-destaque">Cursos:</span>
+                                <span class="texto-destaque">Curso:</span>
                                 <div class="checkboxes">
                                     <div class="linha-checkbox">
                                         <input type="checkbox" id="cti" name="cti">
@@ -73,13 +75,13 @@
                                 <span class="texto-destaque">Ordenar por:</span>
                                 <div class="checkboxes">
                                     <div class="linha-checkbox">
-                                        <img src="./imagens/seta_baixo.jpg" alt="Seta para baixo para indicar ordem decrescente" id="seta-baixo-nome" width="20px" height="20px">
-                                        <img src="./imagens/seta_cima.jpeg" alt="Seta para cima para indicar ordem crescente" id="seta-cima-nome" width="20px" height="20px">
+                                        <img src="./imagens/sort_down.svg" alt="Seta para baixo para indicar ordem decrescente" id="seta-baixo-nome" width="20px" height="20px">
+                                        <img src="./imagens/sort_up.svg" alt="Seta para cima para indicar ordem crescente" id="seta-cima-nome" width="20px" height="20px">
                                         <label for="ordem_nome">Nome</label>
                                     </div>
                                     <div class="linha-checkbox">
-                                        <img src="./imagens/seta_baixo.jpg" alt="Seta para baixo para indicar ordem decrescente" id="seta-baixo-preco" width="20px" height="20px">
-                                        <img src="./imagens/seta_cima.jpeg" alt="Seta para cima para indicar ordem crescente" id="seta-cima-preco" width="20px" height="20px">
+                                        <img src="./imagens/sort_down.svg" alt="Seta para baixo para indicar ordem decrescente" id="seta-baixo-preco" width="20px" height="20px">
+                                        <img src="./imagens/sort_up.svg" alt="Seta para cima para indicar ordem crescente" id="seta-cima-preco" width="20px" height="20px">
                                         <label for="ordem_preco">Preço</label>
                                     </div>
                                 </div>
@@ -106,21 +108,29 @@
                     $select->execute();
                     $result = $select->fetchAll(PDO::FETCH_ASSOC);
 
-                    foreach($result as $row) {
+                    foreach ($result as $row) {
                         $category = $row['categoria'];
                         $select2 = $connection->prepare('select nome from tbl_categoria where id_categoria = :categoria');
                         $select2->execute(['categoria' => $category]);
                         $category = $select2->fetch();
+                    
                         echo "<div class='produto' data-categoria='". $category['nome'] ."' data-nome='" . $row['nome'] . "' data-preco = '" . $row['preco'] . "'>
-                        <div class='produto-imagem'><img src='imagens/produtos/" . $row['imagem'] . "'></div>
-                        <div class='produto-corpo'>
-                            <span class='nome-produto'>" . $row['nome'] . "</span>
+                            <div class='produto-imagem'><img src='imagens/produtos/" . $row['imagem'] . "'></div>
+                            <div class='produto-corpo'>";
+                    
+                        echo $isAdmin ? "<a href='alteracao_produto.php?id=" . $row['id_produto'] . "'>
+                        <img src='imagens/editar.png' width='20px' height='20px' class='imagem-editar-produto'></a>" : "";
+                    
+                        echo "<span class='nome-produto'>" . $row['nome'] . "</span>
                             <span class='tags-produto'>" . $category['nome'] . "</span>";
-                            echo isset($row['descricao']) ? "<span class='descricao-produto'>" . $row['descricao'] . "</span>" : "";
-                            echo $isAdmin ? "<a href='alteracao_produto.php?id=" . $row['id_produto'] . "'><img src='imagens/editar.png' width='20px' height='20px'></a>" : "";
-                            echo "<span class='preco-produto texto-destaque'>R$ " . number_format($row['preco'], 2, ',', '.') . "</span>
-                        </div> </div>";
+                
+                        echo isset($row['descricao']) ? "<span class='descricao-produto'>" . $row['descricao'] . "</span>" : "";
+                    
+                        echo "<span class='preco-produto texto-destaque'>R$ " . number_format($row['preco'], 2, ',', '.') . "</span>
+                            </div>
+                        </div>";
                     }
+                    
                 ?>
                 </div>
             </div>

@@ -25,8 +25,8 @@
     <div id='container-usuario'>
       <span>Olá, </span>
       <span id='nome-usuario'> $name - você é " . ($isAdmin ? 'admin' : 'cliente') . " </span>" .
-      (isset($_SESSION['id_usuario']) ? "<a href='./usuario.php'><img src='imagens/user_icon.svg' alt='Símbolo de cliente'></a><a href='./logout.php?url=$url'><img src='imagens/logout.svg' alt='Símbolo de logout'></a>" : "<a href='./login.php?url=$url'><img src='imagens/user_icon.svg' alt='Símbolo de cliente'></a>") .
-      "<a href='./carrinho.html'><img src='imagens/carrinho.svg' alt='Carrinho de compras'></a>
+      (isset($_SESSION['id_usuario']) ? "<a href='./usuario.php'><img src='imagens/user_icon.svg' id='simbolo-usuario' alt='Símbolo de cliente'></a><a href='./logout.php?url=$url'><img src='imagens/logout.svg' alt='Símbolo de logout'></a>" : "<a href='./login.php?url=$url'><img src='imagens/user_icon.svg' alt='Símbolo de cliente'></a>") .
+      "<a href='./carrinho.php'><img src='imagens/carrinho.svg' alt='Carrinho de compras' id='simbolo-carrinho'></a>
   </div>";
   }
 ?>

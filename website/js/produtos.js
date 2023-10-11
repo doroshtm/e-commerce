@@ -146,15 +146,20 @@
         const orderPrice2 = document.getElementById('seta-cima-preco');
 
         orderName.addEventListener('click', function() {
+            console.log("Eoasdopsakd");
+            changeColor(orderName);
             orderByName('decreasing');
         });
         orderPrice.addEventListener('click', function() {
+            changeColor(orderPrice);
             orderByPrice('decreasing');
         });
         orderName2.addEventListener('click', function() {
+            changeColor(orderName2);
             orderByName('increasing');
         });
         orderPrice2.addEventListener('click', function() {
+            changeColor(orderPrice2);
             orderByPrice('increasing');
         });
 
@@ -194,6 +199,17 @@
                 productsArray.forEach(function(item) {
                     productsContainer.appendChild(item);
                 });
+            }
+        }
+        function changeColor(seta)
+        {
+            seta.style.filter = 'brightness(0) invert(19%) sepia(95%) saturate(3970%) hue-rotate(244deg) brightness(101%) contrast(106%)';
+            let setas = document.querySelectorAll('.linha-checkbox img')
+            console.log(setas.lenght);
+            for (let i=0; i<setas.length;i++)
+            {
+                 if(setas[i] != seta) 
+                    setas[i].style.filter = 'none';
             }
         }
         function orderByPrice(order) {
