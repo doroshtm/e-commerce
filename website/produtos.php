@@ -108,7 +108,7 @@
                     $select->execute();
                     $result = $select->fetchAll(PDO::FETCH_ASSOC);
 
-                    foreach ($result as $row) {
+                    foreach($result as $row) {
                         $category = $row['categoria'];
                         $select2 = $connection->prepare('select nome from tbl_categoria where id_categoria = :categoria');
                         $select2->execute(['categoria' => $category]);
@@ -129,6 +129,34 @@
                         echo "<span class='preco-produto texto-destaque'>R$ " . number_format($row['preco'], 2, ',', '.') . "</span>
                             </div>
                         </div>";
+                    }
+                    if(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin']) {
+                        $select = $connection->prepare('select nome, preco, descricao, categoria, imagem, id_produto from tbl_produto WHERE excluido = true ORDER BY lower(nome)');
+                        $select->execute();
+                        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+
+                        foreach($result as $row) {
+                            $category = $row['categoria'];
+                            $select2 = $connection->prepare('select nome from tbl_categoria where id_categoria = :categoria');
+                            $select2->execute(['categoria' => $category]);
+                            $category = $select2->fetch();
+                        
+                            echo "<div class='produto_deletado' data-categoria='". $category['nome'] ."' data-nome='" . $row['nome'] . "' data-preco = '" . $row['preco'] . "'>
+                                <div class='produto-imagem'><img src='imagens/produtos/" . $row['imagem'] . "'></div>
+                                <div class='produto-corpo'>";
+                        
+                            echo "<a href='alteracao_produto.php?id=" . $row['id_produto'] . "'>
+                            <img src='imagens/editar.png' width='20px' height='20px' class='imagem-editar-produto'></a>";
+                        
+                            echo "<span class='nome-produto'>" . $row['nome'] . " - DELETADO</span>
+                                <span class='tags-produto'>" . $category['nome'] . "</span>";
+                    
+                            echo isset($row['descricao']) ? "<span class='descricao-produto'>" . $row['descricao'] . "</span>" : "";
+                        
+                            echo "<span class='preco-produto texto-destaque'>R$ " . number_format($row['preco'], 2, ',', '.') . "</span>
+                                </div>
+                            </div>";
+                        }
                     }
                     
                 ?>
