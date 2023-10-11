@@ -15,10 +15,12 @@
     </head>
     <body>    
         <header id="header">
-            <div class="container-logo"> 
+        <div class="container-logo"> 
                 <div id="imagem-logo"><img src="imagens/MC_Logo_Header.svg"> </div>
+                <a href="#" style="all:unset;">
                 <div id="texto-logo">Mascotero</div>
-            </div>
+            </a> 
+        </div>
             <nav id="nav-header">
                 <ul>
                     <li><a href="#" id="nav-atual">Home</a></li>

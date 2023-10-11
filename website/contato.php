@@ -17,8 +17,10 @@
 <body>
     <header id="header">
         <div class="container-logo"> 
-            <div id="imagem-logo"><img src="imagens/MC_Logo_Header.svg"> </div>
-            <div id="texto-logo">Mascotero</div>
+                <div id="imagem-logo"><img src="imagens/MC_Logo_Header.svg"> </div>
+                <a href="index.php" style="all:unset;">
+                <div id="texto-logo">Mascotero</div>
+            </a> 
         </div>
         <nav id="nav-header">
             <ul>

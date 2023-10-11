@@ -20,11 +20,12 @@
     </head>
     <body>
         <div id='pai'>
-        <form name='cadastroProduto' method='post' action='./cadastro_produto.php' id='formLogin' enctype='multipart/form-data'>
+        <form name='cadastroProduto' method='post' action='./cadastro_produto.php' id='formlogin' enctype='multipart/form-data' style="width: 60%;">
             <div id="logo-login">
                 <img src="imagens/Emblema_Mascotero.svg" alt="Logo Mascotero">
                 Mascotero
             </div>
+            <div id="container-grid-login">
             <div class="label-input-login">
                 <label for='nome'>Nome do produto</label>
                 <input type='text' id='nome' name='nome' placeholder='Nome do produto' required><br>
@@ -71,7 +72,8 @@
                 <label for='codigovisual'>Código visual do produto</label>
                 <input type='text' id='codigovisual' name='codigovisual' placeholder='Código visual do produto' required maxlength=50><br>
             </div>
-            <br><br>
+            
+                </div>
             <input type='submit' value='Cadastrar'>
         <?php
             if($_SERVER['REQUEST_METHOD'] == 'POST') {

@@ -13,12 +13,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&display=swap" rel="stylesheet">
         <title>Carrinho | Mascotero</title>
+
+
+        <!-- Adicionado para que o símbolo do carrinho esteja azul quando o usuário está na página -->
+        <style>
+          #simbolo-carrinho {
+             filter: brightness(0) invert(19%) sepia(95%) saturate(3970%) hue-rotate(244deg) brightness(101%) contrast(106%);
+            }
+        </style>
     </head>
     <body>
         <header id="header">
             <div class="container-logo"> 
                 <div id="imagem-logo"><img src="imagens/MC_Logo_Header.svg"> </div>
+                <a href="index.php" style="all:unset;">
                 <div id="texto-logo">Mascotero</div>
+                </a> 
             </div>
             <nav id="nav-header">
                 <ul>
@@ -60,42 +70,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="produto-carrinho">
-                            <div class="conteudo-carrinho">
-                                <div class="texto-carrinho">
-                                    <span class="titulo-carrinho">Chaveiro Mascote Informática #1</span>
-                                    <span class="tags-produto">Informática</span>
-                                    <span class="descricao-produto">Chaveiro do mascote Python do curso de informática</span>
-                                </div>
-                                <div class="imagem-carrinho">
-                                    <img src="./imagens/G. Carraro.jpg">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="produto-carrinho">
-                            <div class="conteudo-carrinho">
-                                <div class="texto-carrinho">
-                                    <span class="titulo-carrinho">Chaveiro Mascote Informática #1</span>
-                                    <span class="tags-produto">Informática</span>
-                                    <span class="descricao-produto">Chaveiro do mascote Python do curso de informática</span>
-                                </div>
-                                <div class="imagem-carrinho">
-                                    <img src="./imagens/G. Carraro.jpg">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="produto-carrinho">
-                            <div class="conteudo-carrinho">
-                                <div class="texto-carrinho">
-                                    <span class="titulo-carrinho">Chaveiro Mascote Informática #1</span>
-                                    <span class="tags-produto">Informática</span>
-                                    <span class="descricao-produto">Chaveiro do mascote Python do curso de informática</span>
-                                </div>
-                                <div class="imagem-carrinho">
-                                    <img src="./imagens/G. Carraro.jpg">
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div id="container-carrinho-lista">
                         <div id="carrinho-lista">
@@ -106,6 +80,16 @@
                             <div id="lista-compras-carrinho">
                                 <span class="nome-produto-carrinho">Chaveiro Mascote Informática #1</span>
                                 <span class="preco-produto-carrinho">R$2,00</span>
+                            </div>
+                            <div class="separador">
+                                <div class="bola-separador"></div>
+                            </div>
+                            <div id="resultado-carrinho">
+                                <span class="nome-produto-carrinho">Total</span>
+                                <span class="preco-produto-carrinho">R$300,00</span>
+                            </div>
+                            <div class="centraliza">
+                                <button id="botao-finalizar">Finalizar compra</button>
                             </div>
                         </div>
                     </div>
