@@ -722,6 +722,26 @@ a {
     border: 1px solid var(--cor-fundo);
     overflow: hidden;
 }
+.produto_deletado {
+    user-select: none;
+    cursor: pointer;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-self:center;
+    align-self:center;
+    width: 450px;
+    height: 333px;
+    box-shadow: 3.4px 6.9px 6.9px hsl(0deg 0% 0% / 0.13);
+    border-radius: 15px;
+    margin-bottom:50px;
+    transition:0.4s;
+    border: 1px solid var(--cor-fundo);
+    overflow: hidden;
+    background-color: red;
+    color: red;
+}
+
 #produto-adicionar {
     backdrop-filter: blur(5px);
     background: rgba(239, 234, 234, 0.4);

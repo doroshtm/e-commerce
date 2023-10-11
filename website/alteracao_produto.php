@@ -83,11 +83,15 @@
                     </div>
             <input type='submit' value='Alterar'>
             <input type='button' value='Cancelar' onclick='window.history.back()'>
-            <form method='post' action='./remocao_produto.php' id='formDelProduto'>
-            <input type='hidden' name='delete' value=<?php echo $_GET['id'] ?>>
-            <input type='submit' value='Excluir'>
+            <?php
+            $action = './remocao_produto.php?action=' . $result['excluido'] ? 'Restaurar' : 'Deletar';
+            ?>
+            <form method='post' id='formDelProduto' action="<?php $action ?>">
+                <input type='hidden' name='delete' value=<?php echo $_GET['id'] ?>>
+                <input type='submit' value=<?php echo $result['excluido'] ? 'Restaurar' : 'Excluir' ?>>
+            </form>
         </form>
-        </form>
+        
     </div>
     </body>
     <?php
