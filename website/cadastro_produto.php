@@ -77,7 +77,6 @@
             <input type='submit' value='Cadastrar'>
             <input type='button' value='Cancelar' onclick='window.history.back()'>
         <?php
-                echo count($_POST);
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (empty($_POST['nome']) || empty($_POST['descricao']) || empty($_POST['categoria']) || empty($_POST['preco']) || empty($_POST['custo']) || empty($_POST['icms']) || empty($_POST['estoque']) || empty($_FILES['imagem']) || empty($_POST['codigovisual'])) {
                     echo "<script>alert('Preencha todos os campos!')</script>";
