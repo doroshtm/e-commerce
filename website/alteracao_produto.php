@@ -6,7 +6,7 @@
     }
     $id = $_GET['id'];
     $connection = connect();
-    $select_product = $connection->prepare('select * from tbl_produto where id_produto = ' . $id);
+    $select_product = $connection->prepare('select nome, descricao, categoria, preco, custo, icms, quantidade_estoque, codigovisual, margem_lucro, excluido from tbl_produto where id_produto = ' . $id);
     $select_product->execute();
     $result = $select_product->fetch(PDO::FETCH_ASSOC);
     if($result == NULL) {
@@ -107,7 +107,7 @@
                             $cost = round($_POST['custo'], 2);
                             $icms_form = $_POST['icms'];
                             $stock = $_POST['estoque'];
-                            isset($_FILES['imagem']) ? $image = $_FILES['imagem'] : '';
+                            !empty($_FILES['imagem']['name']) ? $image = $_FILES['imagem'] : ' ';
                             $codigovisual = $_POST['codigovisual'];
 
                             if ($icms_form >= 100) {

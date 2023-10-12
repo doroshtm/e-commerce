@@ -117,7 +117,7 @@
                         </div>";
                     }
                     if(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin']) {
-                        $select = $connection->prepare('select nome, preco, descricao, categoria, imagem, id_produto from tbl_produto WHERE excluido = true ORDER BY lower(nome)');
+                        $select = $connection->prepare('SELECT nome, preco, descricao, categoria, imagem, id_produto from tbl_produto WHERE excluido = true ORDER BY lower(nome)');
                         $select->execute();
                         $result = $select->fetchAll(PDO::FETCH_ASSOC);
 
