@@ -6,7 +6,7 @@
     }
     $id = $_GET['id'];
     $connection = connect();
-    $select_user = $connection->prepare('select * from tbl_usuario where id_usuario = ' . $id);
+    $select_user = $connection->prepare('select nome, email, admin, telefone, endereco, cep, cpf, data_cadastro from tbl_usuario where id_usuario = ' . $id);
     $select_user->execute();
     $result = $select_user->fetch(PDO::FETCH_ASSOC);
     if($result == NULL) {
@@ -86,7 +86,7 @@
                         $address = $_POST['endereco'];
                         $cep = $_POST['cep'];
                         $cpf = $_POST['cpf'];
-                        $update = $connection->prepare("UPDATE tbl_usuario SET nome = :name, email = :email, admin = :isAdmin, telefone = :phone, endereco = :address, cep = :cep, cpf = :cpf WHERE id_usuario = :id");
+                        $update = $connection->prepare("UPDATE tbl_usuario SET nome = :name, email = :email, admin = :isAdmin, telefone = :phone, endereco = :address, cep = :cep, cpf = :cpf WHERE id_usuario = " . $id);
                         $update->execute(array(
                             ':name' => $name,
                             ':email' => $email,
@@ -94,8 +94,7 @@
                             ':phone' => $phone,
                             ':address' => $address,
                             ':cep' => $cep,
-                            ':cpf' => $cpf,
-                            ':id' => $id
+                            ':cpf' => $cpf
                         ));
                         header('Location: ./usuarios.php');
                     }
