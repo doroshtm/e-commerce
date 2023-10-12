@@ -1296,21 +1296,29 @@ a {
 /* Tabela produtos */
 
 table {
+    table-layout:fixed;
     border-collapse: collapse;
     margin: 50px 0;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     background: var(--cor-destaque);
-    overflow: auto;
+    overflow: scroll;
+    word-break: break-all;
+    position: relative;
   }
 
   th, td {
+    max-width:30vw;
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
+  td {
+    word-break: break-all;
+  }
 
-  th {
+th {
     background-color: #f2f2f2;
+    z-index: 2;
   }
 
   tr:hover {
