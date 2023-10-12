@@ -40,7 +40,9 @@
     $select->execute();
     $result = $select->fetchAll(PDO::FETCH_ASSOC);
     echo "
+    <div style='overflow-x:auto'>
     <table border=1>
+    <thead>
         <tr>
             <th>ID</th>
             <th>Nome</th>
@@ -52,7 +54,8 @@
             <th>CEP</th>
             <th>CPF</th>
             <th>Data do cadastro</th>
-        </tr>";
+        </tr>
+        </thead>";
     foreach($result as $row) {
         $usuarioAdmin = $row['admin'] != null;
         $admin = $usuarioAdmin? "Sim": "Não";
@@ -61,7 +64,7 @@
             <td>" . $row['id_usuario'] . "</td>
             <td>" . $row['nome'] . "</td>
             <td>" . $row['email'] . "</td>
-            <td>" . $admin . "</td>
+            <td style='padding:20px;'>" . $admin . "</td>
             <td>" . $row['senha'] . "</td>
             <td>" . $row['telefone'] . "</td>
             <td>" . $row['endereco'] . "</td>
@@ -70,7 +73,7 @@
             <td>" . $row['data_cadastro'] . "</td>
         </tr>";
     }
-    echo "</table>";
+    echo "</table> </div>";
 ?>
     </div>
 </div>
