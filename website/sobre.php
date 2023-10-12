@@ -17,20 +17,6 @@
     </head>
     <body>
         <header id="header">
-        <div class="container-logo"> 
-                <div id="imagem-logo"><img src="imagens/MC_Logo_Header.svg"> </div>
-                <a href="index.php" style="all:unset;">
-                <div id="texto-logo">Mascotero</div>
-            </a> 
-        </div>
-            <nav id="nav-header">
-                <ul>
-                    <li><a href="./">Home</a></li>
-                    <li><a href="sobre.php" id="nav-atual">Sobre</a></li>
-                    <li><a href="produtos.php">Produtos</a></li>
-                    <li><a href="contato.php">Contato</a></li>
-                </ul>
-            </nav>
             <?php
                 $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : false;
                 header_pag($isAdmin, "sobre.php");

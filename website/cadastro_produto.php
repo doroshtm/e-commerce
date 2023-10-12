@@ -49,35 +49,37 @@
             </select><br>
             </div>
             <div class="label-input-login">
+                <label for='estoque'>Quantidade em estoque</label>
+                <input type='number' id='estoque' name='estoque' placeholder='Quantidade em estoque' min=0 required><br>
+            </div>
+            <div class="label-input-login">
                 <label for='preco'>Preço do produto</label>
                 <input type='number' id='preco' name='preco' placeholder='Preço do produto' max=99.99 min=0 required step=0.01><br>
+            </div>
+            <div class="label-input-login">
+                <label for='codigovisual'>Código visual do produto</label>
+                <input type='text' id='codigovisual' name='codigovisual' placeholder='Código visual do produto' required maxlength=50><br>
             </div>
             <div class="label-input-login">
                 <label for='custo'>Custo do produto</label>
                 <input type='number' id='custo' name='custo' placeholder='Custo do produto' max=99.99 min=0 required step=0.01><br>
             </div>
             <div class="label-input-login">
-                <label for='icms'>ICMS (porcentagem)</label>
-                <input type='number' id='icms' name='icms' max=99.99 required value=<?php echo $icms ?> step=0.01><br>
-            </div>
-            <div class="label-input-login">
-                <label for='estoque'>Quantidade em estoque</label>
-                <input type='number' id='estoque' name='estoque' placeholder='Quantidade em estoque' min=0 required><br>
-            </div>
-            <div class="label-input-login">
                 <label for='imagem'>Imagem do produto</label>
                 <input type='file' id='imagem' name='imagem' placeholder='Link da imagem do produto' maxlength=255 required accept='image/*'><br>
             </div>
             <div class="label-input-login">
-                <label for='codigovisual'>Código visual do produto</label>
-                <input type='text' id='codigovisual' name='codigovisual' placeholder='Código visual do produto' required maxlength=50><br>
+                <label for='icms'>ICMS (porcentagem)</label>
+                <input type='number' id='icms' name='icms' max=99.99 required value=<?php echo $icms ?> step=0.01><br>
             </div>
             
                 </div>
             <input type='submit' value='Cadastrar'>
+            <input type='button' value='Cancelar' onclick='window.history.back()'>
         <?php
+                echo count($_POST);
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
-                if (count($_POST) < 8 || !isset($_FILES['imagem'])) {
+                if (empty($_POST['nome']) || empty($_POST['descricao']) || empty($_POST['categoria']) || empty($_POST['preco']) || empty($_POST['custo']) || empty($_POST['icms']) || empty($_POST['estoque']) || empty($_FILES['imagem']) || empty($_POST['codigovisual'])) {
                     echo "<script>alert('Preencha todos os campos!')</script>";
                     echo "<div class='mensagem-erro'>Preencha todos os campos!</div>";
                     die();

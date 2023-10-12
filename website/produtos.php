@@ -20,20 +20,6 @@
     </head>
     <body>
         <header id="header">
-        <div class="container-logo"> 
-                <div id="imagem-logo"><img src="imagens/MC_Logo_Header.svg"> </div>
-                <a href="index.php" style="all:unset;">
-                <div id="texto-logo">Mascotero</div>
-            </a> 
-        </div>
-            <nav id="nav-header">
-                <ul>
-                    <li><a href="./">Home</a></li>
-                    <li><a href="sobre.php">Sobre</a></li>
-                    <li><a href="produtos.php" id="nav-atual">Produtos</a></li>
-                    <li><a href="contato.php">Contato</a></li>
-                </ul>
-            </nav>
             <?php
                 $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : false;
                 header_pag($isAdmin, "produtos.php");
@@ -141,7 +127,7 @@
                             $select2->execute(['categoria' => $category]);
                             $category = $select2->fetch();
                         
-                            echo "<div class='produto_deletado' data-categoria='". $category['nome'] ."' data-nome='" . $row['nome'] . "' data-preco = '" . $row['preco'] . "'>
+                            echo "<div class='produto deletado' data-categoria='". $category['nome'] ."' data-nome='" . $row['nome'] . "' data-preco = '" . $row['preco'] . "'>
                                 <div class='produto-imagem'><img src='imagens/produtos/" . $row['imagem'] . "'></div>
                                 <div class='produto-corpo'>";
                         

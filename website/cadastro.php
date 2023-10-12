@@ -64,24 +64,28 @@
             <?php
                 
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    if (count($_POST) < 6){
-                        echo "Preencha todos os campos!";
+                    if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['password2']) || empty($_POST['phone']) || empty($_POST['cpf'])) {
+                        echo "<script>alert('Preencha todos os campos!')</script>";
+                        echo "<div class='mensagem-erro'>Preencha todos os campos!</div>";
                         die();
                     }
                     $phone = $_POST["phone"];
                     $phone = preg_replace('/\D+/', '', $phone);
                     if (!preg_match("/^(\d{2})(\d{5})(\d{4})$/", $phone, $matches)) {
+                        echo "<script>alert('Telefone inválido!')</script>";
                         echo "<div class='mensagem-erro'>Telefone inválido!</div>";
                         die();
                     }
                     $email = $_POST['email'];
                     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                        echo "<script>alert('E-mail inválido!')</script>";
                         echo "<div class='mensagem-erro'>E-mail inválido!</div>";
                         die();
                     }
                     $cpf = $_POST["cpf"];
                     $cpf = preg_replace('/\D+/', '', $cpf);
                     if (isset($_POST["cpf"]) && !preg_match("/^(\d{3})(\d{3})(\d{3})(\d{2})$/", $cpf, $matches)) {
+                        echo "<script>alert('CPF inválido!')</script>";
                         echo "<div class='mensagem-erro'>CPF inválido!</div>";
                         die();
                     }
@@ -89,11 +93,13 @@
                         $cep = $_POST["cep"];
                         $cep = preg_replace('/\D+/', '', $cep);
                         if (!preg_match("/^(\d{5})(\d{3})$/", $cep, $matches)) {
+                            echo "<script>alert('CEP inválido!')</script>";
                             echo "<div class='mensagem-erro'>CEP inválido!</div>";
                             die();
                         }
                     }
                     if ($_POST['password'] != $_POST['password2']) {
+                        echo "<script>alert('Senhas não coincidem!')</script>";
                         echo "<div class='mensagem-erro'>Senhas não coincidem!</div>";
                         die();
                     }
@@ -103,6 +109,7 @@
                     $select->execute(['email' => $email]);
                     $result = $select->fetch(PDO::FETCH_ASSOC);
                     if ($result != NULL) {
+                        echo "<script>alert('E-mail já cadastrado!')</script>";
                         echo "<div class='mensagem-erro'>E-mail já cadastrado!</div>";
                         die();
                     }
