@@ -14,7 +14,7 @@
         <meta charset="UTF-8">
         <link rel="icon" type="image/svg+xml" href="./imagens/MC_Logo_Footer.svg">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title><?php echo "" . $action . " | ID " . $id ?> | Mascotero</title>
+        <title><?php echo "" . $action . " produto | ID " . $id ?> | Mascotero</title>
     </head>
     <body>    
         <form method='post' action='./remocao_produto.php' id='formDelProduto'>
