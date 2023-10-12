@@ -75,12 +75,16 @@
                         <input type='number' id='estoque' name='estoque' placeholder='Quantidade em estoque' min=0 required value=<?php echo $result['quantidade_estoque'] ?>><br>
                     </div>
                     <div class="label-input-login">
-                        <label for='imagem'>Imagem do produto</label>
-                        <input type='file' id='imagem' name='imagem' placeholder='Imagem do produto'><br>
+                        <label for='imagem'>Margem de lucro</label>
+                        <input type='number' readonly placeholder='Margem de lucro' value=<?php echo $result['margem_lucro'] ?>><br>
                     </div>
                     <div class="label-input-login">
                         <label for='codigovisual'>Código visual do produto</label>
                         <input type='text' id='codigovisual' name='codigovisual' placeholder='Código visual do produto' required maxlength=50 value='<?php echo $result['codigovisual'] ?>'><br>
+                    </div>
+                    <div class="label-input-login">
+                        <label for='imagem'>Imagem do produto</label>
+                        <input type='file' id='imagem' name='imagem' placeholder='Imagem do produto'><br>
                     </div>
                             </div>
                     <input type='submit' value='Alterar'>
@@ -93,18 +97,20 @@
     </body>
     <?php
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            var_dump($_FILES['imagem']);
-            $name = $_POST['nome'];
-            $description = $_POST['descricao'];
-            $category = $_POST['categoria'];
-            $price = $_POST['preco'];
-            $cost = $_POST['custo'];
-            $icms = $_POST['icms'];
-            $stock = $_POST['estoque'];
             isset($_FILES['imagem']) ? $image = $_FILES['imagem'] : '';
             $codigovisual = $_POST['codigovisual'];
-            $update = $connection->prepare("update tbl_produto set nome = '{$name}', descricao = '{$description}', categoria = {$category}, preco = {$price}, custo = {$cost}, icms = {$icms}, quantidade_estoque = {$stock}, " . (isset($image) ? "imagem = '{$image}', " : '') . "codigovisual = '{$codigovisual}' where id_produto = " . $id);
-            $update->execute();
+            $update = $connection->prepare("update tbl_produto set nome = :name, descricao = :description, categoria = :category, preco = :price, custo = :cost, icms = :icms, quantidade_estoque = :stock, " . (isset($image) ? "imagem = '{$image}', " : '') . "codigovisual = :codigovisual, margem_lucro = :margem_lucro where id_produto = '{$id}'");
+            $update->execute(array(
+                ':name' => $_POST['nome'],
+                ':description' => $_POST['descricao'],
+                ':category' => $_POST['categoria'],
+                ':price' => $_POST['preco'],
+                ':cost' => $_POST['custo'],
+                ':icms' => $_POST['icms'],
+                ':stock' => $_POST['estoque'],
+                ':codigovisual' => $_POST['codigovisual'],
+                ':margem_lucro' => round(($_POST['preco'] - $_POST['custo'])/$_POST['icms'], 2)
+            ));
             header('Location: ./produtos.php');
         }
     ?>
