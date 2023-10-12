@@ -1,7 +1,7 @@
 <?php
     $standardICMS = 10;
     include("util.php");
-    $sessID = startSession();
+    startSession();
     if (!isset($_SESSION['isAdmin']) || !$_SESSION['isAdmin']) {
         header('Location: ./');
     }
@@ -136,18 +136,17 @@
 
                 $gross_profit = $price - $cost;
                 $connection = connect();
-                $insert = $connection->prepare("insert into tbl_produto (nome, descricao, categoria, preco, custo, icms, quantidade_estoque, imagem, codigovisual, margem_lucro) VALUES (:nome, :descricao, :categoria, :preco, :custo, :icms, :estoque, :image, :codigovisual, :margem_lucro)");
+                $insert = $connection->prepare("INSERT INTO tbl_produto (nome, descricao, categoria, preco, custo, icms, quantidade_estoque, imagem, codigovisual, margem_lucro) VALUES (:name, :description, :category, :price, :cost, :icms, :stock, :image, :codigovisual, :profit_margin)");
                 $insert->execute(array(
-                    ':nome' => $name,
-                    ':descricao' => $description,
-                    ':categoria' => $category,
-                    ':preco' => $price,
-                    ':custo' => $cost,
+                    ':name' => $name,
+                    ':description' => $description,
+                    ':category' => $category,
+                    ':price' => $price,
+                    ':cost' => $cost,
                     ':icms' => $icms_form,
-                    ':estoque' => $stock,
-                    ':image' => $image['name'],
-                    ':codigovisual' => $codigovisual,
-                    ':margem_lucro' => round($gross_profit - ($gross_profit * ($icms_form / 100)),2)
+                    ':stock' => $_POST['estoque'],
+                    ':codigovisual' => $_POST['codigovisual'],
+                    ':profit_margin' => round($grossprofit - ($grossprofit * ($_POST['icms'] / 100)), 2)
                 ));
                 move_uploaded_file($_FILES['imagem']['tmp_name'], './imagens/produtos/' . $image['name']);
                 header('Location: ./produtos.php');

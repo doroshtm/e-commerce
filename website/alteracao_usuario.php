@@ -67,8 +67,40 @@
                     </div>
                     <div class="label-input-login">
                         <label for="data_cadastro">Data do cadastro</label>
-                        <input type="date" id="data_cadastro" placeholder="Data do cadastro" readonly value="<?php echo $result['data_cadastro'] ?>"><br>
+                        <?php
+                            $date = new DateTime($result['data_cadastro']);
+                            $date = $date->format('Y-m-d');
+                            echo "<input type='date' id='data_cadastro' placeholder='Data do cadastro' readonly value= '" . $date . "'>";
+                        ?>
                     </div>
+                </div>
+                <input type="submit" value="Alterar">
+                <input type="button" value="Remover" form="formDelUsuario">
+                <input type="button" value="Cancelar" onclick="window.history.back()">
+                <?php
+                    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        $name = $_POST['nome'];
+                        $email = $_POST['email'];
+                        $isAdmin = $_POST['admin'];
+                        $phone = $_POST['telefone'];
+                        $address = $_POST['endereco'];
+                        $cep = $_POST['cep'];
+                        $cpf = $_POST['cpf'];
+                        $update = $connection->prepare("UPDATE tbl_usuario SET nome = :name, email = :email, admin = :isAdmin, telefone = :phone, endereco = :address, cep = :cep, cpf = :cpf WHERE id_usuario = :id");
+                        $update->execute(array(
+                            ':name' => $name,
+                            ':email' => $email,
+                            ':isAdmin' => $isAdmin,
+                            ':phone' => $phone,
+                            ':address' => $address,
+                            ':cep' => $cep,
+                            ':cpf' => $cpf,
+                            ':id' => $id
+                        ));
+                        header('Location: ./usuarios.php');
+                    }
+                ?>
+            </form>
         </div>
     </body>
 </html>

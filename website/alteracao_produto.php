@@ -10,7 +10,7 @@
     $select_product->execute();
     $result = $select_product->fetch(PDO::FETCH_ASSOC);
     if($result == NULL) {
-        echo "Produto nÃ£o encontrado! Redirecionando para a pÃ¡gina de produtos...";
+        echo "Produto não encontrado! Redirecionando para a página de produtos...";
         header('Refresh: 3; url=./produtos.php');
         die();
     }
@@ -152,7 +152,7 @@
                             }
                             $codigovisual = $_POST['codigovisual'];
                             $grossprofit = $_POST['preco'] - $_POST['custo'];
-                            $update = $connection->prepare("update tbl_produto set nome = :name, descricao = :description, categoria = :category, preco = :price, custo = :cost, icms = :icms, quantidade_estoque = :stock, " . (isset($image) ? "imagem = '{$image['name']}', " : '') . "codigovisual = :codigovisual, margem_lucro = :margem_lucro where id_produto = '{$id}'");
+                            $update = $connection->prepare("UPDATE tbl_produto SET nome = :name, descricao = :description, categoria = :category, preco = :price, custo = :cost, icms = :icms, quantidade_estoque = :stock, " . (isset($image) ? "imagem = '{$image['name']}', " : '') . "codigovisual = :codigovisual, margem_lucro = :profit_margin WHERE id_produto = '{$id}'");
                             $update->execute(array(
                                 ':name' => $name,
                                 ':description' => $description,
@@ -162,7 +162,7 @@
                                 ':icms' => $icms_form,
                                 ':stock' => $_POST['estoque'],
                                 ':codigovisual' => $_POST['codigovisual'],
-                                ':margem_lucro' => round($grossprofit - ($grossprofit * ($_POST['icms'] / 100)), 2)
+                                ':profit_margin' => round($grossprofit - ($grossprofit * ($_POST['icms'] / 100)), 2)
                             ));
                             move_uploaded_file($_FILES['imagem']['tmp_name'], './imagens/produtos/' . $image['name']);
                             header('Location: ./produtos.php');
