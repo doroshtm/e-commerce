@@ -1,34 +1,43 @@
 <?php
     include("util.php");
     startSession();
-    // if(!isset($_SESSION['isAdmin']) || !$_SESSION['isAdmin'] || $_SERVER['REQUEST_METHOD'] != 'POST' || !isset($_GET['action'])) {
-    //     header('Location: ./');
-    // }
+    $method = $_SERVER['REQUEST_METHOD'];
+    if($method != 'POST' && (!isset($_SESSION['isAdmin']) || !$_SESSION['isAdmin'] || !isset($_GET['action']) || !isset($_GET['id']))) {
+        header('Location: ./');
+    }
+    $action = $method == 'POST' ? $_POST['action'] : $_GET['action'];
+    $id = $method == 'POST' ? $_POST['id'] : $_GET['id'];
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo "" . $_GET['action'] . " | " . $_POST['delete'] ?> | Mascotero</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/svg+xml" href="./imagens/MC_Logo_Footer.svg">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><?php echo "" . $action . " | ID " . $id ?> | Mascotero</title>
+    </head>
+    <body>    
         <form method='post' action='./remocao_produto.php' id='formDelProduto'>
         <label for='confirm'>VOCÊ TEM CERTEZA?</label>
-            <input type='checkbox' name='confirm' required>
-            <input type='hidden' name='delete' value="<?php echo $_POST['delete'] ?>">
-            <input type='submit' value='Excluir'>
+            <input type='checkbox' name='confirm' required><br><ber
+            <label for='password'>Insira sua senha para confirmar</label>
+            <input type='password' name='password' placeholder='Senha do administrador' required>
+            <input type='hidden' name='id' value="<?php echo $id ?>">
+            <input type='hidden' name='action' value="<?php echo $action ?>">
+            <input type='submit' value=<?php echo $action ?>>
             <input type='button' value='Cancelar' onclick='window.history.back()'>
         </form>
     </body>
 </html>
 <?php
-    if(!isset($_POST['confirm']) || !$_POST['confirm']) {
+    if($method != 'POST' || !isset($_POST['confirm']) || !$_POST['confirm'] || !isset($_POST['password'])) {
+        die();
+    } else if($_POST['password'] != $_SESSION['password']) {
+        echo "Senha incorreta!";
         die();
     }
-    if()
     $connection = connect();
-    $delete_product = $connection->prepare('update tbl_produto set excluido = true where id_produto = ' . $_POST['delete']);
+    $delete_product = $connection->prepare('update tbl_produto set excluido = ' . ($action == 'Deletar' ? 'true' : 'false') . ' where id_produto = ' . $id);
     $delete_product->execute();
     header('Location: ./produtos.php');
 ?>
