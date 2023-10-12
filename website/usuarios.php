@@ -54,6 +54,7 @@
             <th>CEP</th>
             <th>CPF</th>
             <th>Data do cadastro</th>
+            <th>Ações</th>
         </tr>
         </thead>";
     foreach($result as $row) {
@@ -71,6 +72,10 @@
             <td>" . $row['cep'] . "</td>
             <td>" . $row['cpf'] . "</td>
             <td>" . $row['data_cadastro'] . "</td>
+            <td>
+                <a href='./alteracao_usuario.php?id=" . $row['id_usuario'] . "'><img src='./imagens/editar.png' alt='Editar' width='24px' height='24px'></a>
+                <a href='./remocao_usuario.php?id=" . $row['id_usuario'] . "'><img src='./imagens/remover.jpg' alt='Excluir' width='24px' height='24px'></a>
+            </td>
         </tr>";
     }
     echo "</table> </div>";
