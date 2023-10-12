@@ -123,8 +123,8 @@
 
                         foreach($result as $row) {
                             $category = $row['categoria'];
-                            $select2 = $connection->prepare('select nome from tbl_categoria where id_categoria = :categoria');
-                            $select2->execute(['categoria' => $category]);
+                            $select2 = $connection->prepare('select nome from tbl_categoria where id_categoria = :category');
+                            $select2->execute(['category' => $category]);
                             $category = $select2->fetch();
                         
                             echo "<div class='produto deletado' data-categoria='". $category['nome'] ."' data-nome='" . $row['nome'] . "' data-preco = '" . $row['preco'] . "'>

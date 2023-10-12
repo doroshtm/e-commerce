@@ -35,8 +35,8 @@
               </div>
               <input type="submit" value="Entrar">
               <div id="container-lembrar-senha">
-                    <input type="checkbox" name="lembrar-senha" id="lembrar-senha">
-                    <label for="lembrar-senha">Mantenha-me conectado</label>
+                    <input type="checkbox" name="rememberme" id="lembrar-senha">
+                    <label for="rememberme">Mantenha-me conectado</label>
               </div>
               <a href="cadastro.php?url=<?php echo isset($_GET['url']) ? $_GET['url'] : 'index.php'; ?>">Não tem conta? Cadastre-se</a>
               <a href="esqueci.php">Esqueceu a senha?</a>
@@ -46,7 +46,7 @@
       $email = $_POST['email'];
       $password = $_POST['password'];
       $connection = connect();
-      $select = $connection->prepare("select * from tbl_usuario where email = :email and senha = :password");
+      $select = $connection->prepare("SELECT * FROM tbl_usuario WHERE email = :email AND senha = :password");
       $select->execute(['email' => $email, 'password' => $password]);
       $result = $select->fetch(PDO::FETCH_ASSOC);
       if ($result == NULL) {
@@ -63,7 +63,7 @@
       $_SESSION['cpf'] = $result['cpf'];
       $_SESSION['date'] = $result['data_cadastro'];
 
-      if ($_POST['lembrar-senha'] == 'on') {
+      if ($_POST['rememberme'] == 'on') {
         setcookie('loginCookie', $sessID, time() + 1209600);
       }
       setcookie('email', $email, time() + 1209600);

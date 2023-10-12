@@ -37,7 +37,7 @@
         die();
     }
     $connection = connect();
-    $delete_product = $connection->prepare('update tbl_produto set excluido = ' . ($action == 'Deletar' ? 'true' : 'false') . ' where id_produto = ' . $id);
+    $delete_product = $connection->prepare('UPDATE tbl_produto SET excluido = ' . ($action == 'Deletar' ? 'true' : 'false') . ' WHERE id_produto = ' . $id);
     $delete_product->execute();
     header('Location: ./produtos.php');
 ?>

@@ -56,8 +56,8 @@
                     onkeyup="formatCEP(this, event)">
                 </div>
                 <div id="container-lembrar-senha">
-                    <input type="checkbox" name="lembrar-senha" id="lembrar-senha">
-                    <label for="lembrar-senha">Mantenha-me conectado</label>
+                    <input type="checkbox" name="rememberme" id="lembrar-senha">
+                    <label for="rememberme">Mantenha-me conectado</label>
                 </div>
                 <input type="submit" value="Cadastre-se">
                 <a href="login.php">Já tem conta? Conecte-se</a>
@@ -114,9 +114,17 @@
                         die();
                     }
 
-                    $user = ['nome' => $_POST['name'], 'email' => $email, 'senha' => $_POST['password'], 'telefone' => $_POST['phone'], 'cpf' => $_POST['cpf'], 'cep' => $_POST['cep'], 'endereco' => $_POST['address'], 'data_cadastro' => $date];
-                    $insert = $connection->prepare("insert into tbl_usuario (id_usuario, nome, email, senha, telefone, cpf, cep, endereco, data_cadastro) values (DEFAULT, :nome, :email, :senha, :telefone, :cpf, :cep, :endereco, :data_cadastro)");
-                    $insert->execute($user);
+                    $insert = $connection->prepare("INSERT INTO tbl_usuario (nome, email, senha, telefone, cpf, cep, endereco, data_cadastro) VALUES (:name, :email, :password, :telephone, :cpf, :cep, :address, :signup_date)");
+                    $insert->execute(array(
+                        ':name' => $_POST['name'],
+                        ':email' => $email,
+                        ':password' => $_POST['password'],
+                        ':telephone' => $phone,
+                        ':cpf' => $cpf,
+                        ':cep' => $_POST['cep'],
+                        ':endereco' => $_POST['address'],
+                        ':signup_date' => $date
+                    ));
                     $_SESSION['id_usuario'] = $connection->lastInsertId();
                     $_SESSION['name'] = $_POST['name'];
                     $_SESSION['email'] = $_POST['email'];
@@ -125,7 +133,7 @@
                     $_SESSION['isAdmin'] = false;
                     $_SESSION['cpf'] = $_POST['cpf'];
                     $_SESSION['date'] = $date;
-                    if ($_POST['lembrar-senha'] == 'on') {
+                    if ($_POST['rememberme'] == 'on') {
                         setcookie('loginCookie', $sessID, time() + 1209600);
                     }
                     setcookie('email', $email, time() + 1209600);
