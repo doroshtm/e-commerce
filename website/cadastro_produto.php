@@ -147,7 +147,7 @@
                     ':estoque' => $stock,
                     ':image' => $_FILES['imagem']['name'],
                     ':codigovisual' => $codigovisual,
-                    ':margem_lucro' => $gross_profit - ($gross_profit * ($icms_form / 100))
+                    ':margem_lucro' => round($gross_profit - ($gross_profit * ($icms_form / 100)),2)
                 ));
                 move_uploaded_file($_FILES['imagem']['tmp_name'], './imagens/produtos/' . $_FILES['imagem']['name']);
                 header('Location: ./produtos.php');

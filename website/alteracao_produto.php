@@ -59,28 +59,28 @@
                     </select><br>
                     </div>
                     <div class="label-input-login">
+                        <label for='estoque'>Quantidade em estoque</label>
+                        <input type='number' id='estoque' name='estoque' placeholder='Quantidade em estoque' min=0 required value=<?php echo $result['quantidade_estoque'] ?>><br>
+                    </div>
+                    <div class="label-input-login">
                         <label for='preco'>Preço do produto</label>
                         <input type='number' id='preco' name='preco' placeholder='Preço do produto' max=99.99 min=0 required value=<?php echo $result['preco'] ?> step=0.01><br>
+                    </div>
+                    <div class="label-input-login">
+                        <label for='codigovisual'>Código visual do produto</label>
+                        <input type='text' id='codigovisual' name='codigovisual' placeholder='Código visual do produto' required maxlength=50 value='<?php echo $result['codigovisual'] ?>'><br>
                     </div>
                     <div class="label-input-login">
                         <label for='custo'>Custo do produto</label>
                         <input type='number' id='custo' name='custo' placeholder='Custo do produto' max=99.99 min=0 required value=<?php echo $result['custo'] ?> step=0.01><br>
                     </div>
                     <div class="label-input-login">
-                        <label for='icms'>ICMS (porcentagem)</label>
-                        <input type='number' id='icms' name='icms' max=99.99 required value=<?php echo $result['icms'] ?> step=0.01><br>
-                    </div>
-                    <div class="label-input-login">
-                        <label for='estoque'>Quantidade em estoque</label>
-                        <input type='number' id='estoque' name='estoque' placeholder='Quantidade em estoque' min=0 required value=<?php echo $result['quantidade_estoque'] ?>><br>
-                    </div>
-                    <div class="label-input-login">
                         <label for='imagem'>Margem de lucro</label>
                         <input type='number' readonly placeholder='Margem de lucro' value=<?php echo $result['margem_lucro'] ?>><br>
                     </div>
                     <div class="label-input-login">
-                        <label for='codigovisual'>Código visual do produto</label>
-                        <input type='text' id='codigovisual' name='codigovisual' placeholder='Código visual do produto' required maxlength=50 value='<?php echo $result['codigovisual'] ?>'><br>
+                        <label for='icms'>ICMS (porcentagem)</label>
+                        <input type='number' id='icms' name='icms' max=99.99 required value=<?php echo $result['icms'] ?> step=0.01><br>
                     </div>
                     <div class="label-input-login">
                         <label for='imagem'>Imagem do produto</label>
@@ -99,6 +99,7 @@
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             isset($_FILES['imagem']) ? $image = $_FILES['imagem'] : '';
             $codigovisual = $_POST['codigovisual'];
+            $grossprofit = $_POST['preco'] - $_POST['custo'];
             $update = $connection->prepare("update tbl_produto set nome = :name, descricao = :description, categoria = :category, preco = :price, custo = :cost, icms = :icms, quantidade_estoque = :stock, " . (isset($image) ? "imagem = '{$image}', " : '') . "codigovisual = :codigovisual, margem_lucro = :margem_lucro where id_produto = '{$id}'");
             $update->execute(array(
                 ':name' => $_POST['nome'],
@@ -109,7 +110,7 @@
                 ':icms' => $_POST['icms'],
                 ':stock' => $_POST['estoque'],
                 ':codigovisual' => $_POST['codigovisual'],
-                ':margem_lucro' => round(($_POST['preco'] - $_POST['custo'])/$_POST['icms'], 2)
+                ':margem_lucro' => round($grossprofit - ($grossprofit * ($_POST['icms'] / 100)), 2)
             ));
             header('Location: ./produtos.php');
         }
