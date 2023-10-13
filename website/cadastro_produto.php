@@ -134,7 +134,7 @@
                     die();
                 }
 
-                $gross_profit = $price - $cost;
+                $grossprofit = $price - $cost;
                 $connection = connect();
                 $insert = $connection->prepare("INSERT INTO tbl_produto (nome, descricao, categoria, preco, custo, icms, quantidade_estoque, imagem, codigovisual, margem_lucro) VALUES (:name, :description, :category, :price, :cost, :icms, :stock, :image, :codigovisual, :profit_margin)");
                 $insert->execute(array(
