@@ -60,6 +60,8 @@
     foreach($result as $row) {
         $usuarioAdmin = $row['admin'] != null;
         $admin = $usuarioAdmin? "Sim": "Não";
+        $date = new DateTime($row['data_cadastro']);
+        $row['data_cadastro'] = $date->format('d/m/Y');
         echo "
         <tr>
             <td>" . $row['id_usuario'] . "</td>
