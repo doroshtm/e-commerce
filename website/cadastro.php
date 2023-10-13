@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="js/cadastro.js?v=0.21"></script>
+        <script src="js/validaSenha.js"></script>
         <title>Cadastro | Mascotero</title>
     </head>
     <body>
@@ -39,7 +40,7 @@
                 </div>
                 <div class="label-input-login">
                     <label for="password">Confirme a senha</label>
-                    <input type="password" name="password2" id="password" maxlength="255" placeholder="Sua senha aqui..." required>
+                    <input type="password" name="password2" id="password2" maxlength="255" placeholder="Sua senha aqui..." required>
                 </div>
                 <div class="label-input-login">
                     <label for="cpf">CPF</label>
@@ -59,7 +60,7 @@
                     <input type="checkbox" name="rememberme" id="lembrar-senha">
                     <label for="rememberme">Mantenha-me conectado</label>
                 </div>
-                <input type="submit" value="Cadastre-se">
+                <input type="button" value="Cadastre-se" onclick="validatePassword()">
                 <a href="login.php">Já tem conta? Conecte-se</a>
             <?php
                 
@@ -122,7 +123,7 @@
                         ':telephone' => $phone,
                         ':cpf' => $cpf,
                         ':cep' => $_POST['cep'],
-                        ':endereco' => $_POST['address'],
+                        ':address' => $_POST['address'],
                         ':signup_date' => $date
                     ));
                     $_SESSION['id_usuario'] = $connection->lastInsertId();
