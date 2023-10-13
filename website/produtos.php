@@ -96,7 +96,7 @@
 
                     foreach($result as $row) {
                         $category = $row['categoria'];
-                        $select2 = $connection->prepare('SELECT nome from tbl_categoria where id_categoria = :categoria');
+                        $select2 = $connection->prepare('SELECT nome FROM tbl_categoria WHERE id_categoria = :categoria');
                         $select2->execute(['categoria' => $category]);
                         $category = $select2->fetch();
                     
@@ -117,13 +117,13 @@
                         </div>";
                     }
                     if(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin']) {
-                        $select = $connection->prepare('SELECT nome, preco, descricao, categoria, imagem, id_produto from tbl_produto WHERE excluido = true ORDER BY lower(nome)');
+                        $select = $connection->prepare('SELECT nome, preco, descricao, categoria, imagem, id_produto FROM tbl_produto WHERE excluido = true ORDER BY lower(nome)');
                         $select->execute();
                         $result = $select->fetchAll(PDO::FETCH_ASSOC);
 
                         foreach($result as $row) {
                             $category = $row['categoria'];
-                            $select2 = $connection->prepare('SELECT nome from tbl_categoria where id_categoria = :category');
+                            $select2 = $connection->prepare('SELECT nome FROM tbl_categoria WHERE id_categoria = :category');
                             $select2->execute(['category' => $category]);
                             $category = $select2->fetch();
                         
