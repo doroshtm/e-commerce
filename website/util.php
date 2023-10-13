@@ -13,6 +13,7 @@
   }
 
   function startSession() {
+    ini_set('session.gc_maxlifetime', 1209600);
     if (isset($_COOKIE['loginCookie'])) {
         session_id($_COOKIE['loginCookie']);
     }
