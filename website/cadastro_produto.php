@@ -146,7 +146,8 @@
                     ':icms' => $icms_form,
                     ':stock' => $_POST['estoque'],
                     ':codigovisual' => $_POST['codigovisual'],
-                    ':profit_margin' => round($grossprofit - ($grossprofit * ($_POST['icms'] / 100)), 2)
+                    ':profit_margin' => round($grossprofit - ($grossprofit * ($_POST['icms'] / 100)), 2),
+                    ':image' => $image['name']
                 ));
                 move_uploaded_file($_FILES['imagem']['tmp_name'], './imagens/produtos/' . $image['name']);
                 header('Location: ./produtos.php');
