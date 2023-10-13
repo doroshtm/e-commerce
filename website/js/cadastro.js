@@ -25,3 +25,13 @@ function formatCEP(obj, e) {
         obj.value += (char[i] || '') + numbers[i];
     }
 }
+function validatePassword() {
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('password2').value;
+
+    if (password != confirmPassword) {
+        alert('Senhas não coincidem!');
+    } else {
+        document.getElementById('formlogin').submit();
+    }
+}
