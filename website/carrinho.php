@@ -102,7 +102,7 @@
         }
         $location = "location: $url" . ($url == "produtos.php" ? "?message='Produto adicionado ao carrinho!'" : "");
         header($location);
-    } else if(isset($_SESSION['user']['id']) && empty($_SESSION['cart'])) {
+    } else if(isset($_SESSION['user']['id']) && (sizeof($_SESSION['cart'])-1 == 0)) {
         $select = $connection->prepare("SELECT id_compra FROM tbl_compra WHERE usuario = :id AND status = 'PENDENTE'");
         $select->execute(['id' => $_SESSION['user']['id']]);
         $result = $select->fetch(PDO::FETCH_ASSOC);

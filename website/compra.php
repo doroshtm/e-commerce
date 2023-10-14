@@ -47,7 +47,7 @@
         foreach ($result3 as $row) {
             if (!array_key_exists($row["produto"], $_SESSION["cart"])) {
                 $delete = $connection->prepare("DELETE FROM tbl_compra_produto WHERE compra = :id_compra AND produto = :produto");
-                $delete->execute(['id_compra' => $row["id_compra"], 'produto' => $row["produto"]]);
+                $delete->execute(['id_compra' => $result2["id_compra"], 'produto' => $row["produto"]]);
             }
         }
         if ($result != NULL) {
