@@ -1000,7 +1000,7 @@ a {
 
   
 
-#formlogin input[type='submit'], #botao-finalizar, #formlogin input[type="button"]{
+#formlogin input[type='submit'], .botao-finalizar, #formlogin input[type="button"]{
     transition: 0.4s;
     cursor:pointer;
     background: var(--cor-interac);
@@ -1012,7 +1012,7 @@ a {
     font-weight:600;
     border:none;
 }
-#formlogin input[type='submit']:hover, #botao-finalizar:hover, #formlogin input[type="button"]:hover {
+#formlogin input[type='submit']:hover, .botao-finalizar:hover, #formlogin input[type="button"]:hover {
     background: #4034C7;
 }
 #formlogin input[type=checkbox] {
@@ -1196,7 +1196,7 @@ a {
     align-self:center;
     margin-right:40px;
 }
-#botao-finalizar {
+.botao-finalizar {
     padding: 8px;
     margin-top: 25px;
 }

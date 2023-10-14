@@ -134,6 +134,8 @@
                     $_SESSION['user']['isAdmin'] = false;
                     $_SESSION['user']['cpf'] = $_POST['cpf'];
                     $_SESSION['user']['date'] = $date;
+                    !empty($_POST['cep']) ? $_SESSION['user']['cep'] = $_POST['cep'] : '';
+                    !empty($_POST['address']) ? $_SESSION['user']['address'] = $_POST['address'] : '';
                     if ($_POST['rememberme'] == 'on') {
                         setcookie('loginCookie', $sessID, time() + 1209600);
                     }

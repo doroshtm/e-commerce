@@ -46,7 +46,7 @@
       $email = $_POST['email'];
       $password = $_POST['password'];
       $connection = connect();
-      $select = $connection->prepare("SELECT id_usuario, nome, email, senha, telefone, admin, cpf, data_cadastro FROM tbl_usuario WHERE email = :email AND senha = :password");
+      $select = $connection->prepare("SELECT id_usuario, nome, email, senha, telefone, admin, cpf, data_cadastro, cep, endereco FROM tbl_usuario WHERE email = :email AND senha = :password");
       $select->execute(['email' => $email, 'password' => $password]);
       $result = $select->fetch(PDO::FETCH_ASSOC);
       if ($result == NULL) {
@@ -62,6 +62,8 @@
       $_SESSION['user']['isAdmin'] = $result['admin'];
       $_SESSION['user']['cpf'] = $result['cpf'];
       $_SESSION['user']['date'] = $result['data_cadastro'];
+      !empty($result['cep']) ? $_SESSION['user']['cep'] = $result['cep'] : '';
+      !empty($result['endereco']) ? $_SESSION['user']['address'] = $result['endereco'] : '';
 
       if ($_POST['rememberme'] == 'on') {
         setcookie('loginCookie', $sessID, time() + 1209600);

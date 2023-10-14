@@ -1,9 +1,8 @@
 <?php
     include("util.php");
     startSession();
-    isset($_GET['error']) ? $error = $_GET['error'] : '';
-    if(isset($error)) {
-        echo "<script>alert($error)</script>";
+    if(isset($_GET['message'])) {
+        echo "<script>alert(" . $_GET['message'] . ")</script>";
         header("refresh: 0; url=./produtos.php");
     }
 ?>
@@ -101,8 +100,8 @@
 
                     foreach($result as $row) {
                         $category = $row['categoria'];
-                        $select2 = $connection->prepare('SELECT nome FROM tbl_categoria WHERE id_categoria = :categoria');
-                        $select2->execute(['categoria' => $category]);
+                        $select2 = $connection->prepare('SELECT nome FROM tbl_categoria WHERE id_categoria = :category');
+                        $select2->execute(['category' => $category]);
                         $category = $select2->fetch();
                         $category = $category['nome'];
                         $id = $row['id_produto'];
@@ -112,7 +111,7 @@
                         isset($row['descricao']) ? $description = $row['descricao'] : $description = '';
                         
                     
-                        echo "<div class='produto' data-categoria'$category' data-nome='$name' data-preco = '$price'>
+                        echo "<div class='produto' data-categoria='$category' data-nome='$name' data-preco = '$price'>
                             <div class='produto-imagem'><img src='imagens/produtos/$image'></div>
                             <div class='produto-corpo'>";
                     
@@ -157,7 +156,7 @@
                             echo "<span class='nome-produto'>$name - DELETADO</span>
                                 <span class='tags-produto'>$category</span>";
                     
-                            echo isset($description) ? "<span class='descricao-produto'> $description </span>" : "";
+                            echo isset($description) ? "<span class='descricao-produto'>$description</span>" : "";
                         
                             echo "<span class='preco-produto texto-destaque'>R$$price</span>
                                 </div>

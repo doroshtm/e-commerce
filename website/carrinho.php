@@ -5,9 +5,8 @@
     $connection = connect();
     isset($_GET['id']) ? $id = $_GET['id'] : "";
     $url = isset($_GET['url']) ? $_GET['url'] : "carrinho.php";
-    isset($_GET['error']) ? $error = $_GET['error'] : "";
-    if(isset($error)) {
-        echo "<script>alert($error);</script>";
+    if(isset($_GET['message'])) {
+        echo "<script>alert(" . $_GET['message'] . ");</script>";
         header("refresh: 0; url=$url");
     }
     if(isset($id)) {
@@ -15,32 +14,34 @@
         $select->execute();
         $row = $select->fetch(PDO::FETCH_ASSOC);
         if ($row == NULL) {
-            header("location: $url?error='Produto não encontrado!'");
+            header("location: $url?message='Produto não encontrado!'");
             die();
         }
     }
     if (isset($_GET['action'])) {
         $action = $_GET['action'];
-        if (isset($_GET['id']) && isset($_GET['amount'])) {
-            isset($_SESSION['cart'][$_GET['id']]) ? $amountCart = $_SESSION['cart'][$_GET['id']] : "";
-            $amount = $_GET['amount'];
-            $id = $_GET['id'];
-            $stock = $row['quantidade_estoque'];
-            if ($action == 'add') {
-                if (isset($amountCart)) {
-                    if ($amountCart + $amount > $stock) {
-                        header("location: $url?error='Não há estoque suficiente para essa quantidade!'");
-                        die();
+        if (isset($_GET['id'])) {
+            if(isset($_GET['amount'])) {
+                isset($_SESSION['cart'][$_GET['id']]) ? $amountCart = $_SESSION['cart'][$_GET['id']] : "";
+                $amount = $_GET['amount'];
+                $id = $_GET['id'];
+                $stock = $row['quantidade_estoque'];
+                if ($action == 'add') {
+                    if (isset($amountCart)) {
+                        if ($amountCart + $amount > $stock) {
+                            header("location: $url?message='Não há estoque suficiente para essa quantidade!'");
+                            die();
+                        }
+                        $_SESSION['cart'][$id] += $amount;
+                    } else {
+                        $_SESSION['cart'][$id] = $amount;
                     }
-                    $_SESSION['cart'][$id] += $amount;
-                } else {
-                    $_SESSION['cart'][$id] = $amount;
-                }
-            } else if ($action == 'remove') {
-                if (isset($amountCart)) {
-                    $_SESSION['cart'][$id] -= $amount;
-                    if ($_SESSION['cart'][$id] <= 0) {
-                        unset($_SESSION['cart'][$id]);
+                } else if ($action == 'remove') {
+                    if (isset($amountCart)) {
+                        $_SESSION['cart'][$id] -= $amount;
+                        if ($_SESSION['cart'][$id] <= 0) {
+                            unset($_SESSION['cart'][$id]);
+                        }
                     }
                 }
             } else if ($action == 'delete') {
@@ -87,7 +88,20 @@
             }
         } else if ($action == 'clear') {
             unset($_SESSION['cart']);
+            if (isset($_SESSION['user']['id'])) {
+                $select = $connection->prepare("SELECT id_compra FROM tbl_compra WHERE usuario = :id AND status = 'PENDENTE'");
+                $select->execute(['id' => $_SESSION['user']['id']]);
+                $result = $select->fetch(PDO::FETCH_ASSOC);
+                if ($result != NULL) {
+                    $delete = $connection->prepare("DELETE FROM tbl_compra_produto WHERE compra = :id");
+                    $delete->execute(['id' => $result['id_compra']]);
+                    $delete = $connection->prepare("DELETE FROM tbl_compra WHERE id_compra = :id");
+                    $delete->execute(['id' => $result['id_compra']]);
+                }
+            }
         }
+        $location = "location: $url" . ($url == "produtos.php" ? "?message='Produto adicionado ao carrinho!'" : "");
+        header($location);
     } else if(isset($_SESSION['user']['id']) && empty($_SESSION['cart'])) {
         $select = $connection->prepare("SELECT id_compra FROM tbl_compra WHERE usuario = :id AND status = 'PENDENTE'");
         $select->execute(['id' => $_SESSION['user']['id']]);
@@ -139,6 +153,9 @@
                     <div id="container-carrinho-produtos">
                         <?php
                         foreach($_SESSION['cart'] as $id => $amount) {
+                            if ($id == 'totalprice') {
+                                continue;
+                            }
                             $select = $connection->prepare("SELECT id_produto, nome, preco, descricao, categoria, imagem, quantidade_estoque FROM tbl_produto WHERE id_produto = $id AND excluido = false");
                             $select->execute();
                             $row = $select->fetch(PDO::FETCH_ASSOC);
@@ -175,6 +192,9 @@
                                     <div class='imagem-carrinho'>
                                         <img src='./imagens/produtos/$image'>
                                     </div>
+                                    <div class='container-remover'>
+                                        <a href='carrinho.php?id=$id&action=delete&url=carrinho.php'><img src='./imagens/remover.jpg' class='remover' width='30px' height='30px' alt='Remover produto'></a>
+                                    </div>
                                 </div>
                             </div>
                             ";
@@ -188,18 +208,41 @@
                                 <div class="bola-separador"></div>
                             </div>
                             <div id="lista-compras-carrinho">
-                                <span class="nome-produto-carrinho">Chaveiro Mascote Informática #1</span>
-                                <span class="preco-produto-carrinho">R$2,00</span>
+                                <!-- <span class="nome-produto-carrinho">Chaveiro Mascote Informática #1</span>
+                                <span class="preco-produto-carrinho">R$2,00</span> -->
+                                <?php
+                                    $totalprice = 0;
+                                    foreach($_SESSION['cart'] as $id => $amount) {
+                                        if ($id == 'totalprice') {
+                                            continue;
+                                        }
+                                        $select = $connection->prepare("SELECT id_produto, nome, preco, descricao, categoria, imagem, quantidade_estoque FROM tbl_produto WHERE id_produto = $id AND excluido = false");
+                                        $select->execute();
+                                        $row = $select->fetch(PDO::FETCH_ASSOC);
+                                        $price = $row['preco'];
+                                        $totalprice += $price * $amount;
+                                        $name = $row['nome'];
+                                        $price = number_format(($row['preco'] * $amount), 2, ',', '.');
+                                        echo "
+                                        <span class='nome-produto-carrinho'>$name x$amount</span>
+                                        <span class='preco-produto-carrinho'>R$$price</span>
+                                        ";
+                                    }
+                                    $_SESSION['cart']['totalprice'] = $totalprice;
+                                ?>
                             </div>
                             <div class="separador">
                                 <div class="bola-separador"></div>
                             </div>
                             <div id="resultado-carrinho">
                                 <span class="nome-produto-carrinho">Total</span>
-                                <span class="preco-produto-carrinho">R$300,00</span>
+                                <span class="preco-produto-carrinho">R$<?php echo number_format($totalprice, 2, ',', '.') ?></span>
                             </div>
                             <div class="centraliza">
-                                <button id="botao-finalizar">Finalizar compra</button>
+                                <a href="compra.php" id="finalizar-compra"><button class="botao-finalizar">Finalizar compra</button></a>
+                            </div>
+                            <div class="centraliza">
+                                <a href="carrinho.php?action=clear&url=carrinho.php" id="limpar-carrinho"><button class="botao-finalizar">Limpar carrinho</button></a>
                             </div>
                         </div>
                     </div>
