@@ -36,11 +36,11 @@
         $result = $select->fetch(PDO::FETCH_ASSOC);
         // Se o usuário tiver uma compra pendente, pega os produtos dessa compra
         if ($result != NULL) {
-          $select = $connection->prepare("SELECT id_produto, quantidade FROM tbl_compra_produto WHERE compra = :id");
-          $select->execute(['id' => $result['id_compra']]);
+          $select = $connection->prepare("SELECT produto, compra, quantidade FROM tbl_compra_produto WHERE compra = :id");
+          $select->execute(['id' => $result['compra']]);
           $result = $select->fetchAll(PDO::FETCH_ASSOC);
           foreach ($result as $row) {
-            $_SESSION['cart'][$row['id_produto']] = $row['quantidade'];
+            $_SESSION['cart'][$row['produto']] = $row['quantidade'];
           }
           // Se o usuário não tiver uma compra pendente, cria uma nova compra
         } else {
