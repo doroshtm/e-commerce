@@ -88,7 +88,7 @@
         } else if ($action == 'clear') {
             unset($_SESSION['cart']);
         }
-    } else if(isset($_SESSION['user']['id']) && !isset($_SESSION['cart'])) {
+    } else if(isset($_SESSION['user']['id']) && empty($_SESSION['cart'])) {
         $select = $connection->prepare("SELECT id_compra FROM tbl_compra WHERE usuario = :id AND status = 'PENDENTE'");
         $select->execute(['id' => $_SESSION['user']['id']]);
         $result = $select->fetch(PDO::FETCH_ASSOC);

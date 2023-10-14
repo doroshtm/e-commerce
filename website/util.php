@@ -44,8 +44,8 @@
           }
           // Se o usuário não tiver uma compra pendente, cria uma nova compra
         } else {
-          $insert = $connection->prepare("INSERT INTO tbl_compra (usuario, status, sessao) VALUES (:id, 'PENDENTE', :sessao)");
-          $insert->execute(['id' => $_SESSION['user']['id'], 'sessao' => $sessID]);
+          $insert = $connection->prepare("INSERT INTO tbl_compra (usuario, status, data) VALUES (:id, 'PENDENTE', :date)");
+          $insert->execute(['id' => $_SESSION['user']['id'], 'date' => date('m/d/Y')]);
         }
       }
     }
