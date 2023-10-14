@@ -115,25 +115,25 @@
                         die();
                     }
 
-                    $insert = $connection->prepare("INSERT INTO tbl_usuario (nome, email, senha, telefone, cpf, cep, endereco, data_cadastro) VALUES (:name, :email, :password, :telephone, :cpf, :cep, :address, :signup_date)");
+                    $insert = $connection->prepare("INSERT INTO tbl_usuario (nome, email, senha, telefone, cpf, cep, endereco, data_cadastro) VALUES (:name, :email, :password, :phone, :cpf, :cep, :address, :signup_date)");
                     $insert->execute(array(
                         ':name' => $_POST['name'],
                         ':email' => $email,
                         ':password' => $_POST['password'],
-                        ':telephone' => $phone,
+                        ':phone' => $phone,
                         ':cpf' => $cpf,
                         ':cep' => $_POST['cep'],
                         ':address' => $_POST['address'],
                         ':signup_date' => $date
                     ));
-                    $_SESSION['id_usuario'] = $connection->lastInsertId();
-                    $_SESSION['name'] = $_POST['name'];
-                    $_SESSION['email'] = $_POST['email'];
-                    $_SESSION['password'] = $_POST['password'];
-                    $_SESSION['phone'] = $_POST['phone'];
-                    $_SESSION['isAdmin'] = false;
-                    $_SESSION['cpf'] = $_POST['cpf'];
-                    $_SESSION['date'] = $date;
+                    $_SESSION['user']['id'] = $connection->lastInsertId();
+                    $_SESSION['user']['name'] = $_POST['name'];
+                    $_SESSION['user']['email'] = $_POST['email'];
+                    $_SESSION['user']['password'] = $_POST['password'];
+                    $_SESSION['user']['phone'] = $_POST['phone'];
+                    $_SESSION['user']['isAdmin'] = false;
+                    $_SESSION['user']['cpf'] = $_POST['cpf'];
+                    $_SESSION['user']['date'] = $date;
                     if ($_POST['rememberme'] == 'on') {
                         setcookie('loginCookie', $sessID, time() + 1209600);
                     }

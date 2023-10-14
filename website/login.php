@@ -2,7 +2,7 @@
   include("util.php");
   $sessID = startSession();
 
-  if (isset($_SESSION['id_usuario'])) {
+  if (isset($_SESSION['user']['id'])) {
     header('Location: ./logout.php?url=login.php');
   }
 ?>
@@ -54,14 +54,14 @@
         Tente novamente ou cadastre-se</div>";
         die();
       }
-      $_SESSION['id_usuario'] = $result['id_usuario'];
-      $_SESSION['name'] = $result['nome'];
-      $_SESSION['email'] = $result['email'];
-      $_SESSION['password'] = $result['senha'];
-      $_SESSION['phone'] = $result['telefone'];
-      $_SESSION['isAdmin'] = $result['admin'];
-      $_SESSION['cpf'] = $result['cpf'];
-      $_SESSION['date'] = $result['data_cadastro'];
+      $_SESSION['user']['id'] = $result['id_usuario'];
+      $_SESSION['user']['name'] = $result['nome'];
+      $_SESSION['user']['email'] = $result['email'];
+      $_SESSION['user']['password'] = $result['senha'];
+      $_SESSION['user']['phone'] = $result['telefone'];
+      $_SESSION['user']['isAdmin'] = $result['admin'];
+      $_SESSION['user']['cpf'] = $result['cpf'];
+      $_SESSION['user']['date'] = $result['data_cadastro'];
 
       if ($_POST['rememberme'] == 'on') {
         setcookie('loginCookie', $sessID, time() + 1209600);
