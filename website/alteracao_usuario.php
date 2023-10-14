@@ -1,7 +1,7 @@
 <?php
     include("util.php");
     startSession();
-    if(!isset($_SESSION['isAdmin']) || !$_SESSION['isAdmin']) {
+    if(!isset($_SESSION['user']['isAdmin']) || !$_SESSION['user']['isAdmin']) {
         header('Location: ./');
     }
     $id = $_GET['id'];

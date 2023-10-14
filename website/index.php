@@ -16,7 +16,7 @@
     <body>    
         <header id="header">
             <?php
-                $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : false;
+                $isAdmin = isset($_SESSION['user']['isAdmin']) ? $_SESSION['user']['isAdmin'] : false;
                 header_pag($isAdmin, "index.php");
             ?>
         </header>

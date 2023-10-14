@@ -50,7 +50,6 @@ create table tbl_tmp_compra(
 );
 
 create table tbl_compra_produto(
-    valor decimal(10,2) not null,
     quantidade integer not null,
     produto integer not null,
     compra integer not null,

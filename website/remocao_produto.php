@@ -2,7 +2,7 @@
     include("util.php");
     startSession();
     $method = $_SERVER['REQUEST_METHOD'];
-    if($method != 'POST' && (!isset($_SESSION['isAdmin']) || !$_SESSION['isAdmin'] || !isset($_GET['action']) || !isset($_GET['id']))) {
+    if($method != 'POST' && (!isset($_SESSION['user']['isAdmin']) || !$_SESSION['user']['isAdmin'] || !isset($_GET['action']) || !isset($_GET['id']))) {
         header('Location: ./');
     }
     $action = $method == 'POST' ? $_POST['action'] : $_GET['action'];
@@ -32,7 +32,7 @@
 <?php
     if($method != 'POST' || !isset($_POST['confirm']) || !$_POST['confirm'] || !isset($_POST['password'])) {
         die();
-    } else if($_POST['password'] != $_SESSION['password']) {
+    } else if($_POST['password'] != $_SESSION['user']['password']) {
         echo "Senha incorreta!";
         die();
     }

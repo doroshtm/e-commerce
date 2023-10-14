@@ -1,6 +1,11 @@
 <?php
     include("util.php");
     startSession();
+    isset($_GET['error']) ? $error = $_GET['error'] : '';
+    if(isset($error)) {
+        echo "<script>alert($error)</script>";
+        header("refresh: 0; url=./produtos.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +26,7 @@
     <body>
         <header id="header">
             <?php
-                $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : false;
+                $isAdmin = isset($_SESSION['user']['isAdmin']) ? $_SESSION['user']['isAdmin'] : false;
                 header_pag($isAdmin, "produtos.php");
             ?>
         </header>
@@ -99,24 +104,33 @@
                         $select2 = $connection->prepare('SELECT nome FROM tbl_categoria WHERE id_categoria = :categoria');
                         $select2->execute(['categoria' => $category]);
                         $category = $select2->fetch();
+                        $category = $category['nome'];
+                        $id = $row['id_produto'];
+                        $name = $row['nome'];
+                        $image = $row['imagem'];
+                        $price = number_format($row['preco'], 2, ',', '.');
+                        isset($row['descricao']) ? $description = $row['descricao'] : $description = '';
+                        
                     
-                        echo "<div class='produto' data-categoria='". $category['nome'] ."' data-nome='" . $row['nome'] . "' data-preco = '" . $row['preco'] . "'>
-                            <div class='produto-imagem'><img src='imagens/produtos/" . $row['imagem'] . "'></div>
+                        echo "<div class='produto' data-categoria'$category' data-nome='$name' data-preco = '$price'>
+                            <div class='produto-imagem'><img src='imagens/produtos/$image'></div>
                             <div class='produto-corpo'>";
                     
-                        echo $isAdmin ? "<a href='alteracao_produto.php?id=" . $row['id_produto'] . "'>
+                        echo $isAdmin ? "<a href='alteracao_produto.php?id=$id'>
                         <img src='imagens/editar.png' width='20px' height='20px' class='imagem-editar-produto'></a>" : "";
                     
-                        echo "<span class='nome-produto'>" . $row['nome'] . "</span>
-                            <span class='tags-produto'>" . $category['nome'] . "</span>";
+                        echo "<span class='nome-produto'>$name</span>
+                            <span class='tags-produto'>$category</span>";
                 
-                        echo isset($row['descricao']) ? "<span class='descricao-produto'>" . $row['descricao'] . "</span>" : "";
-                    
-                        echo "<span class='preco-produto texto-destaque'>R$ " . number_format($row['preco'], 2, ',', '.') . "</span>
+                        echo isset($description) ? "<span class='descricao-produto'>$description</span>" : "";
+
+                        echo "<span class='carrinho'><a href='carrinho.php?id=$id&url=produtos.php&action=add&amount=1'><img src='imagens/carrinho.svg' width='40px' height='40px'></a></span> 
+                        <span class='comprar'><a href='carrinho.php?id=$id&url=compra.php&action=add&amount=1'>COMPRAR AGORA</a></span>
+                        <span class='preco-produto texto-destaque'>R$$price</span>
                             </div>
                         </div>";
                     }
-                    if(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin']) {
+                    if(isset($_SESSION['user']['isAdmin']) && $_SESSION['user']['isAdmin']) {
                         $select = $connection->prepare('SELECT nome, preco, descricao, categoria, imagem, id_produto FROM tbl_produto WHERE excluido = true ORDER BY lower(nome)');
                         $select->execute();
                         $result = $select->fetchAll(PDO::FETCH_ASSOC);
@@ -126,20 +140,26 @@
                             $select2 = $connection->prepare('SELECT nome FROM tbl_categoria WHERE id_categoria = :category');
                             $select2->execute(['category' => $category]);
                             $category = $select2->fetch();
+                            $category = $category['nome'];
+                            $id = $row['id_produto'];
+                            $name = $row['nome'];
+                            $image = $row['imagem'];
+                            $price = number_format($row['preco'], 2, ',', '.');
+                            isset($row['descricao']) ? $description = $row['descricao'] : $description = '';
                         
-                            echo "<div class='produto deletado' data-categoria='". $category['nome'] ."' data-nome='" . $row['nome'] . "' data-preco = '" . $row['preco'] . "'>
-                                <div class='produto-imagem'><img src='imagens/produtos/" . $row['imagem'] . "'></div>
+                            echo "<div class='produto deletado' data-categoria='$category' data-nome='$name' data-preco = '$price'>
+                                <div class='produto-imagem'><img src='imagens/produtos/$image'></div>
                                 <div class='produto-corpo'>";
                         
-                            echo "<a href='alteracao_produto.php?id=" . $row['id_produto'] . "'>
+                            echo "<a href='alteracao_produto.php?id=$id'>
                             <img src='imagens/editar.png' width='20px' height='20px' class='imagem-editar-produto'></a>";
                         
-                            echo "<span class='nome-produto'>" . $row['nome'] . " - DELETADO</span>
-                                <span class='tags-produto'>" . $category['nome'] . "</span>";
+                            echo "<span class='nome-produto'>$name - DELETADO</span>
+                                <span class='tags-produto'>$category</span>";
                     
-                            echo isset($row['descricao']) ? "<span class='descricao-produto'>" . $row['descricao'] . "</span>" : "";
+                            echo isset($description) ? "<span class='descricao-produto'> $description </span>" : "";
                         
-                            echo "<span class='preco-produto texto-destaque'>R$ " . number_format($row['preco'], 2, ',', '.') . "</span>
+                            echo "<span class='preco-produto texto-destaque'>R$$price</span>
                                 </div>
                             </div>";
                         }
