@@ -241,9 +241,6 @@
                                         if ($id == 'totalprice' || $id == 'visitor') {
                                             continue;
                                         }
-                                        $select = $connection->prepare("SELECT id_produto, nome, preco, descricao, categoria, imagem, quantidade_estoque FROM tbl_produto WHERE id_produto = $id AND excluido = false");
-                                        $select->execute();
-                                        $row = $select->fetch(PDO::FETCH_ASSOC);
                                         $price = $row['preco'];
                                         $totalprice += $price * $amount;
                                         $name = $row['nome'];
