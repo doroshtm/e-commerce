@@ -83,6 +83,8 @@
                     $insert = $connection->prepare("INSERT INTO tbl_compra_produto (compra, produto, quantidade) VALUES (:id, :id_produto, :amount)");
                     $insert->execute(['id' => $id_compra, 'id_produto' => $id, 'amount' => $amount]);
                 }
+            } else {
+                $_SESSION['cart']['visitor'] = true;
             }
         } else if ($action == 'clear') {
             unset($_SESSION['cart']);
@@ -100,17 +102,42 @@
         }
         $location = "location: $url" . ($url == "produtos.php" ? "?message='Produto adicionado ao carrinho!'" : "");
         header($location);
-    } else if(isset($_SESSION['user']['id']) && (sizeof($_SESSION['cart'])-1 == 0)) {
+    } else if(isset($_SESSION['user']['id'])) {
         $select = $connection->prepare("SELECT id_compra FROM tbl_compra WHERE usuario = :id AND status = 'PENDENTE'");
         $select->execute(['id' => $_SESSION['user']['id']]);
         $result = $select->fetch(PDO::FETCH_ASSOC);
+        
         if ($result != NULL) {
-            $select = $connection->prepare("SELECT produto, quantidade FROM tbl_compra_produto WHERE compra = :id");
-            $select->execute(['id' => $result['id_compra']]);
-            $result = $select->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($result as $row) {
-                $_SESSION['cart'][$row['produto']] = $row['quantidade'];
+            if (isset($_SESSION['cart']['visitor'])) {
+                $update = $connection->prepare("UPDATE tbl_compra_produto SET quantidade = :amount WHERE compra = :id AND produto = :id_produto");
+                foreach ($_SESSION['cart'] as $id => $amount) {
+                    if ($id == 'totalprice' || $id == 'visitor') {
+                        continue;
+                    }
+                    $update->execute(['amount' => $amount, 'id' => $result['id_compra'], 'id_produto' => $id]);
+                }
+                unset($_SESSION['cart']['visitor']);
             }
+            if (sizeof($_SESSION['cart'])-1 == 0) {
+                $select = $connection->prepare("SELECT produto, quantidade FROM tbl_compra_produto WHERE compra = :id");
+                $select->execute(['id' => $result['id_compra']]);
+                $result = $select->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($result as $row) {
+                    $_SESSION['cart'][$row['produto']] = $row['quantidade'];
+                }
+            }
+        } else if (isset($_SESSION['cart']['visitor'])) {
+            $insert = $connection->prepare("INSERT INTO tbl_compra (usuario, status, data) VALUES (:id, 'PENDENTE', :date)");
+            $insert->execute(['id' => $_SESSION['user']['id'], 'date' => date('Y-m-d')]);
+            $id_compra = $connection->lastInsertId();
+            $insert = $connection->prepare("INSERT INTO tbl_compra_produto (compra, produto, quantidade) VALUES (:id, :id_produto, :amount)");
+            foreach ($_SESSION['cart'] as $id => $amount) {
+                if ($id == 'totalprice' || $id == 'visitor') {
+                    continue;
+                }
+                $insert->execute(['id' => $id_compra, 'id_produto' => $id, 'amount' => $amount]);
+            }
+            unset($_SESSION['cart']['visitor']);
         }
     }
 ?>
@@ -151,7 +178,7 @@
                     <div id="container-carrinho-produtos">
                         <?php
                         foreach($_SESSION['cart'] as $id => $amount) {
-                            if ($id == 'totalprice') {
+                            if ($id == 'totalprice' || $id == 'visitor') {
                                 continue;
                             }
                             $select = $connection->prepare("SELECT id_produto, nome, preco, descricao, categoria, imagem, quantidade_estoque FROM tbl_produto WHERE id_produto = $id AND excluido = false");
@@ -211,7 +238,7 @@
                                 <?php
                                     $totalprice = 0;
                                     foreach($_SESSION['cart'] as $id => $amount) {
-                                        if ($id == 'totalprice') {
+                                        if ($id == 'totalprice' || $id == 'visitor') {
                                             continue;
                                         }
                                         $select = $connection->prepare("SELECT id_produto, nome, preco, descricao, categoria, imagem, quantidade_estoque FROM tbl_produto WHERE id_produto = $id AND excluido = false");

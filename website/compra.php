@@ -19,7 +19,8 @@
     $select2->execute(['id_usuario' => $_SESSION["user"]["id"]]);
     $result2 = $select2->fetch(PDO::FETCH_ASSOC);
     if ($result == NULL && $result2 == NULL) {
-        header("refresh: 0; url=produtos.php?message=Nenhuma compra encontrada. Por favor, tente novamente.");
+        header("refresh: 0; url=produtos.php?message='Nenhuma compra encontrada. Por favor, tente novamente.'");
+        die();
     }
     $tableCartID = $result2 != NULL ? $result2["id_compra"] : $result["id_compra"];
     if ($result != NULL && $result2 != NULL) {
@@ -97,9 +98,15 @@
             <?php
                 $address = isset($_SESSION["user"]["address"]) ? $_SESSION["user"]["address"] : "Av. Nações Unidas, 58-50 - Núcleo Residencial Presidente Geisel, Bauru - SP";
                 $cep = isset($_SESSION["user"]["cep"]) ? $_SESSION["user"]["cep"] : "17033-260";
-                $coupon = isset($_SESSION["user"]["coupon"]) ? $_SESSION["user"]["coupon"] : NULL;
+                $coupon = isset($_SESSION["user"]["coupon"]) ? $_SESSION["user"]["coupon"] : 0;
                 $items = $_SESSION["cart"];
-                $itemsQuantity = sizeof($items)-1;
+                $itemsQuantity = 0;
+                foreach ($items as $id => $amount) {
+                    if ($id == "totalprice") {
+                        continue;
+                    }
+                    $itemsQuantity += $amount;
+                }
                 $total = $_SESSION['cart']['totalprice'];
                 $subtotal = $total - $coupon;
 
@@ -111,8 +118,8 @@
                         <?php
                         echo "
                             <p>Itens ($itemsQuantity): <span id='itens'>R$$total</span></p>
-                            <p>Desconto: <span id='desconto'>R$ $coupon</span></p>
-                            <p>Total do pedido: <span id='total'>R$ $subtotal</span></p>
+                            <p>Desconto: <span id='desconto'>R$$coupon</span></p>
+                            <p>Total do pedido: <span id='total'>R$$subtotal</span></p>
                         ";
                         ?>
                     </div>
@@ -138,7 +145,7 @@
                                 </div>
                                 <div class="container-pagamento-cupom">
                                     <label for="cupom">Cupom de desconto</label>
-                                    <input type="text" name="cupom" id="cupom" placeholder="Cupom de desconto" value="<?php echo $coupon; ?>">
+                                    <input type="text" name="cupom" id="cupom" placeholder="Cupom de desconto" value="<?php $coupon == 0 ? '' : $coupon; ?>">
                                 </div>
                             </div>
                         </div>
