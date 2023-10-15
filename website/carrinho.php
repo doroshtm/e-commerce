@@ -79,11 +79,9 @@
                 } else if ($amount != 0) {
                     $insert = $connection->prepare("INSERT INTO tbl_compra (usuario, status, data) VALUES (:id, 'PENDENTE', :date)");
                     $insert->execute(['id' => $_SESSION['user']['id'], 'date' => date('Y-m-d')]);
-                    $select = $connection->prepare("SELECT id_compra FROM tbl_compra WHERE usuario = :id AND status = 'PENDENTE'");
-                    $select->execute(['id' => $_SESSION['user']['id']]);
-                    $result = $select->fetch(PDO::FETCH_ASSOC);
+                    $id_compra = $connection->lastInsertId();
                     $insert = $connection->prepare("INSERT INTO tbl_compra_produto (compra, produto, quantidade) VALUES (:id, :id_produto, :amount)");
-                    $insert->execute(['id' => $result['id_compra'], 'id_produto' => $id, 'amount' => $amount]);
+                    $insert->execute(['id' => $id_compra, 'id_produto' => $id, 'amount' => $amount]);
                 }
             }
         } else if ($action == 'clear') {
