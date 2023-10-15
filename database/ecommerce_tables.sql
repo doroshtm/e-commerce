@@ -39,6 +39,7 @@ create table tbl_compra(
     data timestamp not null,
     status varchar(255) not null,
     usuario integer not null,
+    cupom varchar(255),
     foreign key (usuario) references tbl_usuario(id_usuario)
 );
 
