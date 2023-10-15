@@ -61,7 +61,7 @@
                     <label for="rememberme">Mantenha-me conectado</label>
                 </div>
                 <input type="button" value="Cadastre-se" onclick="validatePassword()">
-                <a href="login.php">Já tem conta? Conecte-se</a>
+                <a href="login.php<?php echo isset($_GET['url']) ? '?url=' . $_GET['url'] : ''; ?>" id="link-login">Já tem conta? Conecte-se</a>
             <?php
                 
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

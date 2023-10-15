@@ -38,7 +38,7 @@
                     <input type="checkbox" name="rememberme" id="lembrar-senha">
                     <label for="rememberme">Mantenha-me conectado</label>
               </div>
-              <a href="cadastro.php?url=<?php echo isset($_GET['url']) ? $_GET['url'] : 'index.php'; ?>">Não tem conta? Cadastre-se</a>
+              <a href="cadastro.php<?php echo isset($_GET['url']) ? '?url=' . $_GET['url'] : '' ?>" id="cadastre-se">Não tem conta? Cadastre-se</a>
               <a href="esqueci.php">Esqueceu a senha?</a>
 
   <?php
