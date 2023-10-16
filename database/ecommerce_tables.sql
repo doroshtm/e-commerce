@@ -31,7 +31,8 @@ create table tbl_usuario(
     cpf varchar(14) not null,
     admin boolean default false not null,
     endereco varchar(255),
-    cep varchar(9)
+    cep varchar(9),
+    token varchar(255)
 );
 
 create table tbl_compra(
