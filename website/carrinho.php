@@ -177,6 +177,8 @@
                 <div id="container-lista-produtos">
                     <div id="container-carrinho-produtos">
                         <?php
+                        // make an array of arrays (containing all the names, prices, descriptions, categories, images, stocks etc)
+                        $products = array();
                         foreach($_SESSION['cart'] as $id => $amount) {
                             if ($id == 'totalprice' || $id == 'visitor') {
                                 continue;
@@ -188,7 +190,6 @@
                             $select2 = $connection->prepare("SELECT nome FROM tbl_categoria WHERE id_categoria = $category");
                             $select2->execute();
                             $row2 = $select2->fetch(PDO::FETCH_ASSOC);
-
                             $id = $row['id_produto'];
                             $name = $row['nome'];
                             $price = $row['preco'];
@@ -197,6 +198,7 @@
                             $image = $row['imagem'];
                             $stock = $row['quantidade_estoque'];
                             $category = $row2['nome'];
+                            array_push($products, array($id, $row['nome'], $row['preco'], $row['descricao'], $row2['nome'], $row['imagem'], $row['quantidade_estoque'], $amount));
 
                             echo "
                             <div class='produto-carrinho'>
@@ -237,20 +239,19 @@
                                 <span class="preco-produto-carrinho">R$2,00</span> -->
                                 <?php
                                     $totalprice = 0;
-                                    foreach($_SESSION['cart'] as $id => $amount) {
-                                        if ($id == 'totalprice' || $id == 'visitor') {
-                                            continue;
-                                        }
-                                        $price = $row['preco'];
-                                        $totalprice += $price * $amount;
-                                        $name = $row['nome'];
-                                        $price = number_format(($row['preco'] * $amount), 2, ',', '.');
+                                    foreach($products as $row) {
+                                        $amount = $row[7];
+                                        $totalprice += $row[2];
+                                        $price = $row[2];
+                                        $price = number_format($price * $amount, 2, ',', '.');
+                                        $name = $row[1];
                                         echo "
                                         <span class='nome-produto-carrinho'>$name x$amount</span>
                                         <span class='preco-produto-carrinho'>R$$price</span>
                                         ";
                                     }
                                     $_SESSION['cart']['totalprice'] = $totalprice;
+                                    
                                 ?>
                             </div>
                             <div class="separador">
