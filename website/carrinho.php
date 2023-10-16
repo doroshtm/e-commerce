@@ -241,8 +241,9 @@
                                     $totalprice = 0;
                                     foreach($products as $row) {
                                         $amount = $row[7];
-                                        $totalprice = $row[2];
-                                        $price = number_format($totalprice * $amount, 2, ',', '.');
+                                        $totalprice += $row[2];
+                                        $price = $row[2];
+                                        $price = number_format($price * $amount, 2, ',', '.');
                                         $name = $row[1];
                                         echo "
                                         <span class='nome-produto-carrinho'>$name x$amount</span>
@@ -250,6 +251,7 @@
                                         ";
                                     }
                                     $_SESSION['cart']['totalprice'] = $totalprice;
+                                    
                                 ?>
                             </div>
                             <div class="separador">
