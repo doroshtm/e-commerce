@@ -14,10 +14,25 @@
 
   function startSession() {
     ini_set('session.gc_maxlifetime', 1209600);
-    if (isset($_COOKIE['loginCookie'])) {
-        session_id($_COOKIE['loginCookie']);
-    }
     session_start();
+    if (isset($_COOKIE['loginCookie']) && !isset($_SESSION['user']['id'])) {
+        $connection = connect();
+        $select = $connection->prepare("SELECT id_usuario, nome, email, senha, telefone, admin, cpf, data_cadastro, cep, endereco FROM tbl_usuario WHERE token = :token");
+        $select->execute(['token' => $_COOKIE['loginCookie']]);
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        if ($result != NULL) {
+            $_SESSION['user']['id'] = $result['id_usuario'];
+            $_SESSION['user']['name'] = $result['nome'];
+            $_SESSION['user']['email'] = $result['email'];
+            $_SESSION['user']['password'] = $result['senha'];
+            $_SESSION['user']['phone'] = $result['telefone'];
+            $_SESSION['user']['isAdmin'] = $result['admin'];
+            $_SESSION['user']['cpf'] = $result['cpf'];
+            $_SESSION['user']['date'] = $result['data_cadastro'];
+            !empty($result['cep']) ? $_SESSION['user']['cep'] = $result['cep'] : '';
+            !empty($result['endereco']) ? $_SESSION['user']['address'] = $result['endereco'] : '';
+        }
+    }
     if (!isset($_SESSION['user'])) {
       $_SESSION['user'] = array();
     }
@@ -50,6 +65,18 @@
       }
     }
     return session_id();
+  }
+
+  function generateToken() {
+    $token = bin2hex(random_bytes(16));
+    return $token;
+  }
+
+  function insertToken($token, $id) {
+    $connection = connect();
+    $update = $connection->prepare("UPDATE tbl_usuario SET token = :token WHERE id_usuario = :id");
+    $update->execute(['token' => $token, 'id' => $id]);
+    
   }
 
   function header_pag ($isAdmin, $url) {
