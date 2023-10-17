@@ -137,7 +137,9 @@
                     !empty($_POST['cep']) ? $_SESSION['user']['cep'] = $_POST['cep'] : '';
                     !empty($_POST['address']) ? $_SESSION['user']['address'] = $_POST['address'] : '';
                     if ($_POST['rememberme'] == 'on') {
-                        setcookie('loginCookie', $sessID, time() + 1209600);
+                        $tokenREMEMBER = generateToken();
+                        setcookie('loginCookie', $tokenREMEMBER, time() + 1209600);
+                        insertToken($tokenREMEMBER, $_SESSION['user']['id']);
                     }
                     setcookie('email', $email, time() + 1209600);
                     $url = isset($_GET['url']) ? $_GET['url'] : '';

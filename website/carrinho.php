@@ -57,7 +57,6 @@
                     $select->execute(['id' => $result['id_compra'], 'id_produto' => $id]);
                     $result2 = $select->fetch(PDO::FETCH_ASSOC);
                     if ($result2 != NULL) {
-                        var_dump($amount);
                         if ($amount == 0) {
                             $delete = $connection->prepare("DELETE FROM tbl_compra_produto WHERE compra = :id AND produto = :id_produto");
                             $delete->execute(['id' => $result['id_compra'], 'id_produto' => $id]);
@@ -118,7 +117,7 @@
                 }
                 unset($_SESSION['cart']['visitor']);
             }
-            if (sizeof($_SESSION['cart'])-1 == 0) {
+            if (empty($_SESSION['cart']) == 0) {
                 $select = $connection->prepare("SELECT produto, quantidade FROM tbl_compra_produto WHERE compra = :id");
                 $select->execute(['id' => $result['id_compra']]);
                 $result = $select->fetchAll(PDO::FETCH_ASSOC);
@@ -177,9 +176,12 @@
                 <div id="container-lista-produtos">
                     <div id="container-carrinho-produtos">
                         <?php
-                        // make an array of arrays (containing all the names, prices, descriptions, categories, images, stocks etc)
                         $products = array();
-                        foreach($_SESSION['cart'] as $id => $amount) {
+                        if (empty($_SESSION['cart'])) {
+                            echo "<span class='texto-destaque'>Seu carrinho está vazio!</span>";
+                        }
+                        foreach ($_SESSION['cart'] as $id => $amount) {
+
                             if ($id == 'totalprice' || $id == 'visitor') {
                                 continue;
                             }
@@ -199,6 +201,19 @@
                             $stock = $row['quantidade_estoque'];
                             $category = $row2['nome'];
                             array_push($products, array($id, $row['nome'], $row['preco'], $row['descricao'], $row2['nome'], $row['imagem'], $row['quantidade_estoque'], $amount));
+                            $price = number_format($price, 2, ',', '.');
+                            $totalprice = 0;
+                            foreach ($products as $product) {
+                                $price = $product[2];
+                                $amount = $product[7];
+                                $totalprice += $price * $amount;
+                            }
+
+                            if ($totalprice == 0) {
+                                unset($_SESSION['cart']['totalprice']);
+                            } else {
+                                $_SESSION['cart']['totalprice'] = $totalprice;
+                            }
 
                             echo "
                             <div class='produto-carrinho'>
@@ -228,47 +243,44 @@
                         }
                         ?>
                     </div>
-                    <div id="container-carrinho-lista">
-                        <div id="carrinho-lista">
-                            <span id="carrinho-cabecalho">Sua compra</span>
-                            <div class="separador">
-                                <div class="bola-separador"></div>
-                            </div>
-                            <div id="lista-compras-carrinho">
-                                <!-- <span class="nome-produto-carrinho">Chaveiro Mascote Informática #1</span>
-                                <span class="preco-produto-carrinho">R$2,00</span> -->
-                                <?php
-                                    $totalprice = 0;
-                                    foreach($products as $row) {
-                                        $amount = $row[7];
-                                        $totalprice += $row[2];
-                                        $price = $row[2];
-                                        $price = number_format($price * $amount, 2, ',', '.');
-                                        $name = $row[1];
-                                        echo "
-                                        <span class='nome-produto-carrinho'>$name x$amount</span>
-                                        <span class='preco-produto-carrinho'>R$$price</span>
-                                        ";
-                                    }
-                                    $_SESSION['cart']['totalprice'] = $totalprice;
-                                    
-                                ?>
-                            </div>
-                            <div class="separador">
-                                <div class="bola-separador"></div>
-                            </div>
-                            <div id="resultado-carrinho">
-                                <span class="nome-produto-carrinho">Total</span>
-                                <span class="preco-produto-carrinho">R$<?php echo number_format($totalprice, 2, ',', '.') ?></span>
-                            </div>
-                            <div class="centraliza">
-                                <a href="compra.php" id="finalizar-compra"><button class="botao-finalizar">Finalizar compra</button></a>
-                            </div>
-                            <div class="centraliza">
-                                <a href="carrinho.php?action=clear&url=carrinho.php" id="limpar-carrinho"><button class="botao-finalizar">Limpar carrinho</button></a>
+                    <?php if (!empty($_SESSION['cart'])) { ?>
+                        <div id="container-carrinho-lista">
+                            <div id="carrinho-lista">
+                                <span id="carrinho-cabecalho">Sua compra</span>
+                                <div class="separador">
+                                    <div class="bola-separador"></div>
+                                </div>
+                                <div id="lista-compras-carrinho">
+                                    <?php
+                                        foreach($products as $row) {
+                                            $amount = $row[7];
+                                            $price = number_format($row[2] * $amount, 2, ',', '.');
+                                            $name = $row[1];
+                                            echo "
+                                            <span class='nome-produto-carrinho'>$name x$amount</span>
+                                            <span class='preco-produto-carrinho'>R$$price</span>
+                                            ";
+                                        }
+
+                                        
+                                    ?>
+                                </div>
+                                <div class="separador">
+                                    <div class="bola-separador"></div>
+                                </div>
+                                <div id="resultado-carrinho">
+                                    <span class="nome-produto-carrinho">Total</span>
+                                    <span class="preco-produto-carrinho">R$<?php echo number_format($totalprice, 2, ',', '.') ?></span>
+                                </div>
+                                <div class="centraliza">
+                                    <a href="compra.php" id="finalizar-compra"><button class="botao-finalizar">Finalizar compra</button></a>
+                                </div>
+                                <div class="centraliza">
+                                    <a href="carrinho.php?action=clear&url=carrinho.php" id="limpar-carrinho"><button class="botao-finalizar">Limpar carrinho</button></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>

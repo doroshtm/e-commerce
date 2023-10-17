@@ -66,7 +66,9 @@
       !empty($result['endereco']) ? $_SESSION['user']['address'] = $result['endereco'] : '';
 
       if ($_POST['rememberme'] == 'on') {
-        setcookie('loginCookie', $sessID, time() + 1209600);
+        $tokenREMEMBER = generateToken();
+        setcookie('loginCookie', $tokenREMEMBER, time() + 1209600);
+        insertToken($tokenREMEMBER, $result['id_usuario']);
       }
       setcookie('email', $email, time() + 1209600);
       $url = isset($_GET['url']) ? $_GET['url'] : '';
