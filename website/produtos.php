@@ -80,7 +80,7 @@
                 </div>
                 <div id="corpo-filtro-display">
                     Filtros: 
-                </div>
+                </div> 
                 <div class="centraliza"><div class="texto-destaque">Produtos</div></div>
                 <div id="grid-produtos">
                 <?php
