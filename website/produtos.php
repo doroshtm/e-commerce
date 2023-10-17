@@ -122,7 +122,7 @@
                             <span class='tags-produto'>$category</span>";
                 
                         echo isset($description) ? "<span class='descricao-produto'>$description</span>" : "";
-
+,00,0,
                         echo "<span class='carrinho'><a href='carrinho.php?id=$id&url=produtos.php&action=add&amount=1'><img src='imagens/carrinho.svg' width='40px' height='40px'></a></span> 
                         <span class='comprar'><a href='carrinho.php?id=$id&url=compra.php&action=add&amount=1'>COMPRAR AGORA</a></span>
                         <span class='preco-produto texto-destaque'>R$$price</span>
