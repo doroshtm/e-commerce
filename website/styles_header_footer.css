@@ -608,7 +608,7 @@ a {
     cursor:pointer;
     color: var(--cor-texto);
 }
-.checkboxes input[type=checkbox], #formlogin input[type=checkbox]{
+.checkboxes input[type=checkbox], #formlogin input[type=checkbox], .content-popup input[type=checkbox]{
     appearance: none;
     border-radius:5px;
     width: 25px;
@@ -618,10 +618,10 @@ a {
     margin-right:10px;
     transition: 0.4s;
 }
-.checkboxes input[type=checkbox]:hover, #formlogin input[type=checkbox]:hover{
+.checkboxes input[type=checkbox]:hover, #formlogin input[type=checkbox]:hover, .content-popup input[type=checkbox]:hover{
     background: #cccccc;
 }
-.checkboxes input[type=checkbox]:checked, #formlogin input[type=checkbox]:checked {
+.checkboxes input[type=checkbox]:checked, #formlogin input[type=checkbox]:checked, .content-popup input[type=checkbox]:checked {
     background: var(--cor-interac);
     border: 1px solid var(--cor-interac);
     background-image: url(./imagens/Check.svg);
@@ -725,8 +725,12 @@ a {
 .deletado {
     background-color: red;
     color: red;
+    opacity: 0.6;
 }
-
+.deletado:hover {
+    border-color: red;
+    
+}
 #produto-adicionar {
     backdrop-filter: blur(5px);
     background: rgba(239, 234, 234, 0.4);
@@ -762,8 +766,10 @@ a {
 }
 .produto:hover {
     box-shadow: 3.4px 6.9px 6.9px hsl(0deg 0% 0% / 0.27);
-    border: 0.2px solid var(--cor-interac);
     transform: scale(1.05);
+}
+.produto:not(.deletado):hover {
+    border: 0.2px solid var(--cor-interac);
 }
 .produto-imagem {
     height: 45%;
@@ -940,13 +946,13 @@ a {
     width:360px;
     gap:7px;
 }
-.label-input-login label {
+.label-input-login label{
     font-size: 16px;
     font-weight:500;
     font-family: Inter;
     color: #979899;
 } 
-.label-input-login label:hover {
+.label-input-login label:hover{
     filter: brightness(0.8);
     transition: 0.4s;
 }
@@ -966,6 +972,7 @@ a {
 }
 .label-input-login input[type="file"]::file-selector-button
 {
+    cursor:pointer;
     background: var(--cor-interac);
     padding: 10px;
     color: var(--cor-fundo);
@@ -997,8 +1004,9 @@ a {
 
 
 
-
-  
+#pai a:hover {
+    filter: brightness(0.8);
+}
 
 #formlogin input[type='submit'], .botao-finalizar, #formlogin input[type="button"]{
     transition: 0.4s;
@@ -1045,6 +1053,75 @@ a {
     }
 }
 
+#popup-confirmar {
+    display:none;
+    flex-direction:column;
+    align-items: center;
+    border: 2px solid black;
+    padding: 20px;
+    max-width:400px;
+    min-height: 200px;
+    border-radius: 15px;
+    background: var(--cor-destaque);
+    box-shadow:hsl(0deg 0% 0% / 0.27);
+    -webkit-box-shadow: hsl(0deg 0% 0% / 0.27);
+    -moz-box-shadow: hsl(0deg 0% 0% / 0.27);
+}
+::backdrop {
+    background-color: #cccccc;
+    opacity: 0.5;
+    filter:brightness(0.5);
+}
+.content-popup {
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    text-align:center;
+}
+.content-popup form {
+    max-height: 0px;
+    overflow: hidden;
+}
+#mostrar-confirmacao {
+    margin-top:15px; 
+    margin-bottom: 4px;  
+    margin-left:0;
+    margin-right: 0;  
+}
+#confir{
+    font-size: 20px;
+    font-weight: 600;
+    color: #737373;
+    transition: 0.2s;
+    margin-bottom: 10px;
+}
+#confir:hover{
+    cursor:pointer;
+    color: var(--cor-texto);
+}
+.content-popup input[type=checkbox]:checked + #confir{
+    color: var(--cor-texto);
+}
+@keyframes mostraform {
+    from {
+        max-height: 0px;
+    }
+    to {
+        max-height: 300px;
+    }
+}
+@keyframes escondeform {
+    from{
+        max-height: 300px;
+    }
+    to {
+        max-height: 0px;
+    }
+}
+
+
+
 /* Carrinho */
 
 #titulo-carrinho {
@@ -1075,7 +1152,8 @@ a {
 .produto-carrinho{
     max-width:100%;
     width:680px;
-    height: 160px;
+    min-height: 160px;
+    word-break:break-all;
     background: var(--cor-destaque);
     border-radius:20px;
 }
@@ -1098,6 +1176,7 @@ a {
     flex-direction:column;
     max-height:100%;
     padding-left:30px;
+    padding-bottom: 10px;
 }
 .imagem-carrinho{
     background:#cccccc; 
@@ -1141,6 +1220,10 @@ a {
 }
 .aumentar-diminuir img {
     cursor: pointer;
+    transition: 0.4s;
+}
+.aumentar-diminuir img:hover {
+    filter: brightness(0) invert(19%) sepia(95%) saturate(3970%) hue-rotate(244deg) brightness(101%) contrast(106%);
 }
 .qtd-numero-carrinho {
     font-weight: 600;
@@ -1154,6 +1237,7 @@ a {
     margin-bottom: 80px;
 }
 #carrinho-lista {
+    word-break: break-all;
     padding: 20px 0 20px 0;
     height:fit-content;
     width: 400px;
@@ -1180,6 +1264,7 @@ a {
     display:grid;
     width:100%;
     grid-template-columns: 60% 40%;
+    gap:15px;
 }
 .nome-produto-carrinho {
     font-weight: 600;
@@ -1293,6 +1378,7 @@ a {
 }
 
 
+
 /* Tabela produtos */
 
 table {
@@ -1304,6 +1390,10 @@ table {
     overflow: scroll;
     word-break: break-all;
     position: relative;
+  }
+  table img:hover {
+    transition: 0.2s;
+    filter: brightness(0) invert(19%) sepia(95%) saturate(3970%) hue-rotate(244deg) brightness(101%) contrast(106%);
   }
 
   th, td {
@@ -1324,4 +1414,3 @@ th {
   tr:hover {
     background-color: #f5f5f5;
   }
-

@@ -58,7 +58,7 @@
                 </div>
                 <div id="container-lembrar-senha">
                     <input type="checkbox" name="rememberme" id="lembrar-senha">
-                    <label for="rememberme">Mantenha-me conectado</label>
+                    <label for="lembrar-senha">Mantenha-me conectado</label>
                 </div>
                 <input type="button" value="Cadastre-se" onclick="validatePassword()">
                 <a href="login.php<?php echo isset($_GET['url']) ? '?url=' . $_GET['url'] : ''; ?>" id="link-login">Já tem conta? Conecte-se</a>

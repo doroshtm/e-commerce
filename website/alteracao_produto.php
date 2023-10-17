@@ -24,11 +24,27 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&display=swap" rel="stylesheet">
+        <script src="./js/alterar.js"> </script>
         <title>Alteração de produtos | Mascotero</title>
         <title>Alterar produto | <?php echo $id ?> | Mascotero</title>
     </head>
     <body>
         <div id="pai">
+            <dialog id="popup-confirmar">
+                <div class="content-popup">
+                    <span class="texto-destaque">Tem certeza que deseja <?php echo $result['excluido'] ? 'restaurar' : 'excluir' ?> o produto?</span>
+                    <input type="checkbox" id="mostrar-confirmacao">
+                    <label for="mostrar-confirmacao" id="confir">Sim</label>
+                    <form id="formlogin" style="margin:0; padding:0;">
+                        <div class="label-input-login">
+                            <label for="senha"> Digite sua senha</label>
+                            <input type="password" id="senha" name="senha" placeholder="Senha para confirmação..." required>
+                        </div>
+                        <input type="submit" value="Excluir">
+                    </form>
+                    <button id="botao-fechar-popup" class="botao-finalizar">Fechar</button> 
+                </div>
+            </dialog>
             <form method="get" id="formDelProduto" action="./remocao_produto.php"></form>
             <form name="alterarProduto" method="post" action="./alteracao_produto.php?id=<?php echo $id ?>" id="formlogin" style="width:60%;" enctype="multipart/form-data">
                 <div id="logo-login">
@@ -90,7 +106,8 @@
                     <input type="submit" value="Alterar">
                     <input type="hidden" name="id" value=<?php echo $id ?> form="formDelProduto">
                     <input type="hidden" name="action" value=<?php echo $result['excluido'] ? 'Restaurar' : 'Deletar' ?> form="formDelProduto">
-                    <input type="submit" value=<?php echo $result['excluido'] ? 'Restaurar' : 'Excluir' ?> form="formDelProduto">
+                    <!-- <input type="submit" value=<?php echo $result['excluido'] ? 'Restaurar' : 'Excluir' ?> form="formDelProduto"> -->
+                    <input type="button" value=<?php echo $result['excluido'] ? 'Restaurar' : 'Excluir' ?> id="botao-abrir-popup">
                     <input type="button" value="Cancelar" onclick="window.history.back()">
                     <?php
                         if($_SERVER['REQUEST_METHOD'] == 'POST') {

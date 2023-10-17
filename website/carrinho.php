@@ -219,9 +219,9 @@
                                     <div class='imagem-carrinho'>
                                         <img src='./imagens/produtos/$image'>
                                     </div>
-                                    <div class='container-remover'>
-                                        <a href='carrinho.php?id=$id&action=delete&url=carrinho.php'><img src='./imagens/remover.jpg' class='remover' width='30px' height='30px' alt='Remover produto'></a>
-                                    </div>
+                                    <!-- <div class='container-remover'>
+                                         <a href='carrinho.php?id=$id&action=delete&url=carrinho.php'><img src='./imagens/remover.jpg' class='remover' width='30px' height='30px' alt='Remover produto'></a>
+                                    </div> -->
                                 </div>
                             </div>
                             ";
