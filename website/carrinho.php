@@ -53,8 +53,8 @@
                 $select->execute(['id' => $_SESSION['user']['id']]);
                 $result = $select->fetch(PDO::FETCH_ASSOC);
                 if ($result != NULL) {
-                    $select = $connection->prepare("SELECT * FROM tbl_compra_produto WHERE compra = :id AND produto = :id_produto");
-                    $select->execute(['id' => $result['id_compra'], 'id_produto' => $id]);
+                    $select = $connection->prepare("SELECT * FROM tbl_compra_produto JOIN tbl_produto ON tbl_compra_produto.produto = $id WHERE compra = :id AND tbl_produto.excluido = false");
+                    $select->execute(['id' => $result['id_compra']]);
                     $result2 = $select->fetch(PDO::FETCH_ASSOC);
                     if ($result2 != NULL) {
                         if ($amount == 0) {
@@ -66,6 +66,7 @@
                             if ($result2 == NULL) {
                                 $delete = $connection->prepare("DELETE FROM tbl_compra WHERE id_compra = :id");
                                 $delete->execute(['id' => $result['id_compra']]);
+                                unset($_SESSION['cart']['totalprice']);
                             }
                         } else {
                             $update = $connection->prepare("UPDATE tbl_compra_produto SET quantidade = :amount WHERE compra = :id AND produto = :id_produto");
@@ -96,6 +97,7 @@
                     $delete->execute(['id' => $result['id_compra']]);
                     $delete = $connection->prepare("DELETE FROM tbl_compra WHERE id_compra = :id");
                     $delete->execute(['id' => $result['id_compra']]);
+                    unset($_SESSION['cart']['totalprice']);
                 }
             }
         }
@@ -180,13 +182,18 @@
                             echo "<span class='texto-destaque'>Seu carrinho está vazio!</span>";
                         }
                         foreach ($_SESSION['cart'] as $id => $amount) {
-
                             if ($id == 'totalprice' || $id == 'visitor') {
                                 continue;
                             }
                             $select = $connection->prepare("SELECT id_produto, nome, preco, descricao, categoria, imagem, quantidade_estoque FROM tbl_produto WHERE id_produto = $id AND excluido = false");
                             $select->execute();
                             $row = $select->fetch(PDO::FETCH_ASSOC);
+                            if ($row == NULL) {
+                                $delete = $connection->prepare("DELETE FROM tbl_compra_produto WHERE produto = :id");
+                                $delete->execute(['id' => $id]);
+                                unset($_SESSION['cart'][$id]);
+                                continue;
+                            }
                             $category = $row['categoria'];
                             $select2 = $connection->prepare("SELECT nome FROM tbl_categoria WHERE id_categoria = $category");
                             $select2->execute();
@@ -195,7 +202,6 @@
                             $name = $row['nome'];
                             $price = $row['preco'];
                             $description = $row['descricao'];
-                            $category = $row['categoria'];
                             $image = $row['imagem'];
                             $stock = $row['quantidade_estoque'];
                             $category = $row2['nome'];
