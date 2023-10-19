@@ -18,6 +18,9 @@
             die();
         }
     }
+    if (isset($_SESSION['cart']['totalprice']) && $_SESSION['cart']['totalprice'] == 0) {
+        unset($_SESSION['cart']['totalprice']);
+    }
     if (isset($_GET['action'])) {
         $action = $_GET['action'];
         if (isset($_GET['id'])) {
