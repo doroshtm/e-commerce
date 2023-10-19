@@ -37,7 +37,7 @@
                     </div>
                     <div class="contato">
                         <img src="./imagens/Instagram_logo.svg">
-                        <span class="texto-destaque"> Instagram: @emy_r_0103 </span>
+                        <span class="texto-destaque"> Instagram: @mascotero_ltda </span>
                     </div>
                 </div>
                 </div>

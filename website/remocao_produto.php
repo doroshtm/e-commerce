@@ -19,7 +19,7 @@
     <body>    
         <form method='post' action='./remocao_produto.php' id='formDelProduto'>
         <label for='confirm'>VOCÊ TEM CERTEZA?</label>
-            <input type='checkbox' name='confirm' required><br><ber
+            <input type='checkbox' name='confirm' required><br><br>
             <label for='password'>Insira sua senha para confirmar</label>
             <input type='password' name='password' placeholder='Senha do administrador' required>
             <input type='hidden' name='id' value="<?php echo $id ?>">
