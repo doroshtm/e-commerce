@@ -15,8 +15,12 @@
     <script src='js/produtos.js?v=1.09'></script>
     <style>
         #vidro {
-            backdrop-filter: blur(2px);
-            background: rgba(239, 234, 234, 0.4);
+background: rgba(255, 255, 255, 0.2);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
             position:absolute;
             top:0;
             left:0;
@@ -79,70 +83,35 @@
         }
         
 
-        
-        @keyframes prolado {
-            from {
-                transform: translateX(0px);
-            }
-            to {
-                transform: translateX(600px);
-            }
-        }
-        @keyframes prooutro {
-            from {
-                transform: translateX(0px);
-            }
-            to {
-                transform: translateX(-600px);
-            }
-        }
+    
     </style>
 </head>
 <body style='display: flex; align-items: center; justify-content: center;'>
-    <div id="osmostra">
-        <div id="osesconde">
-            <div class="oselemento">
+    <div id="display-produtos">
+        <div id="oquemostra">
+        <div class="container-produtos-flutuantes">
+            <div class ="produto-flutuante">
+                <img src="./imagens/Fernando.jpg">
             </div>
-            <div class="oselemento">
+            <div class ="produto-flutuante">
+                <img src="./imagens/G. Carraro.jpg">
             </div>
-            <div class="oselemento">
-            </div>
-            <div class="oselemento">
-            </div>
-            <div class="oselemento">
-            </div>
-            <div class="oselemento">
+            <div class ="produto-flutuante">
+                <img src="./imagens/Ellen.jpg">
             </div>
         </div>
-        <div id="osesconde" class="outrolado">
-            <div class="oselemento">
+        <div class="container-produtos-flutuantes uau">
+            <div class ="produto-flutuante">
+                <img src="./imagens/Fernando.jpg">
             </div>
-            <div class="oselemento">
+            <div class ="produto-flutuante">
+                <img src="./imagens/G. Carraro.jpg">
             </div>
-            <div class="oselemento">
-            </div>
-            <div class="oselemento">
-            </div>
-            <div class="oselemento">
-            </div>
-            <div class="oselemento">
+            <div class ="produto-flutuante">
+                <img src="./imagens/Ellen.jpg">
             </div>
         </div>
-        <div id="osesconde">
-            <div class="oselemento">
-            </div>
-            <div class="oselemento">
-            </div>
-            <div class="oselemento">
-            </div>
-            <div class="oselemento">
-            </div>
-            <div class="oselemento">
-            </div>
-            <div class="oselemento">
-            </div>
         </div>
-        <div id="vidro"></div>
     </div>
 </body>
 </html>

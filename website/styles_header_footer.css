@@ -219,11 +219,67 @@ body {
     width:80vw;
 }
 #display-produtos {
+    display:flex;
+    align-items:center;
+    justify-content: center;
     width:100%;
     max-width:100%;
     box-sizing:border-box;
-    height:170px;
+    height:500px;
     background:#ccc;
+}
+#oquemostra {
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content: flex-end;
+    width:360px;
+    height:300px;
+    position:relative;
+    background: blue;
+    overflow:hidden; 
+}
+.container-produtos-flutuantes {
+    display:flex;
+    flex-direction:row;
+    width: fit-content;
+    height: 100%;
+    gap:20px;
+    align-items:center;
+    justify-content: center;
+    position:relative;
+    padding-left:20px;
+    animation: pradireita 3s infinite linear;
+}
+.container-produtos-flutuantes.uau {
+    position:relative;
+    margin-right:20px;
+}
+.produto-flutuante {
+    min-width:100px;
+    max-width: 100px;
+    min-height:100px;
+    max-height:100px;
+    background:red;
+    border-radius: 15px;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    overflow:hidden;
+}
+.produto-flutuante img {
+    min-width:100%;
+    min-height:100%;
+    border-radius: 15px;
+    object-fit:fill;
+}
+@keyframes pradireita {
+    from {
+        transform:translateX(0%);
+    }
+    to {
+        transform:translateX(100%);
+    }
 }
 #container-bolas {
     margin-top:15px;
