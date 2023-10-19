@@ -18,7 +18,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="styles_header_footer.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap">
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400;1,9..40,500&display=swap" rel="stylesheet">         
         <link rel="icon" type="image/svg+xml" href="./imagens/MC_Logo_Footer.svg">
         <script src="js/produtos.js?v=1.09"></script>
     </head>
@@ -122,9 +122,12 @@
                             <span class='tags-produto'>$category</span>";
                 
                         echo isset($description) ? "<span class='descricao-produto'>$description</span>" : "";
-,00,0,
-                        echo "<span class='carrinho'><a href='carrinho.php?id=$id&url=produtos.php&action=add&amount=1'><img src='imagens/carrinho.svg' width='40px' height='40px'></a></span> 
-                        <span class='comprar'><a href='carrinho.php?id=$id&url=compra.php&action=add&amount=1'>COMPRAR AGORA</a></span>
+
+                      echo "            
+                        <a class='adicionar-carrinho' href='carrinho.php?id=$id&url=produtos.php&action=add&amount=1'>
+                            <img src='./imagens/Aumentar_qtd.svg'>
+                            <span>Adicionar ao carrinho</span>
+                        </a>
                         <span class='preco-produto texto-destaque'>R$$price</span>
                             </div>
                         </div>";

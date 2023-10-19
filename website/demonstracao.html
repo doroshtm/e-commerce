@@ -1,60 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <style>
-            body {
-                height: 100vh;
-                min-height:100vh;
-                background: powderblue;
-                display:flex;
-                flex-direction:column;
-                align-items:center;
-                justify-content: center; 
-            }
-            #pai {
-                position:relative;
-                display:flex;
-                flex-direction:column;
-                justify-content: end;
-                width: 26vw;
-                height:10vw;
-                background:grey;
-            }
-            #bolas {
-                position:relative;
-                z-index:10;
-                display:flex;
-                gap: 2vw;
-                flex-direction: row;
-                position:absolute;
-                margin-bottom:30px;
-                width:100%;
-                align-items:center;
-                justify-content: center;
-                height: auto;
-            }
-            .bola {
-                border-radius:10px;
-                height: 1vw; width: 1vw;
-                background:red;
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Produtos | Mascotero</title>
+    <link rel='preconnect' href='https://fonts.googleapis.com'>
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+    <link href='https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css2?family=Montserrat&display=swap' rel='stylesheet'>
+    <link rel='stylesheet' href='styles_header_footer.css'>
+    <link href='https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400;1,9..40,500&display=swap' rel='stylesheet'>         
 
-            }
+    <link rel='icon' type='image/svg+xml' href='./imagens/MC_Logo_Footer.svg'>
+    <script src='js/produtos.js?v=1.09'></script>
+    <style>
+        #vidro {
+            backdrop-filter: blur(2px);
+            background: rgba(239, 234, 234, 0.4);
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            z-index:10;
+        }
+        #osmostra {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 500px;
+            max-width:600px;
+            background-color: powderblue;
+            z-index:2;
+            gap:50px;
+            overflow:hidden;
+         }
+        #osesconde {
+            display: flex;
+            flex-direction:row;
+            align-items:center;
+            justify-content:flex-end;
+            margin-right: 600px;
+            height: 100%;
+            width:fit-content;
+            /* background-color: blue; */
+            z-index: 0;
+        }
+        #osesconde.outrolado {
+            margin-right:0;
+            margin-left:600px;
+            animation-delay: 0s;
+        }
+        #osesconde.outrolado .oselemento {
+            animation: prooutro 3s linear infinite forwards;  
+        }
+        .oselemento {
+            height: 180px;
+            min-width: 180px;
+            border-radius: 15px;
+            margin: 10px;
+            z-index:3;
+            background-color: green;
+            animation-delay: 0s;
+            animation: prolado 3s linear infinite forwards;  
+        }
+        .oselemento:nth-child(1),
+        .oselemento:nth-child(4) {
+            background-color: yellow;
+        }
+        .oselemento:nth-child(2),
+        .oselemento:nth-child(5) {
+            background-color: orange;
+        }
+        .oselemento:nth-child(3),
+        .oselemento:nth-child(6) {
+            background-color: green;
+        }
+        
 
-        </style>
-    </head>
-    <body>
-        <div id="pai">
-            <div id="filho"></div>
-            <div id="bolas">
-                <div class="bola"></div>
-                <div class="bola"></div>
-                <div class="bola"></div> 
-                <div class="bola"></div>
-                <div class="bola"></div>
+        
+        @keyframes prolado {
+            from {
+                transform: translateX(0px);
+            }
+            to {
+                transform: translateX(600px);
+            }
+        }
+        @keyframes prooutro {
+            from {
+                transform: translateX(0px);
+            }
+            to {
+                transform: translateX(-600px);
+            }
+        }
+    </style>
+</head>
+<body style='display: flex; align-items: center; justify-content: center;'>
+    <div id="osmostra">
+        <div id="osesconde">
+            <div class="oselemento">
+            </div>
+            <div class="oselemento">
+            </div>
+            <div class="oselemento">
+            </div>
+            <div class="oselemento">
+            </div>
+            <div class="oselemento">
+            </div>
+            <div class="oselemento">
             </div>
         </div>
-    </body>
+        <div id="osesconde" class="outrolado">
+            <div class="oselemento">
+            </div>
+            <div class="oselemento">
+            </div>
+            <div class="oselemento">
+            </div>
+            <div class="oselemento">
+            </div>
+            <div class="oselemento">
+            </div>
+            <div class="oselemento">
+            </div>
+        </div>
+        <div id="osesconde">
+            <div class="oselemento">
+            </div>
+            <div class="oselemento">
+            </div>
+            <div class="oselemento">
+            </div>
+            <div class="oselemento">
+            </div>
+            <div class="oselemento">
+            </div>
+            <div class="oselemento">
+            </div>
+        </div>
+        <div id="vidro"></div>
+    </div>
+</body>
 </html>
