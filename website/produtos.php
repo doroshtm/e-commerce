@@ -123,7 +123,7 @@
                 
                         echo isset($description) ? "<span class='descricao-produto'>$description</span>" : "";
 
-                        echo "            
+                      echo "            
                         <a class='adicionar-carrinho' href='carrinho.php?id=$id&url=produtos.php&action=add&amount=1'>
                             <img src='./imagens/Aumentar_qtd.svg'>
                             <span>Adicionar ao carrinho</span>

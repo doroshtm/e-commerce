@@ -4,8 +4,28 @@
     if(!isset($_SESSION['user']['isAdmin']) || !$_SESSION['user']['isAdmin']) {
         header('Location: ./');
     }
-    $id = $_GET['id'];
+    isset($_GET['id']) ? $id = $_GET['id'] : '';
+    if (!isset($id)) {
+        echo "<script>alert('Produto não encontrado!')</script>";
+        header('Refresh: 3; url=./produtos.php');
+        die();
+    }
     $connection = connect();
+    isset($_POST['pass']) ? $pass = $_POST['pass'] : '';
+    if (isset($pass)) {
+        $select = $connection->prepare("select senha from tbl_usuario where id_usuario = " . $_SESSION['user']['id']);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        if ($result['senha'] != $pass) {
+            echo "<script>alert('Senha incorreta!')</script>";
+            header('Refresh: 0; url=./alteracao_produto.php?id=' . $id);
+            die();
+        }
+        $delete = $connection->prepare("update tbl_produto set excluido = " . ($result['excluido'] ? 'false' : 'true') . " where id_produto = " . $id);
+        $delete->execute();
+        header('Location: ./produtos.php');
+        die();
+    }
     $select_product = $connection->prepare('select nome, descricao, categoria, preco, custo, icms, quantidade_estoque, codigovisual, margem_lucro, excluido from tbl_produto where id_produto = ' . $id);
     $select_product->execute();
     $result = $select_product->fetch(PDO::FETCH_ASSOC);
@@ -14,7 +34,9 @@
         header('Refresh: 3; url=./produtos.php');
         die();
     }
+    $action = $result['excluido'] ? 'Restaurar' : 'Deletar';
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
@@ -32,13 +54,13 @@
         <div id="pai">
             <dialog id="popup-confirmar">
                 <div class="content-popup">
-                    <span class="texto-destaque">Tem certeza que deseja <?php echo $result['excluido'] ? 'restaurar' : 'excluir' ?> o produto?</span>
+                    <span class="texto-destaque">Tem certeza que deseja <?php echo strtolower($action) ?> o produto?</span>
                     <input type="checkbox" id="mostrar-confirmacao">
                     <label for="mostrar-confirmacao" id="confir">Sim</label>
-                    <form id="formlogin" style="margin:0; padding:0;">
+                    <form id="formlogin" style="margin:0; padding:0;" method="POST" action="./alteracao_produto.php?id=<?php echo $id . '&action=' . $action ?>">
                         <div class="label-input-login">
-                            <label for="senha"> Digite sua senha</label>
-                            <input type="password" id="senha" name="senha" placeholder="Senha para confirmação..." required>
+                            <label for="pass"> Digite sua senha</label>
+                            <input type="password" id="pass" name="pass" placeholder="Senha para confirmação..." required>
                         </div>
                         <input type="submit" value="Excluir">
                     </form>
@@ -105,9 +127,8 @@
                             </div>
                     <input type="submit" value="Alterar">
                     <input type="hidden" name="id" value=<?php echo $id ?> form="formDelProduto">
-                    <input type="hidden" name="action" value=<?php echo $result['excluido'] ? 'Restaurar' : 'Deletar' ?> form="formDelProduto">
-                    <!-- <input type="submit" value=<?php echo $result['excluido'] ? 'Restaurar' : 'Excluir' ?> form="formDelProduto"> -->
-                    <input type="button" value=<?php echo $result['excluido'] ? 'Restaurar' : 'Excluir' ?> id="botao-abrir-popup">
+                    <input type="hidden" name="action" value=<?php echo $action ?> form="formDelProduto">
+                    <input type="button" value=<?php echo $action ?> id="botao-abrir-popup">
                     <input type="button" value="Cancelar" onclick="window.history.back()">
                     <?php
                         if($_SERVER['REQUEST_METHOD'] == 'POST') {
