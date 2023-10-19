@@ -50,7 +50,7 @@
             <th>Admin</th>
             <th>Senha</th>
             <th>Telefone</th>
-            <th>Endereco</th>
+            <th>Endereço</th>
             <th>CEP</th>
             <th>CPF</th>
             <th>Data do cadastro</th>
