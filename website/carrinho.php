@@ -19,7 +19,7 @@
         }
     }
     if (isset($_SESSION['cart']['totalprice']) && $_SESSION['cart']['totalprice'] == 0) {
-        unset($_SESSION['cart']['totalprice']);
+        unset($_SESSION['cart']);
     }
     if (isset($_GET['action'])) {
         $action = $_GET['action'];
@@ -122,7 +122,7 @@
                 }
                 unset($_SESSION['cart']['visitor']);
             }
-            if (empty($_SESSION['cart']) == 0) {
+            if (empty($_SESSION['cart'])) {
                 $select = $connection->prepare("SELECT produto, quantidade FROM tbl_compra_produto WHERE compra = :id");
                 $select->execute(['id' => $result['id_compra']]);
                 $result = $select->fetchAll(PDO::FETCH_ASSOC);
@@ -183,6 +183,7 @@
                         $products = array();
                         if (empty($_SESSION['cart'])) {
                             echo "<span class='texto-destaque'>Seu carrinho está vazio!</span>";
+
                         }
                         foreach ($_SESSION['cart'] as $id => $amount) {
                             if ($id == 'totalprice' || $id == 'visitor') {

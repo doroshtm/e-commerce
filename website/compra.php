@@ -68,8 +68,8 @@
         $update = $connection->prepare("UPDATE tbl_compra SET status = 'PAGO', cupom = :cupom WHERE id_compra = :id_compra");
         $update->execute(['cupom' => $coupon, 'id_compra' => $tableCartID]);
         unset($_SESSION["cart"]);
-        $_SESSION["cart"]["totalprice"] = 0;
         echo "<script>alert('Compra concluída com sucesso!');</script>";
+        startCartSession();
         header("refresh: 0; url=produtos.php");
     }
 ?>
