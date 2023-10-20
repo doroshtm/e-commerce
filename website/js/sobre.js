@@ -43,6 +43,8 @@ imagem.addEventListener('click', () => {
     }
   });
   
+
+
 });
 
 

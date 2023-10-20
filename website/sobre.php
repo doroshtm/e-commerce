@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="styles_header_footer.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap"> 
         <link rel="stylesheet" href="styles_paginas.css">
-        <script src="js/script.js"></script>
+        <script src="js/sobre.js"></script>
         <link rel="icon" type="image/svg+xml" href="./imagens/MC_Logo_Footer.svg">
 
     </head>

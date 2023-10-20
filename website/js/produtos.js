@@ -1,3 +1,4 @@
+    
     document.addEventListener('DOMContentLoaded', function() {
         
     const filtro = document.getElementById('filtro');
@@ -250,4 +251,6 @@
                 });
             }
         }
+
+        
     });
