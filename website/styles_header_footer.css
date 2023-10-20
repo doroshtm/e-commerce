@@ -219,49 +219,63 @@ body {
     width:80vw;
 }
 #display-produtos {
+    margin-bottom:20px;
     display:flex;
-    align-items:center;
-    justify-content: center;
     width:100%;
     max-width:100%;
-    box-sizing:border-box;
-    height:500px;
-    background:#ccc;
+    height:900px;
+    border-left:0;
+    border-right:0;
+    border: 2px solid rgba( 255, 255, 255, 0.18 );
+
 }
 #oquemostra {
     display:flex;
-    flex-direction:row;
-    align-items:center;
-    justify-content: flex-end;
-    width:360px;
-    height:300px;
+    flex-direction:column;
+    justify-content: space-evenly;
+    width:100%;
+    height:100%;
     position:relative;
-    background: blue;
+    background-image:linear-gradient(
+        var(--cor-destaque),
+        var(--cor-fundo)
+    );
     overflow:hidden; 
+}
+.linha {
+    display:flex;
+    max-width:100%;
+    height:fit-content;
+    flex-direction: row;
+}
+.linha.esquerda {
+    justify-content: flex-begin;
+}
+.linha.direita {
+    justify-content: flex-end;
 }
 .container-produtos-flutuantes {
     display:flex;
     flex-direction:row;
     width: fit-content;
     height: 100%;
-    gap:20px;
+    gap:12vw;
     align-items:center;
     justify-content: center;
     position:relative;
-    padding-left:20px;
-    animation: pradireita 3s infinite linear;
 }
-.container-produtos-flutuantes.uau {
-    position:relative;
-    margin-right:20px;
+.linha.direita .container-produtos-flutuantes {
+    animation: pradireita 20s infinite linear;
+    padding-left:12vw;
+}
+.linha.esquerda .container-produtos-flutuantes {
+    animation: praesquerda 20s infinite linear;
+    padding-right:12vw;
 }
 .produto-flutuante {
-    min-width:100px;
-    max-width: 100px;
-    min-height:100px;
-    max-height:100px;
-    background:red;
-    border-radius: 15px;
+    width: 14vw;
+    height:14vw;
+    border-radius: 2vw;
     display:flex;
     align-items:center;
     justify-content: center;
@@ -281,13 +295,117 @@ body {
         transform:translateX(100%);
     }
 }
-#container-bolas {
-    margin-top:15px;
-    width:100%;
+@keyframes praesquerda {
+    from {
+        transform:translateX(0)
+    }
+    to {
+        transform: translateX(-100% )
+    }
+}
+#cobertura-vidro {
+    font-size: 30px;
+    position:absolute;
+    top:0;
+    left:0;
+    min-width: 100%;
+    height:100%;
+    z-index:1500;
+    border-left: 0;
+    border-right:0;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    background-color: rgba(239, 234, 234, 0.5);
+    backdrop-filter: blur(5px);
     display:flex;
-    flex-direction:row;
-    justify-content:center;
-    margin-bottom:15px;
+    align-items:center;
+}
+#container-quadrado {
+    display:flex;
+    align-items: center;
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:50%;
+    z-index:1000;
+}
+#conteudo-vidro{
+    display:grid;
+    width:100%;
+    height:100%;
+    grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 1000px)
+{
+#display-produtos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+}
+    #conteudo-vidro {
+        grid-template-columns: 1fr;
+        height:1300px;
+    }
+    #imagem-vidro img {
+        width: 300px;
+        margin:0;
+    }
+}
+#texto-vidro {
+    justify-self: left;
+    align-self:center;
+    font-size:70px;
+    font-weight: 700;
+    display:flex;
+    flex-direction:column;
+}
+#texto-vidro span:not(#destaque) {
+    margin-left:50px;
+}
+#destaque {
+    background: var(--cor-interac);
+    width:fit-content;
+    padding: 5px 50px;
+    border-radius: 0px 20px 20px 0px;
+    color:white;
+}
+#descricao {
+    margin-top: 25px;
+    width: 90%;
+    word-wrap: break-word;
+    font-size: 30px;
+    font-weight: 500;
+}
+#imagem-vidro {
+    justify-self: center;
+    align-self:center;
+    transition: 0.4s;
+}
+#imagem-vidro img {
+    width: 500px;
+    height: auto;
+    filter: drop-shadow(5px 5px 5px #222);
+}
+#texto-vidro a {
+    text-decoration: none;
+    width: fit-content;
+}
+#botao-produto-home {
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    margin-top: 40px;
+    padding: 20px;
+    border-radius: 12px;
+    margin-left: 45px;
+    font-size: 40px;    
+    color: white;
+    background: var(--cor-interac);
+    transition: 0.4s;
+}
+#botao-produto-home:hover {
+    transform: scale(1.1);
+    box-shadow: 3.4px 6.9px 6.9px hsl(0deg 0% 0% / 0.3);
 }
 .bolamaior {
     border-radius: 360px;
