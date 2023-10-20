@@ -1,3 +1,11 @@
+
+export function abreviarTexto(texto, limite) {
+    if (texto.length > limite-3) {
+        return texto.slice(0, limite-3) + '...';
+    }
+    return texto;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     function mostrarPopup(popup) {
         popup.showModal();
@@ -7,8 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
         popup.close();
         popup.style.display = 'none';
     }
-
-
 
     const formPopup = document.querySelector('.content-popup form');
     const botaoAbrir = document.getElementById('botao-abrir-popup');

@@ -11,7 +11,12 @@
         echo "Não foi possivel conectar";
     } else { return $varConn; }
   }
-
+  function abreviarTexto($texto, $limite) {
+    if (strlen($texto) > $limite-3) {
+      return substr($texto, 0, $limite) . '...';
+    }
+    return $texto;
+  }
   function startSession() {
     ini_set('session.gc_maxlifetime', 1209600);
     session_start();
@@ -97,6 +102,7 @@
       </ul>
     </nav>";
     $name = isset($_SESSION['user']['name']) ? explode(' ', $_SESSION['user']['name'], 2)[0] : 'visitante';
+    $name = abreviarTexto($name,15);
     echo "
     <div id='container-usuario'>
       <span>Olá, </span>
