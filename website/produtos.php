@@ -106,11 +106,11 @@
                         $category = $category['nome'];
                         $id = $row['id_produto'];
                         $name = $row['nome'];
-                        $name = abreviarTexto($name, 20);
+                        $name = abreviarTexto($name, 28);
                         $image = $row['imagem'];
                         $price = number_format($row['preco'], 2, ',', '.');
                         isset($row['descricao']) ? $description = $row['descricao'] : $description = '';
-                        $description = abreviarTexto($description,75);
+                        $description = abreviarTexto($description,85);
                         
                     
                         echo "<div class='produto' data-categoria='$category' data-nome='$name' data-preco = '$price'>

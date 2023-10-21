@@ -13,7 +13,7 @@
   }
   function abreviarTexto($texto, $limite) {
     if (strlen($texto) > $limite-3) {
-      return substr($texto, 0, $limite) . '...';
+      return substr($texto, 0, $limite-3) . '...';
     }
     return $texto;
   }
