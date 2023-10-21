@@ -18,6 +18,7 @@
             die();
         }
     }
+<<<<<<< HEAD
     $selectCompra = $connection->prepare("SELECT id_compra FROM tbl_compra JOIN tbl_tmp_compra ON tbl_compra.id_compra = tbl_tmp_compra.compra WHERE tbl_tmp_compra.sessao = :sessao AND status = 'PENDENTE'");
     $selectCompra->execute(['sessao' => $sessID]);
     $resultCompra = $selectCompra->fetch(PDO::FETCH_ASSOC);
@@ -33,88 +34,79 @@
     } else {
         $amount = 0;
     }
+=======
+    
+    $selectCompra = $connection->prepare("SELECT id_compra FROM tbl_compra JOIN tbl_tmp_compra ON tbl_compra.id_compra = tbl_tmp_compra.compra WHERE sessao = :session AND status = 'PENDENTE'");
+    $selectCompra->execute(['session' => $sessID]);
+    $resultCompra = $selectCompra->fetch(PDO::FETCH_ASSOC);
+    $resultCompra == NULL ? $id_compra = NULL : $id_compra = $resultCompra['id_compra'];
+    $userID = isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : NULL;
+
+>>>>>>> edf6c350d0e7a62abc4c51895d0fb437a9cdb557
     if (isset($_GET['action'])) {
         $action = $_GET['action'];
         if (isset($_GET['id'])) {
             if(isset($_GET['amount'])) {
-                isset($_SESSION['cart'][$_GET['id']]) ? $amountCart = $_SESSION['cart'][$_GET['id']] : "";
+                if ($action == 'add' && $id_compra == NULL) {
+                    $insert = $connection->prepare("INSERT INTO tbl_compra (sessao, status, data, usuario) VALUES (:session, 'PENDENTE', :date, :user)");
+                    $insert->execute(['session' => $sessID, 'date' => date('Y-m-d'), 'user' => $userID]);
+                    $id_compra = $connection->lastInsertId();
+                    $insert = $connection->prepare("INSERT INTO tbl_tmp_compra (sessao, compra) VALUES (:session, :id)");
+                    $insert->execute(['session' => $sessID, 'id' => $id_compra]);
+                    $id_compra = $connection->lastInsertId();
+                } else if ($id_compra == NULL) {
+                    header("location: $url?message='Não há produtos no carrinho!'");
+                    die();
+                }
                 $amount = $_GET['amount'];
                 $id = $_GET['id'];
                 $stock = $row['quantidade_estoque'];
+                $selectCompraProduto = $connection->prepare("SELECT quantidade FROM tbl_compra_produto WHERE compra = :id_compra AND produto = :id");
+                $selectCompraProduto->execute(['id_compra' => $id_compra, 'id' => $id]);
+                $resultCompraProduto = $selectCompraProduto->fetch(PDO::FETCH_ASSOC);
+                $amountCart = $resultCompraProduto != NULL ? $resultCompraProduto['quantidade'] : 0;
                 if ($action == 'add') {
-                    if (isset($amountCart)) {
-                        if ($amountCart + $amount > $stock) {
-                            header("location: $url?message='Não há estoque suficiente para essa quantidade!'");
-                            die();
-                        }
-                        $_SESSION['cart'][$id] += $amount;
+                    if ($amountCart + $amount > $stock) {
+                        header("location: $url?message='Não há estoque suficiente para essa quantidade!'");
+                        die();
+                    }
+                    if ($amountCart != 0) {
+                        $amountCart += $amount;
+                        $update = $connection->prepare("UPDATE tbl_compra_produto SET quantidade = :amount WHERE compra = :id AND produto = :id_produto");
+                        $update->execute(['amount' => $amountCart, 'id' => $id_compra, 'id_produto' => $id]);
+
                     } else {
-                        $_SESSION['cart'][$id] = $amount;
+                        $insert = $connection->prepare("INSERT INTO tbl_compra_produto (compra, produto, quantidade) VALUES (:id, :id_produto, :amount)");
+                        $insert->execute(['id' => $id_compra, 'id_produto' => $id, 'amount' => $amount]);
                     }
                 } else if ($action == 'remove') {
-                    if (isset($amountCart)) {
-                        $_SESSION['cart'][$id] -= $amount;
-                        if ($_SESSION['cart'][$id] <= 0) {
-                            unset($_SESSION['cart'][$id]);
-                        }
+                    $amountCart -= $amount;
+                    if ($amountCart < 0) {
+                        header("location: $url?message='Não é possível remover essa quantidade!'");
+                        die();
+                    }
+                    if ($amountCart != 0) {
+                        $update = $connection->prepare("UPDATE tbl_compra_produto SET quantidade = :amount WHERE compra = :id AND produto = :id_produto");
+                        $update->execute(['amount' => $amountCart, 'id' => $id_compra, 'id_produto' => $id]);
+                    } else {
+                        $delete = $connection->prepare("DELETE FROM tbl_compra_produto WHERE compra = :id AND produto = :id_produto");
+                        $delete->execute(['id' => $id_compra, 'id_produto' => $id]);
                     }
                 }
             } else if ($action == 'delete') {
-                unset($_SESSION['cart'][$id]);
+                $delete = $connection->prepare("DELETE FROM tbl_compra_produto WHERE compra = :id AND produto = :id_produto");
+                $delete->execute(['id' => $id_compra, 'id_produto' => $id]);
             }
-            $amount = isset($_SESSION['cart'][$id]) ? $_SESSION['cart'][$id] : 0;   
-            if (isset($_SESSION['user']['id'])) {
-                $select = $connection->prepare("SELECT id_compra FROM tbl_compra WHERE usuario = :id AND status = 'PENDENTE'");
-                $select->execute(['id' => $_SESSION['user']['id']]);
-                $result = $select->fetch(PDO::FETCH_ASSOC);
-                if ($result != NULL) {
-                    $select = $connection->prepare("SELECT * FROM tbl_compra_produto JOIN tbl_produto ON tbl_compra_produto.produto = $id WHERE compra = :id AND tbl_produto.excluido = false");
-                    $select->execute(['id' => $result['id_compra']]);
-                    $result2 = $select->fetch(PDO::FETCH_ASSOC);
-                    if ($result2 != NULL) {
-                        if ($amount == 0) {
-                            $delete = $connection->prepare("DELETE FROM tbl_compra_produto WHERE compra = :id AND produto = :id_produto");
-                            $delete->execute(['id' => $result['id_compra'], 'id_produto' => $id]);
-                            $select2 = $connection->prepare("SELECT * FROM tbl_compra_produto WHERE compra = :id");
-                            $select2->execute(['id' => $result['id_compra']]);
-                            $result2 = $select2->fetch(PDO::FETCH_ASSOC);
-                            if ($result2 == NULL) {
-                                $delete = $connection->prepare("DELETE FROM tbl_compra WHERE id_compra = :id");
-                                $delete->execute(['id' => $result['id_compra']]);
-                                unset($_SESSION['cart']['totalprice']);
-                            }
-                        } else {
-                            $update = $connection->prepare("UPDATE tbl_compra_produto SET quantidade = :amount WHERE compra = :id AND produto = :id_produto");
-                            $update->execute(['amount' => $amount, 'id' => $result['id_compra'], 'id_produto' => $id]);
-                        }
-                    } else if ($amount != 0) {
-                        $insert = $connection->prepare("INSERT INTO tbl_compra_produto (compra, produto, quantidade) VALUES (:id, :id_produto, :amount)");
-                        $insert->execute(['id' => $result['id_compra'], 'id_produto' => $id, 'amount' => $amount]);
-                    }
-                } else if ($amount != 0) {
-                    $insert = $connection->prepare("INSERT INTO tbl_compra (usuario, status, data) VALUES (:id, 'PENDENTE', :date)");
-                    $insert->execute(['id' => $_SESSION['user']['id'], 'date' => date('Y-m-d')]);
-                    $id_compra = $connection->lastInsertId();
-                    $insert = $connection->prepare("INSERT INTO tbl_compra_produto (compra, produto, quantidade) VALUES (:id, :id_produto, :amount)");
-                    $insert->execute(['id' => $id_compra, 'id_produto' => $id, 'amount' => $amount]);
-                }
-            } else {
-                $_SESSION['cart']['visitor'] = true;
-            }
+            $amount = $amountCart;
         } else if ($action == 'clear') {
-            unset($_SESSION['cart']);
-            if (isset($_SESSION['user']['id'])) {
-                $select = $connection->prepare("SELECT id_compra FROM tbl_compra WHERE usuario = :id AND status = 'PENDENTE'");
-                $select->execute(['id' => $_SESSION['user']['id']]);
-                $result = $select->fetch(PDO::FETCH_ASSOC);
-                if ($result != NULL) {
-                    $delete = $connection->prepare("DELETE FROM tbl_compra_produto WHERE compra = :id");
-                    $delete->execute(['id' => $result['id_compra']]);
-                    $delete = $connection->prepare("DELETE FROM tbl_compra WHERE id_compra = :id");
-                    $delete->execute(['id' => $result['id_compra']]);
-                    unset($_SESSION['cart']['totalprice']);
-                }
+            if ($id_compra == NULL) {
+                header("location: $url?message='Não há produtos no carrinho!'");
+                die();
             }
+            $delete = $connection->prepare("DELETE FROM tbl_compra_produto WHERE compra = :id");
+            $delete->execute(['id' => $id_compra]);
+            $delete = $connection->prepare("DELETE FROM tbl_compra WHERE id_compra = :id");
+            $delete->execute(['id' => $id_compra]);
         }
         $location = "location: $url" . ($url == "produtos.php" ? "?message='Produto adicionado ao carrinho!'" : "");
         header($location);

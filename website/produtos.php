@@ -106,9 +106,11 @@
                         $category = $category['nome'];
                         $id = $row['id_produto'];
                         $name = $row['nome'];
+                        $name = abreviarTexto($name, 28);
                         $image = $row['imagem'];
                         $price = number_format($row['preco'], 2, ',', '.');
                         isset($row['descricao']) ? $description = $row['descricao'] : $description = '';
+                        $description = abreviarTexto($description,85);
                         
                     
                         echo "<div class='produto' data-categoria='$category' data-nome='$name' data-preco = '$price'>
@@ -144,18 +146,19 @@
                             $category = $select2->fetch();
                             $category = $category['nome'];
                             $id = $row['id_produto'];
-                            $name = $row['nome'];
+                            $name = abreviarTexto($row['nome'],20);
                             $image = $row['imagem'];
                             $price = number_format($row['preco'], 2, ',', '.');
-                            isset($row['descricao']) ? $description = $row['descricao'] : $description = '';
-                        
+                            $name = abreviarTexto($name, 20);
+                            isset($row['descricao']) ? $description = abreviarTexto($row['descricao'],50) : $description = '';
+
                             echo "<div class='produto deletado' data-categoria='$category' data-nome='$name' data-preco = '$price'>
                                 <div class='produto-imagem'><img src='imagens/produtos/$image'></div>
                                 <div class='produto-corpo'>";
                         
                             echo "<a href='alteracao_produto.php?id=$id'>
                             <img src='imagens/editar.png' width='20px' height='20px' class='imagem-editar-produto'></a>";
-                        
+                            
                             echo "<span class='nome-produto'>$name - DELETADO</span>
                                 <span class='tags-produto'>$category</span>";
                     
@@ -177,7 +180,8 @@
                     <img src="imagens/MC_Logo_Footer.svg" width="75px" height="75px" alt= "Logo do footer"> Mascotero        
                 </div>
             </div>
-            <div id="footer-lado2">Copyright © 2023 Mascotero Ltda | Todos os direitos reservados</div>
+            <div id="footer-lado2">Copyright © 2023 Mascotero Ltda | Todos os direitos reservados
+            </div>
         </footer>
     </body>
 </html>
