@@ -18,8 +18,20 @@
             die();
         }
     }
-    if (isset($_SESSION['cart']['totalprice']) && $_SESSION['cart']['totalprice'] == 0) {
-        unset($_SESSION['cart']);
+    $selectCompra = $connection->prepare("SELECT id_compra FROM tbl_compra JOIN tbl_tmp_compra ON tbl_compra.id_compra = tbl_tmp_compra.compra WHERE tbl_tmp_compra.sessao = :sessao AND status = 'PENDENTE'");
+    $selectCompra->execute(['sessao' => $sessID]);
+    $resultCompra = $selectCompra->fetch(PDO::FETCH_ASSOC);
+    if ($resultCompra != NULL) {
+        $select = $connection->prepare("SELECT * FROM tbl_compra_produto JOIN tbl_produto ON tbl_compra_produto.produto = $id WHERE compra = :id AND tbl_produto.excluido = false");
+        $select->execute(['id' => $resultCompra['id_compra']]);
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        if ($result != NULL) {
+            $amount = $result['quantidade'];
+        } else {
+            $amount = 0;
+        }
+    } else {
+        $amount = 0;
     }
     if (isset($_GET['action'])) {
         $action = $_GET['action'];
