@@ -162,7 +162,6 @@ body {
 
     max-width:50vw;
 }
-
 @media (max-width: 1000px) {
     #header {
         grid-template-columns: 1fr; 
@@ -184,18 +183,28 @@ body {
         align-self:center;
         justify-self:center;
     }
-}
-@media (max-width: 500px)
-{
-    #texto-logo {
-        display:none;
-    }
     #content {
         margin-top:50px;
     }
+}
+@media (max-width: 500px)
+{
+    .container-logo {
+        flex-direction:column;
+        margin-bottom: 5px;
+    }
+    #imagem-logo {
+        max-height: 75px;
+    }
+    #nav-header ul {
+        max-width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center
+    }
     #nav-header ul li a{
         
-        font-size: 14px !important;
+        font-size: 17px !important;
     }
 }
 
@@ -224,6 +233,9 @@ body {
     border-radius:10px;
     margin-bottom: 40px;
     transition: 0.4s;
+}
+#container-mascote-produtos .conteudo-mp {
+    grid-template-columns: 70% 30%;
 }
 #container-video .conteudo-mp-video{
     flex-wrap: wrap;
@@ -372,16 +384,19 @@ body {
         grid-template-columns: 1fr;
     }
     #imagem-vidro{
-        width:350px;
-        height:352px;
+        width:300px;
+        height:302px;
         margin:0;
+    }
+      #container-video .conteudo-mp-video {
+        padding: 30px;
     }
 }
 @media (max-width: 500px)
 { 
     #oquemostra {
         width:100%;
-        height:100%;
+        gap:33vh;
     }
     #texto-vidro {
         justify-content: center;
@@ -519,7 +534,7 @@ body {
     margin-left:15px;
 }
 .imagem-mp img {
-    object-fit: cover;
+    object-fit: contain;
     margin-left:15px;
     height: 150px;
     width: 300px;
@@ -528,7 +543,7 @@ body {
 
 @media (max-width: 1000px)
 {
-    .conteudo-mp, .conteudo-mp-video{
+    .conteudo-mp, .conteudo-mp-video, #container-mascote-produtos .conteudo-mp{
         text-align: center;
         grid-template-columns: 100%;
         gap:40px;
@@ -697,12 +712,16 @@ a {
     height:150px;
     margin-left: 0;
     margin-right:15px;
+    object-fit: cover;
 }
 
 @media (max-width:1000px)
 {
     #sobre-mascotero-equipe .conteudo-mp {
         grid-template-columns: 100%;
+    }
+    .voltar-logo a {
+        text-align:center;
     }
 }
 
@@ -906,6 +925,7 @@ a {
     background-position-y: 50%;
     overflow: hidden;
 }
+
 @keyframes mostra-filtro {
     from {
         width: 0px;
@@ -926,6 +946,32 @@ a {
         padding-left:0px;
     }
 }
+@media (max-width: 750px )
+{
+    #barra-pesquisa {
+        display:flex;
+        flex-direction: column;
+        gap:15px;
+    }
+    #barra-pesquisa input[type=text] {
+        border-radius: 8px;
+        width: 80vw;
+        border: 2px solid grey;
+    }
+    #filtro {
+        border-radius: 8px;
+        max-width:60vw;
+        width: 60vw;
+        border: 2px solid grey;
+    }
+    #dropdown {
+        max-width: 60vw;
+        min-width: 60vw;
+    }
+}
+
+
+
 #grid-produtos {
     gap:20px;
     transition: 0.4s;
@@ -1116,12 +1162,15 @@ a.adicionar-carrinho:visited {
         min-height: 350px;
         margin:0;
     }
+    .nome-produto {
+        font-size: 22px;
+    }
     .descricao-produto{
         height:fit-content;
-        font-size:13px;
+        font-size:16px;
     }
     .adicionar-carrinho span {
-        font-size:10px;
+        font-size:15px;
     }
 }
 
@@ -1183,6 +1232,13 @@ a.adicionar-carrinho:visited {
     justify-content:center;
     align-items: center;
     padding-bottom:54px;
+}
+
+@media (max-width:500px)
+{
+    #contato-card-content .texto-destaque {
+        font-size: 18px;
+    }
 }
 
 /* Login, Cadastro, Edições */

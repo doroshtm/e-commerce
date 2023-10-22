@@ -106,7 +106,7 @@
     echo "
     <div id='container-usuario'>
       <span>Olá, </span>
-      <span id='nome-usuario'> $name - você é " . ($isAdmin ? 'admin' : 'cliente') . " </span>" .
+      <span id='nome-usuario'> $name" . ($isAdmin ? ' - você é admin' : '') . "! </span>" .
       (isset($_SESSION['user']['id']) ? "<a href='./logout.php?url=$url'><img src='imagens/logout.svg' alt='Símbolo de logout'></a>" : "<a href='./login.php?url=$url'><img src='imagens/user_icon.svg' alt='Símbolo de cliente'></a>") .
       "<a href='./carrinho.php'><img src='imagens/carrinho.svg' alt='Carrinho de compras' id='simbolo-carrinho'></a>
   </div>";
