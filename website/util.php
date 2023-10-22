@@ -43,34 +43,7 @@
     }
     return session_id();
   }
-  function startCartSession() {
-    session_start();
-    if (!isset($_SESSION['cart'])) {
-      $_SESSION['cart'] = array();
-      // Se o usuário estiver logado, pega o carrinho do banco de dados
-      if (isset($_SESSION['user']['id'])) {
-        $connection = connect();
-        $sessID = session_id();
-        $select = $connection->prepare("SELECT id_compra FROM tbl_compra WHERE usuario = :id AND status = 'PENDENTE'");
-        $select->execute(['id' => $_SESSION['user']['id']]);
-        $result = $select->fetch(PDO::FETCH_ASSOC);
-        // Se o usuário tiver uma compra pendente, pega os produtos dessa compra
-        if ($result != NULL) {
-          $select = $connection->prepare("SELECT produto, compra, quantidade FROM tbl_compra_produto WHERE compra = :id");
-          $select->execute(['id' => $result['compra']]);
-          $result = $select->fetchAll(PDO::FETCH_ASSOC);
-          foreach ($result as $row) {
-            $_SESSION['cart'][$row['produto']] = $row['quantidade'];
-          }
-          // Se o usuário não tiver uma compra pendente, cria uma nova compra
-        } else {
-          $insert = $connection->prepare("INSERT INTO tbl_compra (usuario, status, data) VALUES (:id, 'PENDENTE', :date)");
-          $insert->execute(['id' => $_SESSION['user']['id'], 'date' => date('m/d/Y')]);
-        }
-      }
-    }
-    return session_id();
-  }
+
 
   function generateToken() {
     $token = bin2hex(random_bytes(16));
