@@ -33,7 +33,7 @@
                     </div>
                     <div class="contato">
                         <img src="./imagens/Email_logo.svg">
-                        <span class="texto-destaque" style="font-size:20px;"> Email: fernando.theodoro@unesp.br</span>
+                        <span class="texto-destaque"> Email: mascotero.ltd@gmail.com</span>
                     </div>
                     <div class="contato">
                         <img src="./imagens/Instagram_logo.svg">

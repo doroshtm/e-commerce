@@ -138,44 +138,61 @@
             </div>
         </div>
     </div>
-            <span class="texto-destaque">O que fazemos</span>
+            <span class="texto-destaque">Nossos mascotes</span>
             <div id="container-mascote-produtos">
                 <div class="conteudo-mp">
                     <div class="texto-mp">
-                        <span class="texto-destaque">Nosso mascote <br></span>
-                        <span>Nosso mascote, roberson, é um mascote feito para represtar o CTI com sucesso
-                            , ele tem tudo do CTI! É um sagui, e foi selecionado pelo prof. Neivaldo Strutzel
-                            Para ser o mascote da Semana do Colégio
+                        <span class="texto-destaque">CTI<br></span>
+                        <span>
+                            O mascote oficial do Viva CTI é representado por uma
+                            gato robótico, fazendo alusão aos diferentes cursos do Colégio. 
+                             É uma homenagem à gata nina, que viveu no CTI cuidada pelos professores por muitos anos.
+                            
                         </span>
                     </div>
                     <div class="imagem-mp">
-                        <img src="">
+                        <img src="./imagens/gatoCTI.png">
                     </div>
                 </div>
                 <div class="conteudo-mp">
                     <div class="texto-mp">
-                        <span class="texto-destaque">Chaveiros pré-prontos<br></span>
+                        <span class="texto-destaque">Informática <br></span>
                         <span>
-                            Temos uma linha de produção com diversos produtos pré-prontos, da maior qualidade 
-                            demonstrando artes do mascote do CTI em chaveiros de resina e borracha.
+                            O mascote do curso de Informática é representado por duas <strong>cobras</strong>,
+                            uma azul, outra amarela, ambas conectadas uma com a outra. Faz 
+                            alusão à logo da linguagem de programação Python, ensinada no CTI.
                         </span>
                     </div>
                     <div class="imagem-mp">
-                        <img src="">
+                        <img src="./imagens/Renderpython.png">
                     </div>
                 </div>
                 <div class="conteudo-mp">
                     <div class="texto-mp">
-                        <span class="texto-destaque">Chaveiros personalizados <br></span>
+                        <span class="texto-destaque">Mecânica <br></span>
                         <span>
-                            Através da nossa estante na semana no Colégio, você pode fazer o seu próprio produto personalizado!
-                            Basta enviar uma foto para nós no nosso email, instagram ou WhatsApp e confeccionaremos seu produto!
+                            Conforme selecionado pelos alunos do curso, o mascote de mecânica é o <strong>touro</strong>,
+                            portando o uniforme da oficina de mecânica do CTI, utilizado para os alunos, e fazendo
+                            alusão à força e imposição do curso.
                         </span>
                     </div>
                     <div class="imagem-mp">
-                        <img src="">
+                        <img src="./imagens/Rendertouro.png">
                     </div>
                 </div>
+                <div class="conteudo-mp">
+                    <div class="texto-mp">
+                        <span class="texto-destaque">Eletrônica <br></span>
+                        <span>
+                            Para o curso de Eletrônica, o mascote é o <strong>lobo-guará</strong>, vestindo o uniforme do
+                            curso e vestindo um chapéu azul, utilizado para indicar técnicos de eletrônica. O chapéu
+                            contém o símbolo da unidade Ohm, e duas bobinas de Tesla.
+                    </div>
+                    <div class="imagem-mp">
+                        <img src="./imagens/Renderlobo.png">
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
         <div class="centraliza">
@@ -184,17 +201,20 @@
             </div>
         </div>
         <div id="container-video">
-            <span class="texto-destaque" style="margin-left: 30px;">Como fazemos nossos produtos?</span>
+            <span class="texto-destaque" style="margin-left: 30px;">Vídeo Promocional</span>
             <div class="conteudo-mp-video">
                 <div class="texto-mp">
-                    <span class="texto-destaque">Nosso método <br></span>
-                    <span>Através da nossa estante na semana no Colégio, você pode fazer o seu próprio produto personalizado! Basta enviar uma foto para nós no nosso email, instagram ou WhatsApp e confeccionaremos seu produto!
+                    <span class="texto-destaque">Nossa variedade de produtos<br></span>
+                    <span>
+                        A mascoteiro oferece uma variedade de produtos, desde chaveiros até adesivos, com 
+                        8 ilustrações diferentes e originais dos mascotes do CTI! Confirma o vídeo promocional
                     </span>
                 </div>
                 <div class="imagem-mp">
-                    <iframe width="460" height="225" src="https://www.youtube.com/embed/iPAduZRQrVo?si=7Zmd0PQJGX2Otnwy" title="YouTube video player"
+                <iframe width="460" height="225" src="https://www.youtube.com/embed/Vgva1otRFAo?si=Y2pxQLUb0RjgCSLz" title="YouTube video player" 
                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen></iframe>
+                    allowfullscreen>
+                </iframe>
                 </div>
             </div>
         </div>

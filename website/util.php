@@ -18,7 +18,7 @@
     return $texto;
   }
   function startSession() {
-    ini_set('session.gc_maxlifetime', 1209600);
+    session_set_cookie_params(1209600);
     session_start();
     if (isset($_COOKIE['loginCookie']) && !isset($_SESSION['user']['id'])) {
         $connection = connect();
@@ -44,19 +44,6 @@
     return session_id();
   }
 
-
-  function generateToken() {
-    $token = bin2hex(random_bytes(16));
-    return $token;
-  }
-
-  function insertToken($token, $id) {
-    $connection = connect();
-    $update = $connection->prepare("UPDATE tbl_usuario SET token = :token WHERE id_usuario = :id");
-    $update->execute(['token' => $token, 'id' => $id]);
-    
-  }
-
   function header_pag ($isAdmin, $url) {
     echo "
     <div class='container-logo'> 
@@ -79,7 +66,7 @@
     echo "
     <div id='container-usuario'>
       <span>Olá, </span>
-      <span id='nome-usuario'> $name - você é " . ($isAdmin ? 'admin' : 'cliente') . " </span>" .
+      <span id='nome-usuario'> $name" . ($isAdmin ? ' - você é admin' : '') . "! </span>" .
       (isset($_SESSION['user']['id']) ? "<a href='./logout.php?url=$url'><img src='imagens/logout.svg' alt='Símbolo de logout'></a>" : "<a href='./login.php?url=$url'><img src='imagens/user_icon.svg' alt='Símbolo de cliente'></a>") .
       "<a href='./carrinho.php'><img src='imagens/carrinho.svg' alt='Carrinho de compras' id='simbolo-carrinho'></a>
   </div>";

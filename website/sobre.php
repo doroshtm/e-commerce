@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="texto-mp">
                                         <span class="texto-destaque"> #11 - Emily Rocha<br></span>
-                                        <span> Coleta de satisfação dos mascotes, assistente em <em>design</em>
+                                        <span> Coleta de satisfação dos mascotes, assistente em <em>design</em> e organização da estante
                                         </span>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                                 </div>
                                 <div class="texto-mp">
                                     <span class="texto-destaque"> #12 - Ellen Caroline Carvalho<br></span>
-                                    <span><em>Marketing</em> e busca de fornecedores
+                                    <span>Responsável pelo <em>marketing</em>, contato com fornecedores, controle do produto e organização da estante.
                                     </span>
                                 </div>
                             </div>
@@ -108,7 +108,8 @@
                                 </div>
                                 <div class="texto-mp">
                                     <span class="texto-destaque"> #13 - Fernando Ellerbrock Theodoro<br></span>
-                                    <span>Gerente Geral do projeto, desenvolvedor <em>front-end</em> do site
+                                    <span>Gerente Geral do projeto, desenvolvedor <em>front-end</em> do site. 
+                                    Responsável por finanças e planejamento estratégico.
                                     </span>
                                 </div>
                             </div>
@@ -118,7 +119,7 @@
                                 </div>
                                 <div class="texto-mp">
                                     <span class="texto-destaque"> #14 - Gabriel Carraro Salzedas<br></span>
-                                    <span>Líder técnico do projeto, desenvolvedor <em>back-end</em> do site
+                                    <span>Líder técnico do projeto, desenvolvedor <em>back-end</em> do site.
                                     </span>
                                 </div>
                             </div>
@@ -128,7 +129,7 @@
                                 </div>
                                 <div class="texto-mp">
                                     <span class="texto-destaque"> #15 - Gabriel Eugênio Menegazzo<br></span>
-                                    <span>Líder da equipe de <em>design</em>, principal artista de produtos e logo
+                                    <span>Líder da equipe de <em>design</em>, principal artista de produtos, logo e artes promocionais.
                                     </span>
                                 </div>
                             </div>
