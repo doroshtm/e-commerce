@@ -1,6 +1,6 @@
 <?php
     include("util.php");
-    $sessID = startSession();
+    $sessID = startSession(3600);
     $connection = connect();
     isset($_GET['id']) ? $id = $_GET['id'] : "";
     $url = isset($_GET['url']) ? $_GET['url'] : "carrinho.php";

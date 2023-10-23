@@ -1,6 +1,6 @@
 <?php
     include("util.php");
-    startSession();
+    startSession(3600);
     if(isset($_GET['message'])) {
         echo "<script>alert(" . $_GET['message'] . ");</script>";
         header("refresh: 0; url=./produtos.php");

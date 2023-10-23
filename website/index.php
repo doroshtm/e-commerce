@@ -1,6 +1,6 @@
 <?php
     include("util.php");
-    startSession();
+    startSession(3600);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

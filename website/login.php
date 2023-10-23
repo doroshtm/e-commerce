@@ -1,6 +1,6 @@
 <?php
   include("util.php");
-  $sessID = startSession();
+  $sessID = startSession(3600);
 
   if (isset($_SESSION['user']['id'])) {
     header('Location: ./logout.php?url=login.php');
@@ -54,6 +54,12 @@
         Tente novamente ou cadastre-se</div>";
         die();
       }
+
+      if ($_POST['rememberme'] == 'on') {
+        startSession(1209600);
+      }
+      setcookie('email', $email, time() + 1209600);
+
       $_SESSION['user']['id'] = $result['id_usuario'];
       $_SESSION['user']['name'] = $result['nome'];
       $_SESSION['user']['email'] = $result['email'];
@@ -64,18 +70,13 @@
       $_SESSION['user']['date'] = $result['data_cadastro'];
       !empty($result['cep']) ? $_SESSION['user']['cep'] = $result['cep'] : '';
       !empty($result['endereco']) ? $_SESSION['user']['address'] = $result['endereco'] : '';
-
-      if ($_POST['rememberme'] == 'on') {
-        setcookie('loginCookie', $sessID, time() + 1209600);
-      }
-      setcookie('email', $email, time() + 1209600);
+      
+      
       $url = isset($_GET['url']) ? $_GET['url'] : '';
       header('Location: ' . $url);
     }
   ?>
-
-            </form>
-          </div>
-
+          </form>
+        </div>
   </body>
 </html>
