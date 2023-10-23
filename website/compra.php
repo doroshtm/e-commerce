@@ -1,27 +1,25 @@
 <?php
     include("util.php");
-    startSession(3600);
-    if (!isset($_SESSION["user"]["id"])){
+    $sessID = startSession(3600);
+    isset($_SESSION['user']['id']) ? $userID = $_SESSION['user']['id'] : '';
+    if (!isset($userID)) {
         echo "<script>alert('Você precisa estar logado para concluir a compra');</script>";
         header("refresh: 0; url=login.php?url=carrinho.php");
         die();
     }
-    if ($_SESSION["cart"]["totalprice"]<= 0){
-        echo "<script>alert('Você precisa ter itens no carrinho para concluir a compra');</script>";
-        header("refresh: 0; url=produtos.php");
-        die();
-    }
+    
     $connection = connect();
-    $select = $connection->prepare("SELECT id_compra FROM tbl_compra WHERE usuario = :id_usuario AND status = 'AGUARDANDO PAGAMENTO'");
-    $select->execute(['id_usuario' => $_SESSION["user"]["id"]]);
+    $select = $connection->prepare("SELECT id_compra FROM tbl_compra WHERE status = 'AGUARDANDO PAGAMENTO' AND usuario = :id_usuario");
+    $select->execute(['id_usuario' => $userID]);
     $result = $select->fetch(PDO::FETCH_ASSOC);
-    $select2 = $connection->prepare("SELECT id_compra FROM tbl_compra WHERE usuario = :id_usuario AND status = 'PENDENTE'");
-    $select2->execute(['id_usuario' => $_SESSION["user"]["id"]]);
+    $select2 = $connection->prepare("SELECT id_compra FROM tbl_compra JOIN tbl_tmp_compra ON tbl_compra.id_compra = tbl_tmp_compra.compra WHERE sessao = :session AND status = 'PENDENTE' AND usuario = :id_usuario");
+    $select2->execute(['id_usuario' => $userID, 'session' => $sessID]);
     $result2 = $select2->fetch(PDO::FETCH_ASSOC);
+
     if ($result == NULL && $result2 == NULL) {
-        header("refresh: 0; url=produtos.php?message='Nenhuma compra encontrada. Por favor, tente novamente.'");
-        die();
+        header("location: ./produtos.php?message='Você precisa ter itens no carrinho para concluir a compra'");
     }
+
     $tableCartID = $result2 != NULL ? $result2["id_compra"] : $result["id_compra"];
     if ($result != NULL && $result2 != NULL) {
         $delete = $connection->prepare("DELETE FROM tbl_compra_produto WHERE compra = :id_compra");
@@ -29,37 +27,10 @@
         $delete = $connection->prepare("DELETE FROM tbl_compra WHERE id_compra = :id_compra");
         $delete->execute(['id_compra' => $result["id_compra"]]);
     }
+
     $select3 = $connection->prepare("SELECT produto, quantidade FROM tbl_compra_produto WHERE compra = :id_compra");
     $select3->execute(['id_compra' => $tableCartID]);
     $result3 = $select3->fetchAll(PDO::FETCH_ASSOC);
-    foreach ($_SESSION["cart"] as $id => $amount) {
-        if ($id == "totalprice") {
-            continue;
-        }
-        foreach ($result3 as $row) {
-            if ($row["produto"] == $id) {
-                if ($row["quantidade"] != $amount) {
-                    $update = $connection->prepare("UPDATE tbl_compra_produto SET quantidade = :quantidade WHERE compra = :id_compra AND produto = :produto");
-                    $update->execute(['quantidade' => $amount, 'id_compra' => $tableCartID, 'produto' => $id]);
-                }
-            }
-        }
-    }
-    foreach ($_SESSION["cart"] as $id => $amount) {
-        if ($id == "totalprice") {
-            continue;
-        }
-        if (!in_array($id, array_column($result3, "produto"))) {
-            $insert = $connection->prepare("INSERT INTO tbl_compra_produto (compra, produto, quantidade) VALUES (:id_compra, :produto, :quantidade)");
-            $insert->execute(['id_compra' => $tableCartID, 'produto' => $id, 'quantidade' => $amount]);
-        }
-    }
-    foreach ($result3 as $row) {
-        if (!array_key_exists($row["produto"], $_SESSION["cart"])) {
-            $delete = $connection->prepare("DELETE FROM tbl_compra_produto WHERE compra = :id_compra AND produto = :produto");
-            $delete->execute(['id_compra' => $tableCartID, 'produto' => $row["produto"]]);
-        }
-    }
     $update = $connection->prepare("UPDATE tbl_compra SET status = 'AGUARDANDO PAGAMENTO' WHERE id_compra = :id_compra AND status = 'PENDENTE'");
     $update->execute(['id_compra' => $tableCartID]);
 
@@ -67,11 +38,10 @@
         $coupon = $_POST['cupom'] != "" ? $_POST['cupom'] : NULL;
         $update = $connection->prepare("UPDATE tbl_compra SET status = 'PAGO', cupom = :cupom WHERE id_compra = :id_compra");
         $update->execute(['cupom' => $coupon, 'id_compra' => $tableCartID]);
-        unset($_SESSION["cart"]);
-        echo "<script>alert('Compra concluída com sucesso!');</script>";
-        startCartSession();
-        header("refresh: 0; url=produtos.php");
+        $delete = $connection->prepare("DELETE FROM tbl_tmp_compra WHERE sessao = :session");
+        $delete->execute(['session' => $sessID]);
     }
+    header("refresh: 0; url=produtos.php?message='Compra realizada com sucesso'");
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -81,9 +51,13 @@
         <title>Finalizar compra | Mascotero</title>
         <link rel="stylesheet" href="styles_header_footer.css">
         <link rel="icon" type="image/svg+xml" href="./imagens/MC_Logo_Footer.svg">
-        <script src="js/cadastro.js?v=0.21"></script>
+        <script src="js/compra.js?v=0.01"></script>
     </head>
-    <body>
+    <?php
+        $coupon = isset($_SESSION["user"]["coupon"]) ? $_SESSION["user"]["coupon"] : 0;
+        echo "<script>requestPost($coupon);</script>";
+    ?>
+    <!-- <body>
             <header id="header">
                 <div class='container-logo'> 
                     <div id='imagem-logo'><img src='imagens/MC_Logo_Header.svg'> </div>
@@ -95,19 +69,23 @@
             </header>
             <div id="content">
                 <div class="container-geral">
-            <?php
+                    
                 $address = isset($_SESSION["user"]["address"]) ? $_SESSION["user"]["address"] : "Av. Nações Unidas, 58-50 - Núcleo Residencial Presidente Geisel, Bauru - SP";
                 $cep = isset($_SESSION["user"]["cep"]) ? $_SESSION["user"]["cep"] : "17033-260";
                 $coupon = isset($_SESSION["user"]["coupon"]) ? $_SESSION["user"]["coupon"] : 0;
-                $items = $_SESSION["cart"];
+                $total = 0;
                 $itemsQuantity = 0;
-                foreach ($items as $id => $amount) {
-                    if ($id == "totalprice") {
-                        continue;
-                    }
+
+                foreach ($result3 as $row) {
+                    $id = $row['produto'];
+                    $selectProduto = $connection->prepare("SELECT preco FROM tbl_produto WHERE id_produto = :id_produto");
+                    $selectProduto->execute(['id_produto' => $id]);
+                    $resultProduto = $selectProduto->fetch(PDO::FETCH_ASSOC);
+                    $amount = $row['quantidade'];
+                    $price = $resultProduto['preco'];
+                    $total += $price * $amount;
                     $itemsQuantity += $amount;
                 }
-                $total = $_SESSION['cart']['totalprice'];
                 $subtotal = $total - $coupon;
 
             ?>
@@ -115,7 +93,7 @@
                         <h2>Resumo da compra</h2>
                     </div>
                     <div class="container-geral-conteudo">
-                        <?php
+
                         echo "
                             <p>Itens ($itemsQuantity): <span id='itens'>R$$total</span></p>
                             <p>Desconto: <span id='desconto'>R$$coupon</span></p>
@@ -156,5 +134,5 @@
             
                 </div> 
             </div>
-    </body>
+    </body> -->
 </html>
