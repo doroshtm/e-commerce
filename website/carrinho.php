@@ -1,6 +1,6 @@
 <?php
     include("util.php");
-    $sessID = startSession();
+    $sessID = startSession(3600);
     $connection = connect();
     isset($_GET['id']) ? $id = $_GET['id'] : "";
     $url = isset($_GET['url']) ? $_GET['url'] : "carrinho.php";
@@ -48,7 +48,7 @@
                 }
                 
                 if ($action == 'add') {
-                    if ($amountCart + $amount > $stock) {
+                    if ($amount > $stock) {
                         header("location: $url?message='Não há estoque suficiente para essa quantidade!'");
                         die();
                     }
@@ -108,6 +108,8 @@
                 header("location: $url?message='Não há produtos no carrinho!'");
                 die();
             }
+            $updateProduto = $connection->prepare("UPDATE tbl_produto SET quantidade_estoque = quantidade_estoque + (SELECT quantidade FROM tbl_compra_produto WHERE compra = :id_compra AND produto = tbl_produto.id_produto) WHERE id_produto IN (SELECT produto FROM tbl_compra_produto WHERE compra = :id_compra)");
+            $updateProduto->execute(['id_compra' => $id_compra]);
             $delete = $connection->prepare("DELETE FROM tbl_compra_produto WHERE compra = :id");
             $delete->execute(['id' => $id_compra]);
             $deleteTmpCompra = $connection->prepare("DELETE FROM tbl_tmp_compra WHERE sessao = :session AND compra = :id_compra");
@@ -253,7 +255,7 @@
                                             <div class='aumentar-diminuir'>
                                                 <a href='carrinho.php?id=$id&action=remove&amount=1&url=carrinho.php'><img src='./imagens/Diminuir_qtd.svg' class='diminuir'></a>
                                                 <span class='qtd-numero-carrinho'>$amount</span>
-                                                <img src='./imagens/Aumentar_qtd.svg' class='aumentar' onclick='verificateAdd($amount, $stock, $id)'>
+                                                <img src='./imagens/Aumentar_qtd.svg' class='aumentar' onclick='verificateAdd($stock, $id)'>
                                             </div>
                                         </div>
                                     </div>

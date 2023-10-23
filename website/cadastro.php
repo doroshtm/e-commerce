@@ -1,6 +1,6 @@
 <?php
     include("util.php");
-    $sessID = startSession();
+    $sessID = startSession(3600);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -126,6 +126,12 @@
                         ':address' => $_POST['address'],
                         ':signup_date' => $date
                     ));
+                    
+                    if ($_POST['rememberme'] == 'on') {
+                        startSession(1209600);
+                    }
+                    setcookie('email', $email, time() + 1209600);
+
                     $_SESSION['user']['id'] = $connection->lastInsertId();
                     $_SESSION['user']['name'] = $_POST['name'];
                     $_SESSION['user']['email'] = $_POST['email'];
@@ -136,10 +142,7 @@
                     $_SESSION['user']['date'] = $date;
                     !empty($_POST['cep']) ? $_SESSION['user']['cep'] = $_POST['cep'] : '';
                     !empty($_POST['address']) ? $_SESSION['user']['address'] = $_POST['address'] : '';
-                    if ($_POST['rememberme'] == 'on') {
-                        setcookie('loginCookie', $sessID, time() + 1209600);
-                    }
-                    setcookie('email', $email, time() + 1209600);
+
                     $url = isset($_GET['url']) ? $_GET['url'] : '';
                     header('Location: ' . $url);
                 }

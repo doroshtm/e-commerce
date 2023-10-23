@@ -1,6 +1,6 @@
 <?php
     include("util.php");
-    startSession();
+    startSession(3600);
     if (!isset($_SESSION["user"]["id"])){
         echo "<script>alert('Você precisa estar logado para concluir a compra');</script>";
         header("refresh: 0; url=login.php?url=carrinho.php");
