@@ -48,7 +48,7 @@
                 }
                 
                 if ($action == 'add') {
-                    if ($amountCart + $amount > $stock) {
+                    if ($amount > $stock) {
                         header("location: $url?message='Não há estoque suficiente para essa quantidade!'");
                         die();
                     }
