@@ -108,6 +108,8 @@
                 header("location: $url?message='Não há produtos no carrinho!'");
                 die();
             }
+            $updateProduto = $connection->prepare("UPDATE tbl_produto SET quantidade_estoque = quantidade_estoque + (SELECT quantidade FROM tbl_compra_produto WHERE compra = :id_compra AND produto = tbl_produto.id_produto) WHERE id_produto IN (SELECT produto FROM tbl_compra_produto WHERE compra = :id_compra)");
+            $updateProduto->execute(['id_compra' => $id_compra]);
             $delete = $connection->prepare("DELETE FROM tbl_compra_produto WHERE compra = :id");
             $delete->execute(['id' => $id_compra]);
             $deleteTmpCompra = $connection->prepare("DELETE FROM tbl_tmp_compra WHERE sessao = :session AND compra = :id_compra");
