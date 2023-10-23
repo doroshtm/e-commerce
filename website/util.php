@@ -19,11 +19,13 @@
   }
   function startSession($time) {
     session_set_cookie_params($time);
+    session_cache_expire($time/60);
     session_start();
     if (session_get_cookie_params()['lifetime'] != $time) {
       $sessID = session_id();
       session_destroy();
       session_set_cookie_params($time);
+      session_cache_expire($time/60);
       session_id($sessID);
       session_start(); 
     }
