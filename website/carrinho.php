@@ -253,7 +253,7 @@
                                             <div class='aumentar-diminuir'>
                                                 <a href='carrinho.php?id=$id&action=remove&amount=1&url=carrinho.php'><img src='./imagens/Diminuir_qtd.svg' class='diminuir'></a>
                                                 <span class='qtd-numero-carrinho'>$amount</span>
-                                                <img src='./imagens/Aumentar_qtd.svg' class='aumentar' onclick='verificateAdd($amount, $stock, $id)'>
+                                                <img src='./imagens/Aumentar_qtd.svg' class='aumentar' onclick='verificateAdd(1, $stock, $id)'>
                                             </div>
                                         </div>
                                     </div>
