@@ -144,9 +144,9 @@
                     <div class="texto-mp">
                         <span class="texto-destaque">CTI<br></span>
                         <span>
-                            O mascote oficial do Viva CTI é representado por uma
-                            gato robótico, fazendo alusão aos diferentes cursos do Colégio. 
-                             É uma homenagem à gata nina, que viveu no CTI cuidada pelos professores por muitos anos.
+                            O mascote oficial do Viva CTI é representado por um
+                            gato robótico que faz alusão aos diferentes cursos do Colégio. 
+                             É uma homenagem à gata Nina, que viveu no CTI por muitos anos aos cuidados dos professores.
                             
                         </span>
                     </div>
@@ -171,9 +171,9 @@
                     <div class="texto-mp">
                         <span class="texto-destaque">Mecânica <br></span>
                         <span>
-                            Conforme selecionado pelos alunos do curso, o mascote de mecânica é o <strong>touro</strong>,
-                            portando o uniforme da oficina de mecânica do CTI, utilizado para os alunos, e fazendo
-                            alusão à força e imposição do curso.
+                            Conforme selecionado pelos alunos do curso, o mascote de Mecânica é o <strong>touro</strong>,
+                            o qual porta o uniforme da oficina de mecânica do CTI, utilizado pelos alunos, e faz
+                            alusão à força e à imposição do curso.
                         </span>
                     </div>
                     <div class="imagem-mp">
@@ -184,9 +184,9 @@
                     <div class="texto-mp">
                         <span class="texto-destaque">Eletrônica <br></span>
                         <span>
-                            Para o curso de Eletrônica, o mascote é o <strong>lobo-guará</strong>, vestindo o uniforme do
-                            curso e vestindo um chapéu azul, utilizado para indicar técnicos de eletrônica. O chapéu
-                            contém o símbolo da unidade Ohm, e duas bobinas de Tesla.
+                            Para o curso de Eletrônica, o mascote é o <strong>lobo-guará</strong>, que veste o uniforme do
+                            curso e um chapéu azul, utilizado para indicar técnicos de eletrônica. O chapéu
+                            contém o símbolo da unidade Ohm e duas bobinas de Tesla.
                     </div>
                     <div class="imagem-mp">
                         <img src="./imagens/Renderlobo.png">
@@ -206,8 +206,8 @@
                 <div class="texto-mp">
                     <span class="texto-destaque">Nossa variedade de produtos<br></span>
                     <span>
-                        A mascoteiro oferece uma variedade de produtos, desde chaveiros até adesivos, com 
-                        8 ilustrações diferentes e originais dos mascotes do CTI! Confirma o vídeo promocional
+                        A Mascotero oferece uma variedade de produtos, desde chaveiros até adesivos, com 
+                        8 ilustrações diferentes e originais dos mascotes do CTI! Confira o vídeo promocional:
                     </span>
                 </div>
                 <div class="imagem-mp">
