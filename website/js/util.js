@@ -1,11 +1,4 @@
 
-export function abreviarTexto(texto, limite) {
-    if (texto.length > limite-3) {
-        return texto.slice(0, limite-3) + '...';
-    }
-    return texto;
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     function mostrarPopup(popup) {
         popup.showModal();
@@ -33,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     botaoAbrir.addEventListener('click', () => {
         const overlay = document.getElementById('popup-confirmar');
+        console.log("funcionando");
         mostrarPopup(overlay);
     });
     botaoFechar.addEventListener('click', () => {
