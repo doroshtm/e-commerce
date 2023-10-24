@@ -1485,7 +1485,6 @@ a.adicionar-carrinho:visited {
 .produto-carrinho{
     max-width:100%;
     width:680px;
-    min-height: 160px;
     word-break:break-all;
     background: var(--cor-destaque);
     border-radius:20px;
@@ -1512,7 +1511,7 @@ a.adicionar-carrinho:visited {
     padding-bottom: 10px;
 }
 .imagem-carrinho{
-    background:#cccccc; 
+    background:#e7e3e3; 
     height:100%;
     max-height:100%;
     width:100%;
@@ -1550,6 +1549,10 @@ a.adicionar-carrinho:visited {
     align-items:center;
     gap:15px;
     margin-right:20px;
+}
+.aumentar-diminuir a {
+    display:inline-block;
+    max-height: 24px;
 }
 .aumentar-diminuir img {
     cursor: pointer;
@@ -1650,6 +1653,13 @@ a.adicionar-carrinho:visited {
         align-self:center;
         justify-self: center;
         margin:0;
+    }
+    #carrinho-cabecalho  {
+        padding:0;
+        display:flex;
+        width:100%;
+        align-items:center;
+        justify-content: center;
     }
 }
 
