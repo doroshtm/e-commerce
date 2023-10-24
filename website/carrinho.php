@@ -242,7 +242,7 @@
                             array_push($products, array($id, $row['nome'], $row['preco'], $row['descricao'], $category, $row['imagem'], $row['quantidade_estoque'], $amount));
                             $totalprice += $price * $amount;
                             $price = number_format($price, 2, ',', '.');
-
+                            $description = abreviarTexto($description,50);
                             echo "
                             <div class='produto-carrinho'>
                                 <div class='conteudo-carrinho'>
