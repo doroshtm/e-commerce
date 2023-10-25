@@ -213,7 +213,7 @@
                         if ($id_compra == NULL) {
                             echo "<span class='texto-destaque'>Seu carrinho está vazio!</span>";
                         }
-                        $selectCompraProduto = $connection->prepare("SELECT produto, quantidade FROM tbl_compra_produto WHERE compra = :id_compra");
+                        $selectCompraProduto = $connection->prepare("SELECT produto, quantidade FROM tbl_compra_produto JOIN tbl_produto ON tbl_compra_produto.produto = tbl_produto.id_produto WHERE compra = :id_compra AND excluido = false ORDER BY nome");
                         $selectCompraProduto->execute(['id_compra' => $id_compra]);
                         $resultCompraProduto = $selectCompraProduto->fetchAll(PDO::FETCH_ASSOC);
                         $totalprice = 0;

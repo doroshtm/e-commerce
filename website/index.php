@@ -140,58 +140,66 @@
     </div>
             <span class="texto-destaque">Nossos mascotes</span>
             <div id="container-mascote-produtos">
-                <div class="conteudo-mp">
-                    <div class="texto-mp">
-                        <span class="texto-destaque">CTI<br></span>
-                        <span>
-                            O mascote oficial do Viva CTI é representado por um
-                            gato robótico que faz alusão aos diferentes cursos do Colégio. 
-                             É uma homenagem à gata Nina, que viveu no CTI por muitos anos aos cuidados dos professores.
-                            
-                        </span>
+                <a href="produtos.php?categoria=cti">
+                    <div class="conteudo-mp">
+                        <div class="texto-mp">
+                            <span class="texto-destaque">CTI<br></span>
+                            <span>
+                                O mascote oficial do Viva CTI é representado por um
+                                gato robótico que faz alusão aos diferentes cursos do Colégio. 
+                                É uma homenagem à gata Nina, que viveu no CTI por muitos anos aos cuidados dos professores.
+                                
+                            </span>
+                        </div>
+                        <div class="imagem-mp">
+                            <img src="./imagens/gatoCTI.png">
+                        </div>
                     </div>
-                    <div class="imagem-mp">
-                        <img src="./imagens/gatoCTI.png">
+                </a>
+                <a href="produtos.php?categoria=info">
+                    <div class="conteudo-mp">
+                        <div class="texto-mp">
+                            <span class="texto-destaque">Informática<br></span>
+                            <span>
+                                O mascote do curso de Informática é representado por duas <strong>cobras</strong>,
+                                uma azul, outra amarela, ambas conectadas uma com a outra. Faz 
+                                alusão à logo da linguagem de programação Python, ensinada no CTI.
+                            </span>
+                        </div>
+                        <div class="imagem-mp">
+                            <img src="./imagens/Renderpython.png">
+                        </div>
                     </div>
-                </div>
-                <div class="conteudo-mp">
-                    <div class="texto-mp">
-                        <span class="texto-destaque">Informática <br></span>
-                        <span>
-                            O mascote do curso de Informática é representado por duas <strong>cobras</strong>,
-                            uma azul, outra amarela, ambas conectadas uma com a outra. Faz 
-                            alusão à logo da linguagem de programação Python, ensinada no CTI.
-                        </span>
+                </a>
+                <a href="produtos.php?categoria=mec">
+                    <div class="conteudo-mp">
+                        <div class="texto-mp">
+                            <span class="texto-destaque">Mecânica<br></span>
+                            <span>
+                                Conforme selecionado pelos alunos do curso, o mascote de Mecânica é o <strong>touro</strong>,
+                                o qual porta o uniforme da oficina de mecânica do CTI, utilizado pelos alunos, e faz
+                                alusão à força e à imposição do curso.
+                            </span>
+                        </div>
+                        <div class="imagem-mp">
+                            <img src="./imagens/Rendertouro.png">
+                        </div>
                     </div>
-                    <div class="imagem-mp">
-                        <img src="./imagens/Renderpython.png">
+                </a>
+                <a href="produtos.php?categoria=eletro">
+                    <div class="conteudo-mp">
+                        <div class="texto-mp">
+                            <span class="texto-destaque">Eletrônica<br></span>
+                            <span>
+                                Para o curso de Eletrônica, o mascote é o <strong>lobo-guará</strong>, que veste o uniforme do
+                                curso e um chapéu azul, utilizado para indicar técnicos de eletrônica. O chapéu
+                                contém o símbolo da unidade Ohm e duas bobinas de Tesla.
+                        </div>
+                        <div class="imagem-mp">
+                            <img src="./imagens/Renderlobo.png">
+                        </div>
                     </div>
-                </div>
-                <div class="conteudo-mp">
-                    <div class="texto-mp">
-                        <span class="texto-destaque">Mecânica <br></span>
-                        <span>
-                            Conforme selecionado pelos alunos do curso, o mascote de Mecânica é o <strong>touro</strong>,
-                            o qual porta o uniforme da oficina de mecânica do CTI, utilizado pelos alunos, e faz
-                            alusão à força e à imposição do curso.
-                        </span>
-                    </div>
-                    <div class="imagem-mp">
-                        <img src="./imagens/Rendertouro.png">
-                    </div>
-                </div>
-                <div class="conteudo-mp">
-                    <div class="texto-mp">
-                        <span class="texto-destaque">Eletrônica <br></span>
-                        <span>
-                            Para o curso de Eletrônica, o mascote é o <strong>lobo-guará</strong>, que veste o uniforme do
-                            curso e um chapéu azul, utilizado para indicar técnicos de eletrônica. O chapéu
-                            contém o símbolo da unidade Ohm e duas bobinas de Tesla.
-                    </div>
-                    <div class="imagem-mp">
-                        <img src="./imagens/Renderlobo.png">
-                    </div>
-                </div>
+                </a>
             </div>
             </div>
         </div>

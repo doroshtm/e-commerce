@@ -5,6 +5,8 @@
         echo "<script>alert(" . $_GET['message'] . ");</script>";
         header("refresh: 0; url=./produtos.php");
     }
+    $filter = isset($_GET['categoria']) ? $_GET['categoria'] : '';
+    $filter = swapSynonyms($filter);
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +22,6 @@
         <link rel="stylesheet" href="styles_header_footer.css">
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400;1,9..40,500&display=swap" rel="stylesheet">         
         <link rel="icon" type="image/svg+xml" href="./imagens/MC_Logo_Footer.svg">
-        <script src="js/produtos.js?v=1.09"></script>
     </head>
     <body>
         <header id="header">
@@ -46,19 +47,19 @@
                                 <span class="texto-destaque">Curso:</span>
                                 <div class="checkboxes">
                                     <div class="linha-checkbox">
-                                        <input type="checkbox" id="cti" name="cti">
+                                        <input type="checkbox" id="cti" name="cti" <?php echo strtolower($filter) == 'cti' ? 'checked' : '' ?>>
                                         <label for="cti">CTI</label>
                                     </div>
                                     <div class="linha-checkbox">
-                                        <input type="checkbox" id="info" name="info"> 
+                                        <input type="checkbox" id="info" name="info" <?php echo strtolower($filter) == 'info' ? 'checked' : '' ?>>
                                         <label for="info">Informática</label>
                                     </div>
                                     <div class="linha-checkbox">
-                                        <input type="checkbox" id="mec" name="mec"> 
+                                        <input type="checkbox" id="mec" name="mec" <?php echo strtolower($filter) == 'mec' ? 'checked' : '' ?>>
                                         <label for="mec">Mecânica</label>
                                     </div>
                                     <div class="linha-checkbox">
-                                        <input type="checkbox" id="eletro" name="eletro"> 
+                                        <input type="checkbox" id="eletro" name="eletro" <?php echo strtolower($filter) == 'eletro' ? 'checked' : '' ?>>
                                         <label for="eletro">Eletrônica</label>
                                     </div>
                                 </div>
@@ -169,7 +170,6 @@
                             </div>";
                         }
                     }
-                    
                 ?>
                 </div>
             </div>
@@ -185,3 +185,5 @@
         </footer>
     </body>
 </html>
+<script src="js/produtos.js?v=1.09"></script>
+echo "<script>filterProducts();</script>";
