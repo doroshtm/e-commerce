@@ -120,6 +120,7 @@
                                 <div class="texto-mp">
                                     <span class="texto-destaque"> #14 - Gabriel Carraro Salzedas<br></span>
                                     <span>Líder técnico do projeto, desenvolvedor <em>back-end</em> do site.
+                                    Responsável pelo banco de dados e pela supervisão operacional.
                                     </span>
                                 </div>
                             </div>

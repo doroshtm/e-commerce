@@ -21,6 +21,7 @@
     session_set_cookie_params($time);
     session_cache_expire($time/60);
     session_start();
+
     if (session_get_cookie_params()['lifetime'] != $time) {
       $sessID = session_id();
       session_destroy();
@@ -29,28 +30,23 @@
       session_id($sessID);
       session_start(); 
     }
-    // if (isset($_COOKIE['loginCookie']) && !isset($_SESSION['user']['id'])) {
-    //     $connection = connect();
-    //     $select = $connection->prepare("SELECT id_usuario, nome, email, senha, telefone, admin, cpf, data_cadastro, cep, endereco FROM tbl_usuario WHERE token = :token");
-    //     $select->execute(['token' => $_COOKIE['loginCookie']]);
-    //     $result = $select->fetch(PDO::FETCH_ASSOC);
-    //     if ($result != NULL) {
-    //         $_SESSION['user']['id'] = $result['id_usuario'];
-    //         $_SESSION['user']['name'] = $result['nome'];
-    //         $_SESSION['user']['email'] = $result['email'];
-    //         $_SESSION['user']['password'] = $result['senha'];
-    //         $_SESSION['user']['phone'] = $result['telefone'];
-    //         $_SESSION['user']['isAdmin'] = $result['admin'];
-    //         $_SESSION['user']['cpf'] = $result['cpf'];
-    //         $_SESSION['user']['date'] = $result['data_cadastro'];
-    //         !empty($result['cep']) ? $_SESSION['user']['cep'] = $result['cep'] : '';
-    //         !empty($result['endereco']) ? $_SESSION['user']['address'] = $result['endereco'] : '';
-    //     }
-    // }
+
     if (!isset($_SESSION['user'])) {
       $_SESSION['user'] = array();
     }
     return session_id();
+  }
+
+  function swapSynonyms($word) {
+    $synonyms = array (
+      'informática' => 'info',
+      'informatica' => 'info',
+      'mecânica' => 'mec',
+      'mecanica' => 'mec',
+      'eletrônica' => 'eletro',
+      'eletronica' => 'eletro'
+    );
+    return str_replace(array_keys($synonyms), $synonyms, $word);
   }
 
   function header_pag ($isAdmin, $url) {
