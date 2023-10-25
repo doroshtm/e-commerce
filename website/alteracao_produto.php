@@ -132,7 +132,10 @@
                     <input type="button" value="Cancelar" onclick="window.history.back()">
                     <?php
                         if($_SERVER['REQUEST_METHOD'] == 'POST') {
-                            if(empty($_POST['nome']) || empty($_POST['descricao']) || empty($_POST['categoria']) || empty($_POST['estoque']) || empty($_POST['preco']) || empty($_POST['codigovisual']) || empty($_POST['custo']) || empty($_POST['icms'])) {
+                            
+                            if(empty($_POST['nome']) || empty($_POST['descricao']) || empty($_POST['categoria']) || (empty($_POST['estoque']) && $_POST['estoque'] != 0) || 
+                            empty($_POST['preco']) || empty($_POST['codigovisual']) ||
+                            (empty($_POST['custo']) && $_POST['custo'] != 0) || empty($_POST['icms'])) {
                                 echo "<script>alert('Preencha todos os campos obrigatórios!')</script>";
                                 echo "<div class='mensagem-erro'>Preencha todos os campos obrigatórios!</div>";
                                 die();
