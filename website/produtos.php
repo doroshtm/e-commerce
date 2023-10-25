@@ -130,7 +130,7 @@
                         <a class='adicionar-carrinho' href='carrinho.php?id=$id&url=produtos.php&action=add&amount=1'>
                             <img src='./imagens/Aumentar_qtd.svg'>
                             <span>Adicionar ao carrinho</span>
-                        </a>" : "<span class='adicionar-carrinho texto-destaque'>Produto indisponível</span>";
+                        </a>" : "<span class='adicionar-carrinho'>Produto indisponível</span>";
                         echo "
                         <span class='preco-produto texto-destaque'>R$$price</span>
                             </div>
