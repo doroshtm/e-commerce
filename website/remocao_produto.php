@@ -1,6 +1,6 @@
 <?php
     include("util.php");
-    startSession(3600);
+    startSession(NULL);
     $method = $_SERVER['REQUEST_METHOD'];
     if($method != 'POST' && (!isset($_SESSION['user']['isAdmin']) || !$_SESSION['user']['isAdmin'] || !isset($_GET['action']) || !isset($_GET['id']))) {
         header('Location: ./');

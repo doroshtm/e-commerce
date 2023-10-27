@@ -58,3 +58,10 @@ create table tbl_compra_produto(
     FOREIGN KEY (compra) REFERENCES tbl_compra (id_compra),
     PRIMARY KEY (produto, compra)
 );
+
+create table tbl_recuperacao(
+    id_recuperacao varchar(255) primary key,
+    usuario integer not null,
+    data_expiracao timestamp not null,
+    foreign key (usuario) references tbl_usuario(id_usuario)
+);

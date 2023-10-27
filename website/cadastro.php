@@ -1,6 +1,6 @@
 <?php
     include("util.php");
-    $sessID = startSession(3600);
+    $sessID = startSession(NULL);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
