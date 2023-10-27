@@ -1,7 +1,7 @@
 <?php
     $standardICMS = 10;
     include("util.php");
-    startSession(3600);
+    startSession(NULL);
     if (!isset($_SESSION['user']['isAdmin']) || !$_SESSION['user']['isAdmin']) {
         header('Location: ./');
     }

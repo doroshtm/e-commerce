@@ -1,6 +1,6 @@
 <?php
     include("util.php");
-    $sessID = startSession(3600);
+    $sessID = startSession(NULL);
     isset($_SESSION['user']['id']) ? $userID = $_SESSION['user']['id'] : '';
     if (!isset($userID)) {
         echo "<script>alert('Você precisa estar logado para concluir a compra');</script>";

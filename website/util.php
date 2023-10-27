@@ -18,18 +18,23 @@
     return $texto;
   }
   function startSession($time) {
-    session_set_cookie_params($time);
-    session_cache_expire($time/60);
+    session_set_cookie_params(3600);
+
     session_start();
 
-    if (session_get_cookie_params()['lifetime'] != $time) {
+    $time == NULL ? $time = 3600 : '';
+
+    if ((isset($_SESSION['lastActivity']) && (time() - $_SESSION['lastActivity'] > $time)) || $time != 3600) {
       $sessID = session_id();
+      session_unset();
       session_destroy();
+      ini_set('session.gc_maxlifetime', $time);
       session_set_cookie_params($time);
-      session_cache_expire($time/60);
       session_id($sessID);
-      session_start(); 
+      session_start();
     }
+    
+    $_SESSION['lastActivity'] = time();
 
     if (!isset($_SESSION['user'])) {
       $_SESSION['user'] = array();
