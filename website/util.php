@@ -54,6 +54,37 @@
     return str_replace(array_keys($synonyms), $synonyms, $word);
   }
 
+  function sendEmail($email, $subject, $body, $mail) {
+
+    include_once('./PHPMailer/PHPMailer.php');
+    include_once('./PHPMailer/Exception.php');
+    include_once('./PHPMailer/SMTP.php');
+    include('./hidden.php');
+
+    $mail->isSMTP();
+    $mail->setFrom('mascotero@outlook.com.br');
+    $mail->Username = 'mascotero@outlook.com.br';
+    $mail->Password = getPassword();
+    $mail->Host = 'smtp.office365.com';
+    $mail->Port = 587;
+    $mail->SMTPSecure = 'tls';
+    $mail->SMTPAuth = true;
+    $mail->CharSet = 'UTF-8';
+    $mail->isHTML(true);
+
+    $mail->Subject = $subject;
+    $mail->Body = $body;
+    $mail->addAddress($email);
+    $mail->addEmbeddedImage('./imagens/Logo_Mascotero.png', 'logo');
+
+    if ($mail->send()) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   function header_pag ($isAdmin, $url) {
     echo "
     <div class='container-logo'> 
