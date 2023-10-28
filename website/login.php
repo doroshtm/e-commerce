@@ -39,7 +39,7 @@
                     <label for="lembrar-senha">Mantenha-me conectado</label>
               </div>
               <a href="cadastro.php<?php echo isset($_GET['url']) ? '?url=' . $_GET['url'] : '' ?>" id="cadastre-se">Não tem conta? Cadastre-se</a>
-              <a href="esqueci.php">Esqueceu a senha?</a>
+              <a href="esqueci.php<?php echo isset($_GET['url']) ? '?url=' . $_GET['url'] : '' ?>" id="esqueceu-senha">Esqueceu a senha?</a>
 
   <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {

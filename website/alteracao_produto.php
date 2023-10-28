@@ -21,6 +21,9 @@
             header('Refresh: 0; url=./alteracao_produto.php?id=' . $id);
             die();
         }
+        $select = $connection->prepare("select excluido from tbl_produto where id_produto = " . $id);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
         $delete = $connection->prepare("update tbl_produto set excluido = " . ($result['excluido'] ? 'false' : 'true') . " where id_produto = " . $id);
         $delete->execute();
         header('Location: ./produtos.php');
@@ -57,17 +60,16 @@
                     <span class="texto-destaque">Tem certeza que deseja <?php echo strtolower($action) ?> o produto?</span>
                     <input type="checkbox" id="mostrar-confirmacao">
                     <label for="mostrar-confirmacao" id="confir">Sim</label>
-                    <form id="formlogin" style="margin:0; padding:0;" method="POST" action="./alteracao_produto.php?id=<?php echo $id . '&action=' . $action ?>">
+                    <form id="formlogin" style="margin:0; padding:0;" method="POST" action="./alteracao_produto.php?id=<?php echo $id ?>">
                         <div class="label-input-login">
                             <label for="pass"> Digite sua senha</label>
                             <input type="password" id="pass" name="pass" placeholder="Senha para confirmação..." required>
                         </div>
-                        <input type="submit" value="Excluir">
+                        <input type="submit" value="<?php echo $action ?>">
                     </form>
                     <button id="botao-fechar-popup" class="botao-finalizar">Fechar</button> 
                 </div>
             </dialog>
-            <form method="get" id="formDelProduto" action="./remocao_produto.php"></form>
             <form name="alterarProduto" method="post" action="./alteracao_produto.php?id=<?php echo $id ?>" id="formlogin" style="width:60%;" enctype="multipart/form-data">
                 <div id="logo-login">
                         <img src="imagens/Emblema_Mascotero.svg" alt="Logo Mascotero">
@@ -80,7 +82,7 @@
                     </div>
                     <div class="label-input-login">
                         <label for="descricao">Descrição do produto</label>
-                        <input type="text" id="descricao" name="descricao" placeholder="Descrição do produto" required value="<?php echo $result['descricao'] ?>"><br>
+                        <input type="text" id="desc" name="descricao" placeholder="Descrição do produto" required value="<?php echo $result['descricao'] ?>"><br>
                     </div>
                     <div class="label-input-login">
                         <label for="categoria">Categoria</label>
@@ -126,8 +128,6 @@
                     </div>
                             </div>
                     <input type="submit" value="Alterar">
-                    <input type="hidden" name="id" value=<?php echo $id ?> form="formDelProduto">
-                    <input type="hidden" name="action" value=<?php echo $action ?> form="formDelProduto">
                     <input type="button" value=<?php echo $action ?> id="botao-abrir-popup">
                     <input type="button" value="Cancelar" onclick="window.history.back()">
                     <?php
@@ -142,6 +142,7 @@
                             }
                             
                             $name = $_POST['nome'];
+                            $action = $result['excluido'];
                             $description = $_POST['descricao'];
                             $category = $_POST['categoria'];
                             $price = round($_POST['preco'], 2);
@@ -193,7 +194,7 @@
                             }
                             $codigovisual = $_POST['codigovisual'];
                             $grossprofit = $_POST['preco'] - $_POST['custo'];
-                            $update = $connection->prepare("UPDATE tbl_produto SET nome = :name, descricao = :description, categoria = :category, preco = :price, custo = :cost, icms = :icms, quantidade_estoque = :stock, " . (isset($image) ? "imagem = '{$image['name']}', " : '') . "codigovisual = :codigovisual, margem_lucro = :profit_margin WHERE id_produto = '{$id}'");
+                            $update = $connection->prepare("UPDATE tbl_produto SET nome = :name, descricao = :description, categoria = :category, preco = :price, custo = :cost, icms = :icms, excluido = :excluido, quantidade_estoque = :stock, " . (isset($image) ? "imagem = '{$image['name']}', " : '') . "codigovisual = :codigovisual, margem_lucro = :profit_margin WHERE id_produto = '{$id}'");
                             $update->execute(array(
                                 ':name' => $name,
                                 ':description' => $description,
@@ -203,7 +204,8 @@
                                 ':icms' => $icms_form,
                                 ':stock' => $_POST['estoque'],
                                 ':codigovisual' => $_POST['codigovisual'],
-                                ':profit_margin' => round($grossprofit - ($grossprofit * ($_POST['icms'] / 100)), 2)
+                                ':profit_margin' => round($grossprofit - ($grossprofit * ($_POST['icms'] / 100)), 2),
+                                ':excluido' => $action
                             ));
                             move_uploaded_file($_FILES['imagem']['tmp_name'], './imagens/produtos/' . $image['name']);
                             header('Location: ./produtos.php');

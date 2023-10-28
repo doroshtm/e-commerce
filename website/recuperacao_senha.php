@@ -23,32 +23,34 @@
         <title>Nova senha | Mascotero</title>
 </head>
     <body>
-        <form name="formNovaSenha" method="post" action="./recuperacao_senha.php?token=<?php echo $token ?>" id="formlogin">
-            <div id="logo-login">
-                <img src="imagens/Emblema_Mascotero.svg" alt="Logo Mascotero">
-                Mascotero
-            </div>
-            <?php
-                if ($result == NULL) {
-                    echo "<div class='mensagem-erro'>Token inválido ou expirado!</div>";
-                    die();
-                }
-                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    $id_usuario = $result['usuario'];
-                    $password = $_POST['password'];
-                    $update = $connection->prepare("UPDATE tbl_usuario SET senha = :password WHERE id_usuario = :id_usuario");
-                    $update->execute(['password' => $password, 'id_usuario' => $id_usuario]);
-                    $delete = $connection->prepare("DELETE FROM tbl_recuperacao WHERE id_recuperacao = :token");
-                    $delete->execute(['token' => $token]);
-                    header('Location: ./login.php');
-                    die();
-                }
-            ?>
-            <div class="label-input-login">
-                <label for="password">Nova senha</label>
-                <input type="password" name="password" id="password" placeholder="Nova senha" required>
-            </div>
-            <input type="submit" value="Enviar">
-        </form>
+        <div id="pai">
+            <form name="formNovaSenha" method="post" action="./recuperacao_senha.php?token=<?php echo $token ?>" id="formlogin">
+                <div id="logo-login">
+                    <img src="imagens/Emblema_Mascotero.svg" alt="Logo Mascotero">
+                    Mascotero
+                </div>
+                <?php
+                    if ($result == NULL) {
+                        header("Location: ./?message='Token inválido ou expirado'");
+                        die();
+                    }
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        $id_usuario = $result['usuario'];
+                        $password = $_POST['password'];
+                        $update = $connection->prepare("UPDATE tbl_usuario SET senha = :password WHERE id_usuario = :id_usuario");
+                        $update->execute(['password' => $password, 'id_usuario' => $id_usuario]);
+                        $delete = $connection->prepare("DELETE FROM tbl_recuperacao WHERE id_recuperacao = :token");
+                        $delete->execute(['token' => $token]);
+                        header('Location: ./login.php');
+                        die();
+                    }
+                ?>
+                <div class="label-input-login">
+                    <label for="password">Nova senha</label>
+                    <input type="password" name="password" id="password" placeholder="Nova senha" required>
+                </div>
+                <input type="submit" value="Enviar">
+            </form>
+        </div>
     </body>
 </html>
