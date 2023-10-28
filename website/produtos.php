@@ -1,10 +1,6 @@
 <?php
     include("util.php");
     startSession(NULL);
-    if(isset($_GET['message'])) {
-        echo "<script>alert(" . $_GET['message'] . ");</script>";
-        header("refresh: 0; url=./produtos.php");
-    }
     $filter = isset($_GET['categoria']) ? $_GET['categoria'] : '';
     $filter = swapSynonyms($filter);
 ?>
@@ -188,3 +184,9 @@
 </html>
 <script src="js/produtos.js?v=1.09"></script>
 <script>filterProducts();</script>
+<?php
+    if(isset($_GET['message'])) {
+        echo "<script>alert(" . $_GET['message'] . ");</script>";
+        header("refresh: 0; url=./produtos.php");
+    }
+?>

@@ -1365,6 +1365,11 @@ a.adicionar-carrinho:visited {
     font-size: 16px;
     font-weight: 500;
 }
+.mensagem-sucesso {
+    color:green;
+    font-size: 16px;
+    font-weight: 500;
+}
 #container-lembrar-senha {
     display:flex;
     align-items:center;

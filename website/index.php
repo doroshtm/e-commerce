@@ -237,3 +237,9 @@
         </footer>
     </body>
 </html>
+<?php
+    if(isset($_GET['message'])) {
+        echo "<script>alert(" . $_GET['message'] . ");</script>";
+        header("refresh: 0; url=./");
+    }
+?>
