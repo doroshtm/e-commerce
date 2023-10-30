@@ -1,10 +1,6 @@
 <?php
     include("util.php");
-    startSession(3600);
-    if(isset($_GET['message'])) {
-        echo "<script>alert(" . $_GET['message'] . ");</script>";
-        header("refresh: 0; url=./produtos.php");
-    }
+    startSession(NULL);
     $filter = isset($_GET['categoria']) ? $_GET['categoria'] : '';
     $filter = swapSynonyms($filter);
 ?>
@@ -95,7 +91,7 @@
                         </a>";
                     }
                     $connection = connect();
-                    $select = $connection->prepare('SELECT nome, preco, descricao, categoria, imagem, id_produto from tbl_produto WHERE excluido = false ORDER BY lower(nome)');
+                    $select = $connection->prepare('SELECT nome, preco, quantidade_estoque, descricao, categoria, imagem, id_produto from tbl_produto WHERE excluido = false ORDER BY lower(nome)');
                     $select->execute();
                     $result = $select->fetchAll(PDO::FETCH_ASSOC);
 
@@ -107,12 +103,12 @@
                         $category = $category['nome'];
                         $id = $row['id_produto'];
                         $name = $row['nome'];
-                        $name = abreviarTexto($name, 28);
+                        $amount = $row['quantidade_estoque'];
+                        $name2 = abreviarTexto($name, 28);
                         $image = $row['imagem'];
                         $price = number_format($row['preco'], 2, ',', '.');
                         isset($row['descricao']) ? $description = $row['descricao'] : $description = '';
                         $description = abreviarTexto($description,85);
-                        
                     
                         echo "<div class='produto' data-categoria='$category' data-nome='$name' data-preco = '$price'>
                             <div class='produto-imagem'><img src='imagens/produtos/$image'></div>
@@ -121,16 +117,17 @@
                         echo $isAdmin ? "<a href='alteracao_produto.php?id=$id'>
                         <img src='imagens/editar.png' width='20px' height='20px' class='imagem-editar-produto'></a>" : "";
                     
-                        echo "<span class='nome-produto'>$name</span>
+                        echo "<span class='nome-produto'>$name2</span>
                             <span class='tags-produto'>$category</span>";
                 
                         echo isset($description) ? "<span class='descricao-produto'>$description</span>" : "";
 
-                      echo "            
+                      echo $amount > 0 ? "  
                         <a class='adicionar-carrinho' href='carrinho.php?id=$id&url=produtos.php&action=add&amount=1'>
                             <img src='./imagens/Aumentar_qtd.svg'>
                             <span>Adicionar ao carrinho</span>
-                        </a>
+                        </a>" : "<span class='adicionar-carrinho'>Produto esgotado</span>";
+                        echo "
                         <span class='preco-produto texto-destaque'>R$$price</span>
                             </div>
                         </div>";
@@ -147,10 +144,10 @@
                             $category = $select2->fetch();
                             $category = $category['nome'];
                             $id = $row['id_produto'];
-                            $name = abreviarTexto($row['nome'],20);
+                            $name = $row['nome'];
                             $image = $row['imagem'];
                             $price = number_format($row['preco'], 2, ',', '.');
-                            $name = abreviarTexto($name, 20);
+                            $name2 = abreviarTexto($name, 20);
                             isset($row['descricao']) ? $description = abreviarTexto($row['descricao'],50) : $description = '';
 
                             echo "<div class='produto deletado' data-categoria='$category' data-nome='$name' data-preco = '$price'>
@@ -160,7 +157,7 @@
                             echo "<a href='alteracao_produto.php?id=$id'>
                             <img src='imagens/editar.png' width='20px' height='20px' class='imagem-editar-produto'></a>";
                             
-                            echo "<span class='nome-produto'>$name - DELETADO</span>
+                            echo "<span class='nome-produto'>$name2 - DELETADO</span>
                                 <span class='tags-produto'>$category</span>";
                     
                             echo isset($description) ? "<span class='descricao-produto'>$description</span>" : "";
@@ -186,4 +183,10 @@
     </body>
 </html>
 <script src="js/produtos.js?v=1.09"></script>
-echo "<script>filterProducts();</script>";
+<script>filterProducts();</script>
+<?php
+    if(isset($_GET['message'])) {
+        echo "<script>alert(" . $_GET['message'] . ");</script>";
+        header("refresh: 0; url=./produtos.php");
+    }
+?>

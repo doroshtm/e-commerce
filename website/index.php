@@ -1,6 +1,6 @@
 <?php
     include("util.php");
-    startSession(3600);
+    startSession(NULL);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -237,3 +237,9 @@
         </footer>
     </body>
 </html>
+<?php
+    if(isset($_GET['message'])) {
+        echo "<script>alert(" . $_GET['message'] . ");</script>";
+        header("refresh: 0; url=./");
+    }
+?>

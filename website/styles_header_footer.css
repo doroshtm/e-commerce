@@ -1125,7 +1125,7 @@ a.adicionar-carrinho:visited {
       cursor:pointer;
       transition: 0.2s;
 }
-.adicionar-carrinho span {
+.adicionar-carrinho span, span.adicionar-carrinho {
     font-weight: 500;
     font-size: 18px;
 }
@@ -1361,6 +1361,11 @@ a.adicionar-carrinho:visited {
 
 .mensagem-erro {
     color:red;
+    font-size: 16px;
+    font-weight: 500;
+}
+.mensagem-sucesso {
+    color:green;
     font-size: 16px;
     font-weight: 500;
 }

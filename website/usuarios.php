@@ -1,6 +1,6 @@
 <?php
     include("util.php");
-    startSession(3600);
+    startSession(NULL);
     $isAdmin = isset($_SESSION['user']['isAdmin']) ? $_SESSION['user']['isAdmin'] : false;
     if(!isset($_SESSION['user']['isAdmin']) || !$_SESSION['user']['isAdmin']) {
         header('Location: ./');

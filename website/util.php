@@ -18,18 +18,23 @@
     return $texto;
   }
   function startSession($time) {
-    session_set_cookie_params($time);
-    session_cache_expire($time/60);
+    session_set_cookie_params(3600);
+
     session_start();
 
-    if (session_get_cookie_params()['lifetime'] != $time) {
+    $time == NULL ? $time = 3600 : '';
+
+    if ((isset($_SESSION['lastActivity']) && (time() - $_SESSION['lastActivity'] > $time)) || $time != 3600) {
       $sessID = session_id();
+      session_unset();
       session_destroy();
+      ini_set('session.gc_maxlifetime', $time);
       session_set_cookie_params($time);
-      session_cache_expire($time/60);
       session_id($sessID);
-      session_start(); 
+      session_start();
     }
+    
+    $_SESSION['lastActivity'] = time();
 
     if (!isset($_SESSION['user'])) {
       $_SESSION['user'] = array();
@@ -47,6 +52,37 @@
       'eletronica' => 'eletro'
     );
     return str_replace(array_keys($synonyms), $synonyms, $word);
+  }
+
+  function sendEmail($email, $subject, $body, $mail) {
+
+    include_once('./PHPMailer/PHPMailer.php');
+    include_once('./PHPMailer/Exception.php');
+    include_once('./PHPMailer/SMTP.php');
+    include('./hidden.php');
+
+    $mail->isSMTP();
+    $mail->setFrom('mascotero@outlook.com.br');
+    $mail->Username = 'mascotero@outlook.com.br';
+    $mail->Password = getPassword();
+    $mail->Host = 'smtp.office365.com';
+    $mail->Port = 587;
+    $mail->SMTPSecure = 'tls';
+    $mail->SMTPAuth = true;
+    $mail->CharSet = 'UTF-8';
+    $mail->isHTML(true);
+
+    $mail->Subject = $subject;
+    $mail->Body = $body;
+    $mail->addAddress($email);
+    $mail->addEmbeddedImage('./imagens/Logo_Mascotero.png', 'logo');
+
+    if ($mail->send()) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   function header_pag ($isAdmin, $url) {

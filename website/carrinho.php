@@ -1,13 +1,9 @@
 <?php
     include("util.php");
-    $sessID = startSession(3600);
+    $sessID = startSession(NULL);
     $connection = connect();
     isset($_GET['id']) ? $id = $_GET['id'] : "";
     $url = isset($_GET['url']) ? $_GET['url'] : "carrinho.php";
-    if(isset($_GET['message'])) {
-        echo "<script>alert(" . $_GET['message'] . ");</script>";
-        header("refresh: 0; url=$url");
-    }
     if(isset($id)) {
         $select = $connection->prepare("SELECT nome, preco, descricao, categoria, imagem, quantidade_estoque FROM tbl_produto WHERE id_produto = $id AND excluido = false");
         $select->execute();
@@ -323,3 +319,9 @@
 
     </body>
 </html>
+<?php
+    if(isset($_GET['message'])) {
+        echo "<script>alert(" . $_GET['message'] . ");</script>";
+        header("refresh: 0; url=$url");
+    }
+?>

@@ -1,6 +1,6 @@
 <?php
   include("util.php");
-  $sessID = startSession(3600);
+  $sessID = startSession(NULL);
 
   if (isset($_SESSION['user']['id'])) {
     header('Location: ./logout.php?url=login.php');
@@ -39,7 +39,7 @@
                     <label for="lembrar-senha">Mantenha-me conectado</label>
               </div>
               <a href="cadastro.php<?php echo isset($_GET['url']) ? '?url=' . $_GET['url'] : '' ?>" id="cadastre-se">Não tem conta? Cadastre-se</a>
-              <a href="esqueci.php">Esqueceu a senha?</a>
+              <a href="esqueci.php<?php echo isset($_GET['url']) ? '?url=' . $_GET['url'] : '' ?>" id="esqueceu-senha">Esqueceu a senha?</a>
 
   <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -57,6 +57,9 @@
 
       if ($_POST['rememberme'] == 'on') {
         startSession(1209600);
+      }
+      else {
+        startSession(3600);
       }
       setcookie('email', $email, time() + 1209600);
 
