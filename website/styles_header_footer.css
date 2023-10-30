@@ -984,7 +984,6 @@ a {
 .produto, #produto-adicionar {
     max-width: 90vw !important;
     user-select: none;
-    cursor: pointer;
     position:relative;
     display:flex;
     flex-direction:column;
@@ -1041,10 +1040,10 @@ a {
 #produto-adicionar:hover path {
     fill: var(--cor-interac);
 }
-.produto:hover {
+ .produto:hover {
     box-shadow: 3.4px 6.9px 6.9px hsl(0deg 0% 0% / 0.27);
     transform: scale(1.05);
-}
+} 
 .produto:not(.deletado):hover {
     border: 0.2px solid var(--cor-interac);
 }
