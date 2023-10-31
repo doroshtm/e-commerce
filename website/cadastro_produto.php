@@ -31,8 +31,8 @@
                 <input type="text" id="nome" name="nome" placeholder="Nome do produto" required><br>
             </div>
             <div class="label-input-login">
-                <label for="descricao">Descrição do produto</label>
-                <input type="text" id="descricao" name="descricao" placeholder="Descrição do produto" required><br>
+                <label for="descricao-prod">Descrição do produto</label>
+                <input type="text" id="descricao-prod" name="descricao" placeholder="Descrição do produto" required><br>
             </div>
             <div class="label-input-login">
                 <label for="categoria">Categoria</label>
