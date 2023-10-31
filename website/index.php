@@ -119,7 +119,7 @@
                  <div id="conteudo-vidro">
                     <div id="texto-vidro">
                         <span> Venha pegar o seu </span>
-                        <span id="destaque">mascote da sorte</span>
+                        <span id="destaque">mascote do Colégio</span>
                         <span id="descricao">
                             Chaveiros de pano e adesivos 
                             com ilustrações originais de mascotes do CTI 
