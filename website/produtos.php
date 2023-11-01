@@ -2,7 +2,13 @@
     include("util.php");
     startSession(NULL);
     $filter = isset($_GET['categoria']) ? $_GET['categoria'] : '';
-    $filter = swapSynonyms($filter);
+    $filtro = $filter;
+    $filtro = ($filtro == "cti") ? "CTI" : 
+          (($filtro == "info") ? "Informática" : 
+          (($filtro == "mec") ? "Mecânica" : 
+          (($filtro == "eletro") ? "Eletrônica" : $filtro)));
+
+$filter = swapSynonyms($filter);
 ?>
 
 <!DOCTYPE html>
@@ -182,8 +188,8 @@
         </footer>
     </body>
 </html>
-<script src="js/produtos.js?v=1.09"></script>
-<script>filterProducts();</script>
+<script src="js/produtos.js"></script>
+<script>filterProducts(); criarElemento("<?php echo $filtro ?>")</script>
 <?php
     if(isset($_GET['message'])) {
         echo "<script>alert(" . $_GET['message'] . ");</script>";
