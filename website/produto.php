@@ -28,7 +28,28 @@
     <div id="content">
         <div class="container-geral">
             <div id="container-tela-produto">
-                
+                <div id="container-tela-produto-imagem">
+                    <img src="./imagens/Eletro1.jpg">
+                </div>
+                <div id="container-tela-produto-descricao">
+                    <div id="interior-tela-produto-descricao">
+                        <span id="tela-produto-titulo">
+                            Nome mascote teste isaac portal roldán
+                        </span>
+                        <span id="tela-produto-tag">
+                            Eletrônica
+                        </span>
+                        <span id="tela-produto-descricao">
+                            Esse é um mascote de teste para o isaac portal rolddán soiadaoip shfaipsjfi´pdshfipw
+                        </span>
+                        <span id="tela-produto-preco">
+                            R$2,00
+                        </span>   
+                        <span id="tela-produto-adicionar-carrinho">
+                            Adicionar ao carrinho
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
