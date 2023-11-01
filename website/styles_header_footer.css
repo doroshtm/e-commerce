@@ -1,6 +1,6 @@
 :root {
     /* Cores seguindo a regra do 60% 30% 10%. Podem ser modificadas dependendo do caso*/
-    --cor-fundo: #e0e0f7;
+    --cor-fundo: #e6e6f6;
     --cor-destaque: #FFFFFF; 
     --cor-interac: #4A3AFF;
     --cor-texto: #170F49;
@@ -1178,6 +1178,120 @@ a.adicionar-carrinho:visited {
         font-size:15px;
     }
 }
+
+/* Tela do produto */
+
+#container-tela-produto {
+    display:flex;
+    flex-direction:row;
+    width:100%;
+    margin-top: 50px;
+    border-radius: 10px;
+    height:fit-content;
+}
+#container-tela-produto-imagem {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+/*     background:rgba(239, 234, 234, 0.8);
+ */    border-radius: 15px 0 0 15px;
+    height:100%;
+}
+#container-tela-produto-imagem img {
+    width: 400px; 
+    height: 400px;
+    max-height:400px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+#container-tela-produto-descricao {
+    width:60%;
+}
+#interior-tela-produto-descricao {
+    align-items: flex-start;
+    justify-content: flex-start;
+    display:flex;
+    flex-direction: column;
+    text-align:justify;
+     background: white;
+     width:fit-content;
+    padding:40px;
+    width:90%;
+    border-radius:15px;
+    max-height:100%;
+}
+#tela-produto-titulo {
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+#tela-produto-tag {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 30px;
+    color: var(--cor-interac);
+}
+#tela-produto-descricao {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 30px;
+    max-width: 60%;
+    word-break: break-word;
+}
+#tela-produto-preco {
+    font-size: 35px;
+    text-align:center;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: var(--cor-interac);
+}
+#tela-produto-adicionar-carrinho {
+    background-color: var(--cor-interac);
+    border-radius: 10px;
+    padding: 15px 30px;
+    font-size: 30px;
+    color: var(--cor-destaque);
+    font-weight: 700;
+    box-shadow:hsl(0deg 0% 0% / 0.13);
+    transition: 0.4s;
+    cursor:pointer;
+}
+#tela-produto-adicionar-carrinho a {
+    text-decoration: none;
+}
+#tela-produto-adicionar-carrinho:hover {
+    transform: scale(1.05);
+    background-color:#2715ec;
+    box-shadow:hsl(0deg 0% 0% / 0.27);
+}
+
+@media (max-width: 1000px)
+{
+    #container-tela-produto {
+        flex-direction:column;
+        align-items: center;
+        justify-content: center ;
+    }
+    #container-tela-produto-imagem {
+        width:80%;
+        border-radius: 15px 15px 0 0;
+    }
+    #container-tela-produto-imagem img {
+        width: 100%;
+    }
+    #container-tela-produto-descricao {
+        width: 80%;
+    }
+    #interior-tela-produto-descricao {
+        border-radius: 0 0 15px 15px;
+        text-align:center;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+
 
 /* Contato */
 
