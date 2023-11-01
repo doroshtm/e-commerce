@@ -237,6 +237,10 @@ body {
 #container-mascote-produtos .conteudo-mp {
     grid-template-columns: 70% 30%;
 }
+#container-mascote-produtos a {
+    text-decoration: none;
+    color: var(--cor-texto)
+}
 #container-video .conteudo-mp-video{
     flex-wrap: wrap;
     padding: 10px 15px 20px 50px;
@@ -244,6 +248,7 @@ body {
     margin-bottom: 4    0px;
     background:var(--cor-destaque);
     width:80vw;
+    margin-bottom: 50px;
 }
 #display-produtos {
     margin-bottom:20px;
@@ -982,6 +987,7 @@ a {
     margin-bottom:50px
 }
 .produto, #produto-adicionar {
+    cursor:pointer;
     max-width: 90vw !important;
     user-select: none;
     position:relative;

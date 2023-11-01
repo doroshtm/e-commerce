@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+/* document.addEventListener('DOMContentLoaded', function() { */
         
     const filtro = document.getElementById('filtro');
     const seta = document.querySelector('#filtro img');
@@ -9,26 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const corpo = document.getElementById('corpo-filtro-display');
     const elementosCriados = {};
 
-    function criarElemento(nome) {
-        if (!elementosCriados[nome]) {
-        const novoElemento = document.createElement('div');
-        novoElemento.className = 'filtro-display';
-        novoElemento.id = nome;
-        novoElemento.textContent = nome;
-        novoElemento.style.animation = 'mostra-filtro 0.2s forwards';
-        corpo.appendChild(novoElemento);
-
-        novoElemento.addEventListener('click', () => {
-            destruirElemento(novoElemento);
-            const checkboxIndex = nomes.indexOf(nome);
-            checkboxes[checkboxIndex].checked = false;
-            elementosCriados[nome] = false;
-            filterProducts();
-        });
-
-        elementosCriados[nome] = true;
-        }
-    }
 
     function destruirElemento(elemento){
     elemento.style.animation = 'esconde-filtro 0.2s forwards';
@@ -53,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
     for (let i = 0; i < checkboxes.length; i++) {
         checkboxes[i].addEventListener('change', () => {
         if (checkboxes[i].checked) {
+            filterProducts();
             criarElemento(nomes[i]);
         } else {
             const elementoParaRemover = elementosCriados[nomes[i]];
@@ -172,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
-});
+/* }); */
 
 const checkbox_cti = document.getElementById('cti');
 const checkbox_info = document.getElementById('info');
@@ -180,7 +161,7 @@ const checkbox_mec = document.getElementById('mec');
 const checkbox_eletro = document.getElementById('eletro');
 const search = document.getElementById('pesquisa');
 
-checkbox_cti.addEventListener('change', function() {
+/* checkbox_cti.addEventListener('change', function() {
     filterProducts();
 });
 
@@ -193,11 +174,30 @@ checkbox_mec.addEventListener('change', function() {
 });
 checkbox_eletro.addEventListener('change', function() {
     filterProducts();
-});
+}); */
 search.addEventListener('keyup', function() {
     filterProducts();
 });
+function criarElemento(nome) {
+    if (!elementosCriados[nome]) {
+    const novoElemento = document.createElement('div');
+    novoElemento.className = 'filtro-display';
+    novoElemento.id = nome;
+    novoElemento.textContent = nome;
+    novoElemento.style.animation = 'mostra-filtro 0.2s forwards';
+    corpo.appendChild(novoElemento);
 
+    novoElemento.addEventListener('click', () => {
+        destruirElemento(novoElemento);
+        const checkboxIndex = nomes.indexOf(nome);
+        checkboxes[checkboxIndex].checked = false;
+        elementosCriados[nome] = false;
+        filterProducts();
+    });
+
+    elementosCriados[nome] = true;
+    }
+}
 function filterProducts() {
     const products = document.querySelectorAll('.produto');
     const ctiChecked = checkbox_cti.checked;
