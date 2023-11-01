@@ -1,6 +1,6 @@
 :root {
     /* Cores seguindo a regra do 60% 30% 10%. Podem ser modificadas dependendo do caso*/
-    --cor-fundo: #e0e0f7;
+    --cor-fundo: #e6e6f6;
     --cor-destaque: #FFFFFF; 
     --cor-interac: #4A3AFF;
     --cor-texto: #170F49;
@@ -1187,19 +1187,21 @@ a.adicionar-carrinho:visited {
     width:100%;
     margin-top: 50px;
     border-radius: 10px;
+    height:fit-content;
 }
 #container-tela-produto-imagem {
     display:flex;
     align-items: center;
     justify-content: center;
     width: 40%;
-    background:rgba(239, 234, 234, 0.8);
-    border-radius: 15px 0 0 15px;
-
+/*     background:rgba(239, 234, 234, 0.8);
+ */    border-radius: 15px 0 0 15px;
+    height:100%;
 }
 #container-tela-produto-imagem img {
-    width: 420px; 
-    height: 420px;
+    width: 400px; 
+    height: 400px;
+    max-height:400px;
     object-fit: cover;
     border-radius: 15px;
 }
@@ -1212,10 +1214,12 @@ a.adicionar-carrinho:visited {
     display:flex;
     flex-direction: column;
     text-align:justify;
-    background: white;
-    width:fit-content;
+     background: white;
+     width:fit-content;
     padding:40px;
-    border-radius:0 15px 15px 0;
+    width:90%;
+    border-radius:15px;
+    max-height:100%;
 }
 #tela-produto-titulo {
     font-size: 40px;

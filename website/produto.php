@@ -1,6 +1,23 @@
 <?php
+    $id = $_GET['id'];
     include("util.php");
     startSession(NULL);
+    $connection = connect();
+    $query = 'SELECT nome, preco, quantidade_estoque, descricao, categoria, imagem, id_produto FROM tbl_produto WHERE excluido = false AND 
+    id_produto= :id ORDER BY lower(nome)';
+    $select = $connection->prepare($query);
+    $select->execute(['id' => $id]);
+    $row = $select->fetch(PDO::FETCH_ASSOC);
+    $category = $row['categoria'];
+    $select2 = $connection->prepare('SELECT nome FROM tbl_categoria WHERE id_categoria = :category');
+    $select2->execute(['category' => $category]);
+    $category = $select2->fetch();
+    $category = $category['nome'];
+    $name = $row['nome'];
+    $amount = $row['quantidade_estoque'];
+    $image = $row['imagem'];
+    $price = number_format($row['preco'], 2, ',', '.');
+    isset($row['descricao']) ? $description = $row['descricao'] : $description = '';
 ?>
 
 
@@ -29,21 +46,21 @@
         <div class="container-geral">
             <div id="container-tela-produto">
                 <div id="container-tela-produto-imagem">
-                    <img src="./imagens/Eletro1.jpg">
+                    <img src="<?php  $image; ?>">
                 </div>
                 <div id="container-tela-produto-descricao">
                     <div id="interior-tela-produto-descricao">
                         <span id="tela-produto-titulo">
-                            Nome mascote teste isaac portal roldán
+                            <?php echo $name; ?>
                         </span>
                         <span id="tela-produto-tag">
-                            Eletrônica
+                            <?php echo $category; ?>
                         </span>
                         <span id="tela-produto-descricao">
-                            Esse é um mascote de teste para o isaac portal rolddán soiadaoip shfaipsjfi´pdshfipw
+                            <?php echo $description; ?>
                         </span>
                         <span id="tela-produto-preco">
-                            R$2,00
+                            R$ <?php echo $price; ?>
                         </span>   
                         <span id="tela-produto-adicionar-carrinho">
                             Adicionar ao carrinho
