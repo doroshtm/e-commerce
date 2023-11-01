@@ -1179,6 +1179,40 @@ a.adicionar-carrinho:visited {
     }
 }
 
+/* Tela do produto */
+
+#container-tela-produto {
+    display:flex;
+    flex-direction:row;
+
+}
+#container-tela-produto-imagem {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    background: #979899;
+}
+#container-tela-produto-imagem img {
+    width: 420px; 
+    height: 420px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+#container-tela-produto-descricao {
+    align-items: flex-start;
+    justify-content: flex-start;
+    display:flex;
+    width:50%;
+    flex-direction: column;
+
+}
+
+
+
+
+
+
 /* Contato */
 
 
