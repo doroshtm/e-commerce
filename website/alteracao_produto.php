@@ -142,7 +142,7 @@
                             }
                             
                             $name = $_POST['nome'];
-                            $action = $result['excluido'];
+                            $action = $result['excluido'] == 'Restaurar' ? 'true' : 'false';
                             $description = $_POST['descricao'];
                             $category = $_POST['categoria'];
                             $price = round($_POST['preco'], 2);
