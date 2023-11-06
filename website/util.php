@@ -62,7 +62,7 @@
     include('./hidden.php');
 
     $mail->isSMTP();
-    $mail->setFrom('mascotero@outlook.com.br');
+    $mail->setFrom('mascotero@outlook.com.br', 'Recuperação de Senha | Mascotero');
     $mail->Username = 'mascotero@outlook.com.br';
     $mail->Password = getPassword();
     $mail->Host = 'smtp.office365.com';
