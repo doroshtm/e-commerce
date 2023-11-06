@@ -41,7 +41,8 @@
         $delete = $connection->prepare("DELETE FROM tbl_tmp_compra WHERE sessao = :session");
         $delete->execute(['session' => $sessID]);
     }
-    header("refresh: 0; url=produtos.php?message='Compra realizada com sucesso'");
+    $message = "Compra realizada com sucesso!";
+    header("refresh: 0; url=produtos.php?message=$message");
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

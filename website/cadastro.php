@@ -144,7 +144,7 @@
                     !empty($_POST['address']) ? $_SESSION['user']['address'] = $_POST['address'] : '';
 
                     $url = isset($_GET['url']) ? $_GET['url'] : '';
-                    header('Location: ' . $url);
+                    header("Location: $url");
                 }
             ?>
             </form>
