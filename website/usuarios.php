@@ -40,7 +40,8 @@
     $select->execute();
     $result = $select->fetchAll(PDO::FETCH_ASSOC);
     echo "
-    <div style='overflow-x:auto'>
+    <div style='position:relative;'>
+    <div id='table-usuario-wrapper'>
     <table border=1>
     <thead>
         <tr>
@@ -80,7 +81,7 @@
             </td>
         </tr>";
     }
-    echo "</table> </div>";
+    echo "</table> </div> </div>";
 ?>
     </div>
 </div>

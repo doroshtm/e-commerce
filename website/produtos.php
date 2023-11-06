@@ -2,7 +2,13 @@
     include("util.php");
     startSession(NULL);
     $filter = isset($_GET['categoria']) ? $_GET['categoria'] : '';
-    $filter = swapSynonyms($filter);
+    $filtro = $filter;
+    $filtro = ($filtro == "cti") ? "CTI" : 
+          (($filtro == "info") ? "Informática" : 
+          (($filtro == "mec") ? "Mecânica" : 
+          (($filtro == "eletro") ? "Eletrônica" : $filtro)));
+
+$filter = swapSynonyms($filter);
 ?>
 
 <!DOCTYPE html>
@@ -111,6 +117,7 @@
                         $description = abreviarTexto($description,85);
                     
                         echo "<div class='produto' data-categoria='$category' data-nome='$name' data-preco = '$price'>
+                            <a href='produto.php?id=$id'>
                             <div class='produto-imagem'><img src='imagens/produtos/$image'></div>
                             <div class='produto-corpo'>";
                     
@@ -130,7 +137,7 @@
                         echo "
                         <span class='preco-produto texto-destaque'>R$$price</span>
                             </div>
-                        </div>";
+                        </div></a>";
                     }
                     if(isset($_SESSION['user']['isAdmin']) && $_SESSION['user']['isAdmin']) {
                         $select = $connection->prepare('SELECT nome, preco, descricao, categoria, imagem, id_produto FROM tbl_produto WHERE excluido = true ORDER BY lower(nome)');
@@ -182,8 +189,11 @@
         </footer>
     </body>
 </html>
-<script src="js/produtos.js?v=1.09"></script>
-<script>filterProducts();</script>
+<script src="js/produtos.js"></script>
+<script>
+filterProducts(); 
+if ($filtro)
+criarElemento("<?php echo $filtro ?>")</script>
 <?php
     if(isset($_GET['message'])) {
         echo "<script>alert(" . $_GET['message'] . ");</script>";
