@@ -35,7 +35,7 @@
         die();
     }
     $connection = connect();
-    $delete_user = $connection->prepare('DELETE FROM tbl_usuario WHERE id_usuario = ' . $id);
-    $delete_user->execute();
+    $delete_user = $connection->prepare('DELETE FROM tbl_usuario WHERE id_usuario = :id');
+    $delete_user->execute(['id' => $id]);
     header('Location: ./usuarios.php');
 ?>

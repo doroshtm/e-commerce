@@ -50,7 +50,7 @@
                     $insert->execute(['token' => $token, 'id_usuario' => $result['id_usuario']]);
                     $subject = 'Recuperação de senha';
                     $body = "Olá, " . $result['nome'] . "! <br>
-                    Você solicitou a recuperação de senha para o email " . $email . " em nosso site. <br>
+                    Você solicitou a recuperação de senha para o email $email em nosso site. <br>
                     <a href='https://projetoscti.com.br/projetoscti12/recuperacao_senha.php?token=$token'>Clique aqui</a> para recuperar sua senha. <br>
                     Você tem até uma hora para recuperar sua senha. <br>
                     Caso não tenha sido você, ignore este email. <br>

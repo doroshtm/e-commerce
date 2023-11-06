@@ -2,16 +2,16 @@
     include("util.php");
     startSession(NULL);
     if(!isset($_SESSION['user']['isAdmin']) || !$_SESSION['user']['isAdmin']) {
-        header('Location: ./');
+        header("Location: ./");
     }
     $id = $_GET['id'];
     $connection = connect();
-    $select_user = $connection->prepare('select nome, email, admin, telefone, endereco, cep, cpf, data_cadastro from tbl_usuario where id_usuario = ' . $id);
-    $select_user->execute();
+    $select_user = $connection->prepare("SELECT nome, email, admin, telefone, endereco, cep, cpf, data_cadastro FROM tbl_usuario WHERE id_usuario = :id");
+    $select_user->execute(['id' => $id]);
     $result = $select_user->fetch(PDO::FETCH_ASSOC);
     if($result == NULL) {
-        echo "Usuário não encontrado! Redirecionando para a página de usuários...";
-        header('Refresh: 3; url=./usuarios.php');
+        $message = "Usuário não encontrado!";
+        header("Location: ./usuarios.php?message=$message");
         die();
     }
 ?>
@@ -86,7 +86,7 @@
                         $address = $_POST['endereco'];
                         $cep = $_POST['cep'];
                         $cpf = $_POST['cpf'];
-                        $update = $connection->prepare("UPDATE tbl_usuario SET nome = :name, email = :email, admin = :isAdmin, telefone = :phone, endereco = :address, cep = :cep, cpf = :cpf WHERE id_usuario = " . $id);
+                        $update = $connection->prepare("UPDATE tbl_usuario SET nome = :name, email = :email, admin = :isAdmin, telefone = :phone, endereco = :address, cep = :cep, cpf = :cpf WHERE id_usuario = :id");
                         $update->execute(array(
                             ':name' => $name,
                             ':email' => $email,
@@ -94,9 +94,10 @@
                             ':phone' => $phone,
                             ':address' => $address,
                             ':cep' => $cep,
-                            ':cpf' => $cpf
+                            ':cpf' => $cpf,
+                            ':id' => $id
                         ));
-                        header('Location: ./usuarios.php');
+                        header("Location: ./usuarios.php");
                     }
                 ?>
             </form>

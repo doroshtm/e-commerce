@@ -46,7 +46,7 @@
         <div class="container-geral">
             <div id="container-tela-produto">
                 <div id="container-tela-produto-imagem">
-                    <img src="<?php  $image; ?>">
+                    <img src="imagens/produtos/<?php echo $image; ?>" alt="foto do produto">
                 </div>
                 <div id="container-tela-produto-descricao">
                     <div id="interior-tela-produto-descricao">

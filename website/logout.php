@@ -9,5 +9,5 @@
 
     setcookie('loginCookie', '', time() - 3600);
     $url = isset($_GET['url']) ? $_GET['url'] : '';
-    header('Location: ' . $url);
+    header("Location: $url");
 ?>

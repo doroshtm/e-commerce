@@ -2,12 +2,12 @@
     include("util.php");
     startSession(NULL);
     if(!isset($_SESSION['user']['isAdmin']) || !$_SESSION['user']['isAdmin']) {
-        header('Location: ./');
+        header("Location: ./");
     }
     isset($_GET['id']) ? $id = $_GET['id'] : '';
     if (!isset($id)) {
-        echo "<script>alert('Produto não encontrado!')</script>";
-        header('Refresh: 3; url=./produtos.php');
+        $message = "ID não especificado!";
+        header("Location: ./produtos.php?message=$message");
         die();
     }
     $connection = connect();
@@ -18,23 +18,23 @@
         $result = $select->fetch(PDO::FETCH_ASSOC);
         if ($result['senha'] != $pass) {
             echo "<script>alert('Senha incorreta!')</script>";
-            header('Refresh: 0; url=./alteracao_produto.php?id=' . $id);
+            header('Refresh: 0; url=./alteracao_produto.php?id=$id');
             die();
         }
-        $select = $connection->prepare("select excluido from tbl_produto where id_produto = " . $id);
-        $select->execute();
+        $select = $connection->prepare("SELECT excluido FROM tbl_produto WHERE id_produto = :id");
+        $select->execute(['id' => $id]);
         $result = $select->fetch(PDO::FETCH_ASSOC);
-        $delete = $connection->prepare("update tbl_produto set excluido = " . ($result['excluido'] ? 'false' : 'true') . " where id_produto = " . $id);
-        $delete->execute();
-        header('Location: ./produtos.php');
+        $delete = $connection->prepare("UPDATE tbl_produto SET excluido = " . ($result['excluido'] ? 'false' : 'true') . " WHERE id_produto = :id");
+        $delete->execute(['id' => $id]);
+        header("Location: ./produtos.php");
         die();
     }
-    $select_product = $connection->prepare('select nome, descricao, categoria, preco, custo, icms, quantidade_estoque, codigovisual, margem_lucro, excluido from tbl_produto where id_produto = ' . $id);
-    $select_product->execute();
+    $select_product = $connection->prepare("SELECT nome, descricao, categoria, preco, custo, icms, quantidade_estoque, codigovisual, margem_lucro, excluido FROM tbl_produto WHERE id_produto = :id");
+    $select_product->execute(['id' => $id]);
     $result = $select_product->fetch(PDO::FETCH_ASSOC);
     if($result == NULL) {
-        echo "Produto não encontrado! Redirecionando para a página de produtos...";
-        header('Refresh: 3; url=./produtos.php');
+        $message = "Produto não encontrado!";
+        header("Location: ./produtos.php?message=$message");
         die();
     }
     $action = $result['excluido'] ? 'Restaurar' : 'Deletar';
@@ -194,7 +194,7 @@
                             }
                             $codigovisual = $_POST['codigovisual'];
                             $grossprofit = $_POST['preco'] - $_POST['custo'];
-                            $update = $connection->prepare("UPDATE tbl_produto SET nome = :name, descricao = :description, categoria = :category, preco = :price, custo = :cost, icms = :icms, excluido = :excluido, quantidade_estoque = :stock, " . (isset($image) ? "imagem = '{$image['name']}', " : '') . "codigovisual = :codigovisual, margem_lucro = :profit_margin WHERE id_produto = '{$id}'");
+                            $update = $connection->prepare("UPDATE tbl_produto SET nome = :name, descricao = :description, categoria = :category, preco = :price, custo = :cost, icms = :icms, excluido = :excluido, quantidade_estoque = :stock, " . (isset($image) ? "imagem = '{$image['name']}', " : '') . "codigovisual = :codigovisual, margem_lucro = :profit_margin WHERE id_produto = :id");
                             $update->execute(array(
                                 ':name' => $name,
                                 ':description' => $description,
@@ -205,10 +205,11 @@
                                 ':stock' => $_POST['estoque'],
                                 ':codigovisual' => $_POST['codigovisual'],
                                 ':profit_margin' => round($grossprofit - ($grossprofit * ($_POST['icms'] / 100)), 2),
-                                ':excluido' => $action
+                                ':excluido' => $action,
+                                ':id' => $id
                             ));
                             move_uploaded_file($_FILES['imagem']['tmp_name'], './imagens/produtos/' . $image['name']);
-                            header('Location: ./produtos.php');
+                            header("Location: ./produtos.php");
                         }
                     ?>
             </form>

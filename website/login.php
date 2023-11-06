@@ -76,7 +76,7 @@
       
       
       $url = isset($_GET['url']) ? $_GET['url'] : '';
-      header('Location: ' . $url);
+      header("Location: $url");
     }
   ?>
           </form>

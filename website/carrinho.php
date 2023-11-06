@@ -5,8 +5,8 @@
     isset($_GET['id']) ? $id = $_GET['id'] : "";
     $url = isset($_GET['url']) ? $_GET['url'] : "carrinho.php";
     if(isset($id)) {
-        $select = $connection->prepare("SELECT nome, preco, descricao, categoria, imagem, quantidade_estoque FROM tbl_produto WHERE id_produto = $id AND excluido = false");
-        $select->execute();
+        $select = $connection->prepare("SELECT nome, preco, descricao, categoria, imagem, quantidade_estoque FROM tbl_produto WHERE id_produto = :id AND excluido = false");
+        $select->execute(['id' => $id]);
         $row = $select->fetch(PDO::FETCH_ASSOC);
         if ($row == NULL) {
             header("location: $url?message='Produto não encontrado!'");
@@ -32,13 +32,7 @@
             $amountCart = $resultCompraProduto != NULL ? $resultCompraProduto['quantidade'] : 0;
 
             if(isset($_GET['amount'])) {
-                if ($action == 'add' && $id_compra == NULL) {
-                    $insert = $connection->prepare("INSERT INTO tbl_compra (status, data, usuario) VALUES ('PENDENTE', :date, :user)");
-                    $insert->execute(['date' => date('Y-m-d'), 'user' => $userID]);
-                    $id_compra = $connection->lastInsertId();
-                    $insert = $connection->prepare("INSERT INTO tbl_tmp_compra (sessao, compra) VALUES (:session, :id)");
-                    $insert->execute(['session' => $sessID, 'id' => $id_compra]);
-                } else if ($id_compra == NULL) {
+                if ($id_compra == NULL && $action != 'add')
                     header("location: $url?message='Não há produtos no carrinho!'");
                     die();
                 }
@@ -48,6 +42,7 @@
                         header("location: $url?message='Não há estoque suficiente para essa quantidade!'");
                         die();
                     }
+                    
                     if ($amountCart != 0) {
                         $amountCart += $amount;
                         $update = $connection->prepare("UPDATE tbl_compra_produto SET quantidade = :amount WHERE compra = :id AND produto = :id_produto");
@@ -216,12 +211,12 @@
                         foreach ($resultCompraProduto as $row) {
                             $id = $row['produto'];
                             $amount = $row['quantidade'];
-                            $select = $connection->prepare("SELECT id_produto, nome, preco, descricao, categoria, imagem, quantidade_estoque FROM tbl_produto WHERE id_produto = $id AND excluido = false");
-                            $select->execute();
+                            $select = $connection->prepare("SELECT id_produto, nome, preco, descricao, categoria, imagem, quantidade_estoque FROM tbl_produto WHERE id_produto = :id AND excluido = false");
+                            $select->execute(['id' => $id]);
                             $row = $select->fetch(PDO::FETCH_ASSOC);
                             if ($row == NULL) {
-                                $delete = $connection->prepare("DELETE FROM tbl_compra_produto WHERE produto = $id");
-                                $delete->execute();
+                                $delete = $connection->prepare("DELETE FROM tbl_compra_produto WHERE produto = :id");
+                                $delete->execute(['id' => $id]);
                                 continue;
                             }
                             $categoryID = $row['categoria'];

@@ -3,7 +3,7 @@
     include("util.php");
     startSession(NULL);
     if (!isset($_SESSION['user']['isAdmin']) || !$_SESSION['user']['isAdmin']) {
-        header('Location: ./');
+        header("Location: ./");
     }
 ?>
 <!DOCTYPE html>
@@ -152,7 +152,7 @@
                     ':image' => $image['name']
                 ));
                 move_uploaded_file($_FILES['imagem']['tmp_name'], './imagens/produtos/' . $image['name']);
-                header('Location: ./produtos.php');
+                header("Location: ./produtos.php");
             }
 
         ?>

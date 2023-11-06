@@ -36,7 +36,7 @@
         <div class="container-geral">
 <?php
     $connection = connect();
-    $select = $connection->prepare('select * from tbl_usuario');
+    $select = $connection->prepare('SELECT * FROM tbl_usuario');
     $select->execute();
     $result = $select->fetchAll(PDO::FETCH_ASSOC);
     echo "
@@ -95,3 +95,9 @@
         </footer>
 </body>
 </html>
+<?php
+    if(isset($_GET['message'])) {
+        echo "<script>alert(" . $_GET['message'] . ");</script>";
+        header("refresh: 0; url=./usuarios.php");
+    }
+?>
