@@ -23,7 +23,7 @@
         <input type='password' name='password' placeholder='Senha do administrador' required>
         <input type='hidden' name='id' value="<?php echo $id ?>">
         <input type='submit' value='Deletar'>
-        <input type='button' value='Cancelar' onclick='window.history.back()'>
+        <a href='./usuarios.php'> <input type='button' value='Cancelar'> </a>
     </form>
 </body>
 </html>

@@ -75,7 +75,7 @@
             
                 </div>
             <input type="submit" value="Cadastrar">
-            <input type="button" value="Cancelar" onclick="window.history.back()">
+            <a href="./produtos.php"><input type="button" value="Cancelar"></a>
         <?php
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (empty($_POST['nome']) || empty($_POST['descricao']) || empty($_POST['categoria']) || empty($_POST['preco']) || (empty($_POST['custo']) && $_POST['custo'] != 0)
