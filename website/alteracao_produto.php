@@ -6,8 +6,7 @@
     }
     isset($_GET['id']) ? $id = $_GET['id'] : '';
     if (!isset($id)) {
-        $message = "ID não especificado!";
-        header("Location: ./produtos.php?message=$message");
+        header("Location: ./produtos.php?message='ID não especificado!'");
         die();
     }
     $connection = connect();
@@ -18,7 +17,7 @@
         $result = $select->fetch(PDO::FETCH_ASSOC);
         if ($result['senha'] != $pass) {
             echo "<script>alert('Senha incorreta!')</script>";
-            header('Refresh: 0; url=./alteracao_produto.php?id=$id');
+            header("Refresh: 0; url=./alteracao_produto.php?id=$id");
             die();
         }
         $select = $connection->prepare("SELECT excluido FROM tbl_produto WHERE id_produto = :id");
@@ -33,8 +32,7 @@
     $select_product->execute(['id' => $id]);
     $result = $select_product->fetch(PDO::FETCH_ASSOC);
     if($result == NULL) {
-        $message = "Produto não encontrado!";
-        header("Location: ./produtos.php?message=$message");
+        header("Location: ./produtos.php?message='Produto não encontrado!'");
         die();
     }
     $action = $result['excluido'] ? 'Restaurar' : 'Deletar';
@@ -142,7 +140,6 @@
                             }
                             
                             $name = $_POST['nome'];
-                            $action = $result['excluido'];
                             $description = $_POST['descricao'];
                             $category = $_POST['categoria'];
                             $price = round($_POST['preco'], 2);
@@ -194,7 +191,7 @@
                             }
                             $codigovisual = $_POST['codigovisual'];
                             $grossprofit = $_POST['preco'] - $_POST['custo'];
-                            $update = $connection->prepare("UPDATE tbl_produto SET nome = :name, descricao = :description, categoria = :category, preco = :price, custo = :cost, icms = :icms, excluido = :excluido, quantidade_estoque = :stock, " . (isset($image) ? "imagem = '{$image['name']}', " : '') . "codigovisual = :codigovisual, margem_lucro = :profit_margin WHERE id_produto = :id");
+                            $update = $connection->prepare("UPDATE tbl_produto SET nome = :name, descricao = :description, categoria = :category, preco = :price, custo = :cost, icms = :icms, quantidade_estoque = :stock, " . (isset($image) ? "imagem = '{$image['name']}', " : '') . "codigovisual = :codigovisual, margem_lucro = :profit_margin WHERE id_produto = :id");
                             $update->execute(array(
                                 ':name' => $name,
                                 ':description' => $description,
@@ -205,7 +202,6 @@
                                 ':stock' => $_POST['estoque'],
                                 ':codigovisual' => $_POST['codigovisual'],
                                 ':profit_margin' => round($grossprofit - ($grossprofit * ($_POST['icms'] / 100)), 2),
-                                ':excluido' => $action,
                                 ':id' => $id
                             ));
                             move_uploaded_file($_FILES['imagem']['tmp_name'], './imagens/produtos/' . $image['name']);
