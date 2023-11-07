@@ -18,7 +18,7 @@
         $result = $select->fetch(PDO::FETCH_ASSOC);
         if ($result['senha'] != $pass) {
             echo "<script>alert('Senha incorreta!')</script>";
-            header('Refresh: 0; url=./alteracao_produto.php?id=$id');
+            header("Refresh: 0; url=./alteracao_produto.php?id=$id");
             die();
         }
         $select = $connection->prepare("SELECT excluido FROM tbl_produto WHERE id_produto = :id");
