@@ -6,8 +6,7 @@
     }
     isset($_GET['id']) ? $id = $_GET['id'] : '';
     if (!isset($id)) {
-        $message = "ID não especificado!";
-        header("Location: ./produtos.php?message='$message'");
+        header("Location: ./produtos.php?message='ID não especificado!'");
         die();
     }
     $connection = connect();
@@ -33,8 +32,7 @@
     $select_product->execute(['id' => $id]);
     $result = $select_product->fetch(PDO::FETCH_ASSOC);
     if($result == NULL) {
-        $message = "Produto não encontrado!";
-        header("Location: ./produtos.php?message='$message'");
+        header("Location: ./produtos.php?message='Produto não encontrado!'");
         die();
     }
     $action = $result['excluido'] ? 'Restaurar' : 'Deletar';

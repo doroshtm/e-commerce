@@ -10,8 +10,7 @@
     $select_user->execute(['id' => $id]);
     $result = $select_user->fetch(PDO::FETCH_ASSOC);
     if($result == NULL) {
-        $message = "Usuário não encontrado!";
-        header("Location: ./usuarios.php?message=$message");
+        header("Location: ./usuarios.php?message='Usuário não encontrado!'");
         die();
     }
 ?>
