@@ -142,7 +142,6 @@
                             }
                             
                             $name = $_POST['nome'];
-                            $action = $result['excluido'] == 'Restaurar' ? 'true' : 'false';
                             $description = $_POST['descricao'];
                             $category = $_POST['categoria'];
                             $price = round($_POST['preco'], 2);
@@ -194,7 +193,7 @@
                             }
                             $codigovisual = $_POST['codigovisual'];
                             $grossprofit = $_POST['preco'] - $_POST['custo'];
-                            $update = $connection->prepare("UPDATE tbl_produto SET nome = :name, descricao = :description, categoria = :category, preco = :price, custo = :cost, icms = :icms, excluido = :excluido, quantidade_estoque = :stock, " . (isset($image) ? "imagem = '{$image['name']}', " : '') . "codigovisual = :codigovisual, margem_lucro = :profit_margin WHERE id_produto = :id");
+                            $update = $connection->prepare("UPDATE tbl_produto SET nome = :name, descricao = :description, categoria = :category, preco = :price, custo = :cost, icms = :icms, quantidade_estoque = :stock, " . (isset($image) ? "imagem = '{$image['name']}', " : '') . "codigovisual = :codigovisual, margem_lucro = :profit_margin WHERE id_produto = :id");
                             $update->execute(array(
                                 ':name' => $name,
                                 ':description' => $description,
@@ -205,7 +204,6 @@
                                 ':stock' => $_POST['estoque'],
                                 ':codigovisual' => $_POST['codigovisual'],
                                 ':profit_margin' => round($grossprofit - ($grossprofit * ($_POST['icms'] / 100)), 2),
-                                ':excluido' => $action,
                                 ':id' => $id
                             ));
                             move_uploaded_file($_FILES['imagem']['tmp_name'], './imagens/produtos/' . $image['name']);
