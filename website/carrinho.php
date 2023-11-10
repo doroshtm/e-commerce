@@ -32,11 +32,16 @@
             $amountCart = $resultCompraProduto != NULL ? $resultCompraProduto['quantidade'] : 0;
 
             if(isset($_GET['amount'])) {
-                if ($id_compra == NULL && $action != 'add')
+                if ($action == 'add' && $id_compra == NULL) {
+                    $insert = $connection->prepare("INSERT INTO tbl_compra (status, data, usuario) VALUES ('PENDENTE', :date, :user)");
+                    $insert->execute(['date' => date('Y-m-d'), 'user' => $userID]);
+                    $id_compra = $connection->lastInsertId();
+                    $insert = $connection->prepare("INSERT INTO tbl_tmp_compra (sessao, compra) VALUES (:session, :id)");
+                    $insert->execute(['session' => $sessID, 'id' => $id_compra]);
+                } else if ($id_compra == NULL) {
                     header("location: $url?message='Não há produtos no carrinho!'");
                     die();
                 }
-                
                 if ($action == 'add') {
                     if ($amount > $stock) {
                         header("location: $url?message='Não há estoque suficiente para essa quantidade!'");

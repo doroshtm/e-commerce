@@ -58,6 +58,7 @@
                     <img src='cid:logo' alt='Logo Mascotero' style='width: 200px; height: 240px;'>";
                     if (sendEmail($email, $subject, $body, $mail)) {
                         echo "<div class='mensagem-sucesso'>Email enviado com sucesso!</div>";
+                        setcookie('email', $email, time() + 1209600);
                     }
                     else {
                         echo "<div class='mensagem-erro'>Erro ao enviar email: " . $mail->ErrorInfo . "</div>";

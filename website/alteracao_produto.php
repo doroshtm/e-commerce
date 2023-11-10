@@ -12,8 +12,8 @@
     $connection = connect();
     isset($_POST['pass']) ? $pass = $_POST['pass'] : '';
     if (isset($pass)) {
-        $select = $connection->prepare("select senha from tbl_usuario where id_usuario = " . $_SESSION['user']['id']);
-        $select->execute();
+        $select = $connection->prepare("SELECT senha FROM tbl_usuario WHERE id_usuario = :id_admin");
+        $select->execute(['id_admin' => $_SESSION['user']['id']]);
         $result = $select->fetch(PDO::FETCH_ASSOC);
         if ($result['senha'] != $pass) {
             echo "<script>alert('Senha incorreta!')</script>";

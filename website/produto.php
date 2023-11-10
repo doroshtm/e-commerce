@@ -62,9 +62,9 @@
                         <span id="tela-produto-preco">
                             R$ <?php echo $price; ?>
                         </span>   
-                        <span id="tela-produto-adicionar-carrinho">
+                        <a id="tela-produto-adicionar-carrinho" href='carrinho.php?id=<?php echo $id ?>&url=produtos.php&action=add&amount=1'>
                             Adicionar ao carrinho
-                        </span>
+                        </a>
                     </div>
                 </div>
             </div>
