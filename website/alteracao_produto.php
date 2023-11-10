@@ -53,21 +53,6 @@
     </head>
     <body>
         <div id="pai">
-            <dialog id="popup-confirmar">
-                <div class="content-popup">
-                    <span class="texto-destaque">Tem certeza que deseja <?php echo strtolower($action) ?> o produto?</span>
-                    <input type="checkbox" id="mostrar-confirmacao">
-                    <label for="mostrar-confirmacao" id="confir">Sim</label>
-                    <form id="formlogin" style="margin:0; padding:0;" method="POST" action="./alteracao_produto.php?id=<?php echo $id ?>">
-                        <div class="label-input-login">
-                            <label for="pass"> Digite sua senha</label>
-                            <input type="password" id="pass" name="pass" placeholder="Senha para confirmação..." required>
-                        </div>
-                        <input type="submit" value="<?php echo $action ?>">
-                    </form>
-                    <button id="botao-fechar-popup" class="botao-finalizar">Fechar</button> 
-                </div>
-            </dialog>
             <form name="alterarProduto" method="post" action="./alteracao_produto.php?id=<?php echo $id ?>" id="formlogin" style="width:60%;" enctype="multipart/form-data">
                 <div id="logo-login">
                         <img src="imagens/Emblema_Mascotero.svg" alt="Logo Mascotero">
