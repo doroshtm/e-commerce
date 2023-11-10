@@ -6,6 +6,21 @@
     }
     $id = $_GET['id'];
     $connection = connect();
+    isset($_POST['pass']) ? $pass = $_POST['pass'] : "";
+    if (isset($pass)) {
+        $select_user = $connection->prepare("SELECT senha FROM tbl_usuario WHERE id_usuario = :id_admin");
+        $select_user->execute(['id_admin' => $_SESSION['user']['id']]);
+        $result = $select_user->fetch(PDO::FETCH_ASSOC);
+        if($result['senha'] != $pass) {
+            echo "<script>alert('Senha incorreta!')</script>";
+            header("Refresh: 0; url=./alteracao_usuario.php?id=$id");
+            die();
+        }
+        $delete = $connection->prepare("DELETE FROM tbl_usuario WHERE id_usuario = :id");
+        $delete->execute(['id' => $id]);
+        header("Location: ./usuarios.php");
+        die();
+    }
     $select_user = $connection->prepare("SELECT nome, email, admin, telefone, endereco, cep, cpf, data_cadastro FROM tbl_usuario WHERE id_usuario = :id");
     $select_user->execute(['id' => $id]);
     $result = $select_user->fetch(PDO::FETCH_ASSOC);
@@ -22,11 +37,26 @@
         <link rel="stylesheet" href="styles_header_footer.css">
         <link rel="icon" type="image/svg+xml" href="./imagens/MC_Logo_Footer.svg">
         <script src="js/cadastro.js?v=0.21"></script>
+        <script src="js/util.js?v=0.21"></script>
         <title>Alterar usuário | <?php echo $id ?> | Mascotero</title>
     </head>
     <body>
         <div id="pai">
-            <form method="get" id="formDelUsuario" action="./remocao_usuario.php"></form>
+            <dialog id="popup-confirmar">
+                <div class="content-popup">
+                    <span class="texto-destaque">Tem certeza que deseja deletar o usuário?</span>
+                    <input type="checkbox" id="mostrar-confirmacao">
+                    <label for="mostrar-confirmacao" id="confir">Sim</label>
+                    <form id="formlogin" style="margin:0; padding:0;" method="POST" action="./alteracao_usuario.php?id=<?php echo $id ?>">
+                        <div class="label-input-login">
+                            <label for="pass"> Digite sua senha</label>
+                            <input type="password" id="pass" name="pass" placeholder="Senha para confirmação..." required>
+                        </div>
+                        <input type="submit">
+                    </form>
+                    <button id="botao-fechar-popup" class="botao-finalizar">Fechar</button> 
+                </div>
+            </dialog>
             <form name="alterarUsuario" method="post" action="./alteracao_usuario.php?id=<?php echo $id ?>" id="formlogin" style="width:60%;">
                 <div id="logo-login">
                     <img src="imagens/Emblema_Mascotero.svg" alt="Logo Mascotero">
@@ -74,7 +104,7 @@
                     </div>
                 </div>
                 <input type="submit" value="Alterar">
-                <input type="button" value="Remover" form="formDelUsuario">
+                <input type="button" value="Remover" id="botao-abrir-popup">
                 <input type="button" value="Cancelar" onclick="window.history.back()">
                 <?php
                     if($_SERVER['REQUEST_METHOD'] == 'POST') {

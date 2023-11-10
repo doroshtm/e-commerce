@@ -36,7 +36,7 @@
         <div class="container-geral">
 <?php
     $connection = connect();
-    $select = $connection->prepare('SELECT * FROM tbl_usuario');
+    $select = $connection->prepare('SELECT * FROM tbl_usuario ORDER BY id_usuario');
     $select->execute();
     $result = $select->fetchAll(PDO::FETCH_ASSOC);
     echo "
@@ -77,7 +77,6 @@
             <td>" . $row['data_cadastro'] . "</td>
             <td>
                 <a href='./alteracao_usuario.php?id=" . $row['id_usuario'] . "'><img src='./imagens/editar.png' alt='Editar' width='24px' height='24px'></a>
-                <a href='./remocao_usuario.php?id=" . $row['id_usuario'] . "'><img src='./imagens/remover.svg' alt='Excluir' width='24px' height='24px'></a>
             </td>
         </tr>";
     }
