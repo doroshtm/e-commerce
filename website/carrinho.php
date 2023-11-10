@@ -306,10 +306,17 @@
         <footer id="footer">
             <div id="footer-lado1">
                 <div class="container-logo">
-                    <img src="imagens/MC_Logo_Footer.svg" width="75px" height="75px"> Mascotero     
+                    <img src="imagens/MC_Logo_Footer.svg" width="75px" height="75px" alt= "Logo do footer"> Mascotero
                 </div>
             </div>
-            <div id="footer-lado2">Copyright © 2023 Mascotero Ltda | Todos os direitos reservados</div>
+            <a id="footer-lado2" href="sobre.php">
+                    <span class="texto-destaque">Desenvolvedores</span>
+                    <span>11 - Ellen Carvalho </span>
+                    <span>12 - Emily Rocha</span>
+                    <span>13 - Fernando Theodoro </span>
+                    <span>14 - Gabriel Carraro </span>
+                    <span>15 - Gabriel Menegazzo </span>
+            </a>
         </footer>
 
     </body>

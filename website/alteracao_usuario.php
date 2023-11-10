@@ -75,7 +75,7 @@
                 </div>
                 <input type="submit" value="Alterar">
                 <input type="button" value="Remover" form="formDelUsuario">
-                <input type="button" value="Cancelar" onclick="window.history.back()">
+                <a href = "./usuarios.php"><input type="button" value="Cancelar"></a>
                 <?php
                     if($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $name = $_POST['nome'];
