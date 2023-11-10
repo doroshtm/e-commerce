@@ -118,8 +118,9 @@ $filter = swapSynonyms($filter);
                     
                         echo "<div class='produto' data-categoria='$category' data-nome='$name' data-preco = '$price'>
                             <a href='produto.php?id=$id'>
-                            <div class='produto-imagem'><img src='imagens/produtos/$image'></div>
-                            <div class='produto-corpo'>";
+                                <div class='produto-imagem'><img src='imagens/produtos/$image'></div>
+                            </a>
+                                <div class='produto-corpo'>";
                     
                         echo $isAdmin ? "<a href='alteracao_produto.php?id=$id'>
                         <img src='imagens/editar.png' width='20px' height='20px' class='imagem-editar-produto'></a>" : "";
