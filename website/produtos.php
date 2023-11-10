@@ -137,7 +137,8 @@ $filter = swapSynonyms($filter);
                         echo "
                         <span class='preco-produto texto-destaque'>R$$price</span>
                             </div>
-                        </div></a>";
+                            </a>
+                        </div>";
                     }
                     if(isset($_SESSION['user']['isAdmin']) && $_SESSION['user']['isAdmin']) {
                         $select = $connection->prepare('SELECT nome, preco, descricao, categoria, imagem, id_produto FROM tbl_produto WHERE excluido = true ORDER BY lower(nome)');
@@ -158,6 +159,7 @@ $filter = swapSynonyms($filter);
                             isset($row['descricao']) ? $description = abreviarTexto($row['descricao'],50) : $description = '';
 
                             echo "<div class='produto deletado' data-categoria='$category' data-nome='$name' data-preco = '$price'>
+                            <a href='produto.php?id=$id'>
                                 <div class='produto-imagem'><img src='imagens/produtos/$image'></div>
                                 <div class='produto-corpo'>";
                         
@@ -198,8 +200,9 @@ $filter = swapSynonyms($filter);
 <script src="js/produtos.js"></script>
 <script>
 filterProducts(); 
-if ($filtro)
-criarElemento("<?php echo $filtro ?>")</script>
+if ("<?php echo $filtro?>" != "")
+criarElemento("<?php echo $filtro ?>")
+</script>
 <?php
     if(isset($_GET['message'])) {
         echo "<script>alert(" . $_GET['message'] . ");</script>";
