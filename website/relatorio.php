@@ -37,106 +37,110 @@
         </div>
         <div id="container-grid-login">
           <div class="label-input-login">
-              <label for="inicial">Data inicial</label>
-              <input type="date" name="iniDate" id="inicial" value="<?php echo $startOfMonth; ?>">
+            <label for="inicial">Data inicial</label>
+            <input type="date" name="iniDate" id="inicial" value="<?php echo $startOfMonth; ?>" required>
           </div>
           <div class="label-input-login">
-              <label for="final">Data final</label>
-              <input type="date" name="finDate" id="final" value="<?php echo $today; ?>">
+            <label for="final">Data final</label>
+            <input type="date" name="finDate" id="final" value="<?php echo $today; ?>" required>
+          </div>
+          <div class="label-input-login">
+            <label for="PDF">Baixar PDF ao invés de abrir</label>
+            <input type="checkbox" name="PDF" id="PDF" value="true">
           </div>
         </div>
           <input type='submit' value='Gerar'>
 <?php
-  $sucess = isset($_GET['success']) ? $_GET['success'] : NULL;
-  if ($sucess == 'true') {
-    echo "<div class='mensagem-sucesso'>Relatório gerado com sucesso</div>";
-    echo "<a href='relatorios/relatorio.pdf'>Abrir relatório</a>";
-  } else if ($sucess == 'false') {
-    echo "<div class='mensagem-erro'>Erro ao gerar relatório</div>";
-  }
-   if($_SERVER['REQUEST_METHOD'] == 'POST') {
-      $connection = connect();
+  if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (!isset($_POST['iniDate']) || !isset($_POST['finDate']) || $_POST['iniDate'] > $_POST['finDate']) {
+      header("Location: relatorio.php?message='Data inválida'");
+      die();
+    }
+    $connection = connect();
+    
+    $initialDate = $_POST['iniDate'];
+    $finalDate = $_POST['finDate'];
+
+
+    $selectCompra = $connection->prepare("SELECT compra.id_compra, compra.data, usuario.nome, sum(compra_produto.quantidade * produto.preco) total, compra.cupom
+                                          FROM tbl_compra AS compra JOIN tbl_compra_produto AS compra_produto ON compra.id_compra = compra_produto.compra
+                                          JOIN tbl_produto AS produto ON compra_produto.produto = produto.id_produto
+                                          JOIN tbl_usuario AS usuario ON compra.usuario = usuario.id_usuario
+                                          WHERE compra.data >= :datai AND compra.data <= :dataf AND compra.status = 'PAGO'
+                                          GROUP BY compra.id_compra, compra.data, usuario.nome
+                                          ORDER BY compra.data");
+
+
+    $selectCompraProduto = $connection->prepare("SELECT produto.nome, compra_produto.quantidade, produto.preco, (compra_produto.quantidade * produto.preco) subtotal
+                                                  FROM tbl_compra_produto AS compra_produto JOIN tbl_produto AS produto ON compra_produto.produto = produto.id_produto
+                                                  WHERE compra_produto.compra = :cod_compra ORDER BY produto.nome");
+
+    // PS: Função não vai ser usada para seguir o resto do código, mas pode ser usada
+    // formata valores em reais 
+    // setlocale(LC_ALL, 'pt_BR.utf-8', );
+
+    $html = "<html>";
+
+    $selectCompra->execute(['datai' => $initialDate, 'dataf' => $finalDate]);
+    $resultCompra = $selectCompra->fetchAll(PDO::FETCH_ASSOC);
+
+    $html .= "<br>";
+    foreach($resultCompra as $row) {
+      $date = new DateTime($row['data']);
+      $IDCompra = $row['id_compra'];
+      $name    = $row['nome'];
+      $total      = number_format($row['total'], 2, ',', '.');
+
+      $nameWidth = strlen($name) * 11;
+      $date       = $date->format('d/m/Y');
+      $IDWidth   = strlen($IDCompra) * 11;
+      $IDWidth = $IDWidth > 32 ? $IDWidth : 32;
+      $totalWidth = strlen($total) * 8;
+      $totalWidth = $totalWidth > 80 ? $totalWidth : 80;
+
+      $html .= "<table border='1'>
+      <tr>
+        <b><td width='$IDWidth' height='30'>ID</td><td width='100' height='30'>Data</td><td width='$nameWidth' height='30'>Usuario</td><td width='$totalWidth' height='30'>Total (R$)</td></b></tr>";
+
       
-      $initialDate = $_POST['iniDate'];
-      $finalDate = $_POST['finDate'];
+      
+      $html .= "
+      <tr>
+        <td width='$IDWidth' height='30'>$IDCompra</td><td width='100' height='30'>$date</td><td width='$nameWidth' height='30'>$name</td><td width='$totalWidth' height='30'>$total</td>
+      </tr></table>";
+      
+      $selectCompraProduto->execute(['cod_compra' => $row['id_compra']]);
+      $resultCompraProduto = $selectCompraProduto->fetchAll(PDO::FETCH_ASSOC);
+      
+      $html .= "<br><table border='1'>
+      <tr>
+        <td width='400' height='30'>Produto</td><td width='100' height='30'>Quantidade</td><td width='100' height='30'>Unidade (R$)</td><td width='100' height='30'>Subtotal (R$)</td></tr>";
 
-
-      $selectCompra = $connection->prepare("SELECT compra.id_compra, compra.data, usuario.nome, sum(compra_produto.quantidade * produto.preco) total, compra.cupom
-                                            FROM tbl_compra AS compra JOIN tbl_compra_produto AS compra_produto ON compra.id_compra = compra_produto.compra
-                                            JOIN tbl_produto AS produto ON compra_produto.produto = produto.id_produto
-                                            JOIN tbl_usuario AS usuario ON compra.usuario = usuario.id_usuario
-                                            WHERE compra.data >= :datai AND compra.data <= :dataf AND compra.status = 'PAGO'
-                                            GROUP BY compra.id_compra, compra.data, usuario.nome
-                                            ORDER BY compra.data");
-
-
-      $selectCompraProduto = $connection->prepare("SELECT produto.nome, compra_produto.quantidade, produto.preco, (compra_produto.quantidade * produto.preco) subtotal
-                                                   FROM tbl_compra_produto AS compra_produto JOIN tbl_produto AS produto ON compra_produto.produto = produto.id_produto
-                                                   WHERE compra_produto.compra = :cod_compra ORDER BY produto.nome");
-
-      // PS: Função não vai ser usada para seguir o resto do código, mas pode ser usada
-      // formata valores em reais 
-      // setlocale(LC_ALL, 'pt_BR.utf-8', );
-
-      $html = "<html>";
-
-      $selectCompra->execute(['datai' => $initialDate, 'dataf' => $finalDate]);
-      $resultCompra = $selectCompra->fetchAll(PDO::FETCH_ASSOC);
-
-      $html .= "<br>";
-      foreach($resultCompra as $row) {
-        $date = new DateTime($row['data']);
-        $IDCompra = $row['id_compra'];
-        $name    = $row['nome'];
-        $total      = number_format($row['total'], 2, ',', '.');
-
-        $nameWidth = strlen($name) * 8;
-        $date       = $date->format('d/m/Y');
-        $IDWidth   = strlen($IDCompra) * 11;
-        $IDWidth = $IDWidth > 32 ? $IDWidth : 32;
-        $totalWidth = strlen($total) * 8;
-        $totalWidth = $totalWidth > 80 ? $totalWidth : 80;
-
-        $html .= "<table border='1'>
-        <tr>
-          <b><td width='$IDWidth' height='30'>ID</td><td width='100' height='30'>Data</td><td width='$nameWidth' height='30'>Usuario</td><td width='$totalWidth' height='30'>Total (R$)</td></b></tr>";
-
-        
+      foreach($resultCompraProduto as $row) {
+        $product = abreviarTexto($row['nome'], 40);
+        $amount = $row['quantidade'];
+        $unitPrice = number_format($row['preco'], 2, ',', '.');
+        $subtotal = number_format($row['subtotal'], 2, ',', '.');
         
         $html .= "
-        <tr>
-          <td width='$IDWidth' height='30'>$IDCompra</td><td width='100' height='30'>$date</td><td width='$nameWidth' height='30'>$name</td><td width='$totalWidth' height='30'>$total</td>
-        </tr></table>";
-        
-        $selectCompraProduto->execute(['cod_compra' => $row['id_compra']]);
-        $resultCompraProduto = $selectCompraProduto->fetchAll(PDO::FETCH_ASSOC);
-        
-        $html .= "<br><table border='1'>
-        <tr>
-          <td width='400' height='30'>Produto</td><td width='100' height='30'>Quantidade</td><td width='100' height='30'>Unidade (R$)</td><td width='100' height='30'>Subtotal (R$)</td></tr>";
-
-        foreach($resultCompraProduto as $row) {
-          $product = $row['nome'];
-          $amount = $row['quantidade'];
-          $unitPrice = number_format($row['preco'], 2, ',', '.');
-          $subtotal = number_format($row['subtotal'], 2, ',', '.');
-          
-          $html .= "
-        <tr>
-          <td width='400' height='30'>$product</td><td width='100' height='30'>$amount</td><td width='100' height='30'>$unitPrice</td><td width='100' height='30'>$subtotal</td></tr>";
-        }
-        $html .= "</table><br><hr>";
+      <tr>
+        <td width='400' height='30'>$product</td><td width='100' height='30'>$amount</td><td width='100' height='30'>$unitPrice</td><td width='100' height='30'>$subtotal</td></tr>";
       }
-      $html .= "</html>";
-      if (createPDF($html, 'relatorios/relatorio.pdf', 'Relatorio de vendas')) {
-        header("Location: relatorio.php?success=true");
-      } else {
-        header("Location: relatorio.php?success=false");
-      }
-
+      $html .= "</table><br><hr>";
+    }
+    $html .= "</html>";
+    $download = isset($_POST['PDF']) ? $_POST['PDF'] : false;
+    if (!createPDF($html, 'relatorios/relatorio.pdf', 'Relatorio de vendas', $download)) {
+      header("Location: relatorio.php?message='Erro ao gerar relatório'");
+    }
+   }
+   echo "
+    </form>
+   </div>
+ </body>
+</html>";
+   if (isset($_GET['message'])) {
+     echo "<script>alert(" . $_GET['message'] . ")</script>";
+     header("refresh:0;url=relatorio.php");
    }
 ?>
-      </form>
-    </div>
-  </body>
-</html> 

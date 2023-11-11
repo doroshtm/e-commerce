@@ -85,7 +85,7 @@
     }
   }
 
-  function createPDF($html, $filename, $title) {
+  function createPDF($html, $filename, $title, $download) {
     try {
       include_once('./FPDF/html_table.php');
 
@@ -97,8 +97,7 @@
       $pdf->SetFont('Times', '', 12);
       $pdf->WriteHTML($html);
       ob_end_clean();
-      $pdf->Output($filename, 'F');
-      $pdf->Output('D', $filename);
+      $download ? $pdf->Output($filename, 'D') : $pdf->Output($filename, 'I');
       return true;
     } catch (Exception $e) {
       echo $e->getMessage();
