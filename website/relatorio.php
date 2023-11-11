@@ -149,14 +149,16 @@
       echo "</div></body></html>";
       die();
     }
+    echo "</body></html>";
     $download = isset($_POST['PDF']) ? $_POST['PDF'] : false;
     if (!createPDF($html, 'relatorios/relatorio.pdf', 'Relatorio de vendas', $download)) {
       header("Location: relatorio.php?message='Erro ao gerar relatório'");
+    } else {
+      header("Location: relatorios/relatorio.pdf");
     }
-    echo "</body></html>";
-   }
    if (isset($_GET['message'])) {
      echo "<script>alert(" . $_GET['message'] . ")</script>";
      header("refresh:0;url=relatorio.php");
    }
+  }
 ?>
