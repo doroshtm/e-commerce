@@ -2,7 +2,7 @@
     include("util.php");
     startSession(NULL);
     $isAdmin = isset($_SESSION['user']['isAdmin']) ? $_SESSION['user']['isAdmin'] : false;
-    if(!isset($_SESSION['user']['isAdmin']) || !$_SESSION['user']['isAdmin']) {
+    if(!$isAdmin) {
         header('Location: ./');
     }
 ?>

@@ -2,13 +2,13 @@
     include("util.php");
     startSession(NULL);
     $filter = isset($_GET['categoria']) ? $_GET['categoria'] : '';
+    $filter = swapSynonyms($filter);
     $filtro = $filter;
     $filtro = ($filtro == "cti") ? "CTI" : 
           (($filtro == "info") ? "Informática" : 
           (($filtro == "mec") ? "Mecânica" : 
           (($filtro == "eletro") ? "Eletrônica" : $filtro)));
 
-$filter = swapSynonyms($filter);
 ?>
 
 <!DOCTYPE html>
@@ -200,7 +200,7 @@ $filter = swapSynonyms($filter);
 </html>
 <script src="js/produtos.js"></script>
 <script>
-filterProducts(); 
+filterProducts();
 if ("<?php echo $filtro?>" != "")
 criarElemento("<?php echo $filtro ?>")
 </script>
