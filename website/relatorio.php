@@ -45,6 +45,14 @@
             <input type="date" name="finDate" id="final" value="<?php echo $today; ?>" required>
           </div>
           <div class="label-input-login">
+            <label for="abrir_HTML">Abrir como HTML</label>
+            <input type="radio" name="HTML" id="abrir_HTML" value="HTML">
+          </div>
+          <div class="label-input-login">
+            <label for="abrir_PDF">Abrir como PDF</label>
+            <input type="radio" name="HTML" id="abrir_PDF" value="PDF" checked>
+          </div>
+          <div class="label-input-login">
             <label for="PDF">Baixar PDF ao invés de abrir</label>
             <input type="checkbox" name="PDF" id="PDF" value="true">
           </div>
@@ -129,16 +137,24 @@
       $html .= "</table><br><hr>";
     }
     $html .= "</html>";
+    echo "</form></div>";
+    $openHTML = isset($_POST['HTML']) ? $_POST['HTML'] == 'HTML' : false;
+    if ($openHTML) {
+      echo "<script src='./js/relatorio.js'></script>
+      <script>esconderFormulario();</script>
+      
+      <div class='container-geral'><br>
+      <a href='./relatorio.php' id='voltar' style='font-size: 20px'>Voltar</a><br><br>";
+      echo $html;
+      echo "</div></body></html>";
+      die();
+    }
     $download = isset($_POST['PDF']) ? $_POST['PDF'] : false;
     if (!createPDF($html, 'relatorios/relatorio.pdf', 'Relatorio de vendas', $download)) {
       header("Location: relatorio.php?message='Erro ao gerar relatório'");
     }
+    echo "</body></html>";
    }
-   echo "
-    </form>
-   </div>
- </body>
-</html>";
    if (isset($_GET['message'])) {
      echo "<script>alert(" . $_GET['message'] . ")</script>";
      header("refresh:0;url=relatorio.php");
