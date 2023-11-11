@@ -85,6 +85,26 @@
     }
   }
 
+  function createPDF($html, $filename, $title, $download) {
+    try {
+      include_once('./FPDF/html_table.php');
+
+      $pdf = new PDF();
+      $pdf->AddPage();
+      $pdf->SetFont('Times', 'B', 16);
+      $pdf->Write(5, $title);
+      $pdf->Ln();
+      $pdf->SetFont('Times', '', 12);
+      $pdf->WriteHTML($html);
+      ob_end_clean();
+      $download ? $pdf->Output($filename, 'D') : $pdf->Output($filename, 'I');
+      return true;
+    } catch (Exception $e) {
+      echo $e->getMessage();
+      return false;
+    }
+  }
+
   function header_pag ($isAdmin, $url) {
     echo "
     <div class='container-logo'> 
