@@ -46,14 +46,17 @@
           </div>
         </div>
           <input type='submit' value='Gerar'>
-      </form>
-    </div>
-  </body>
-</html>
 <?php
+  $sucess = isset($_GET['success']) ? $_GET['success'] : NULL;
+  if ($sucess == 'true') {
+    echo "<div class='mensagem-sucesso'>Relatório gerado com sucesso</div>";
+    echo "<a href='relatorios/relatorio.pdf'>Abrir relatório</a>";
+  } else if ($sucess == 'false') {
+    echo "<div class='mensagem-erro'>Erro ao gerar relatório</div>";
+  }
    if($_SERVER['REQUEST_METHOD'] == 'POST') {
       $connection = connect();
-
+      
       $initialDate = $_POST['iniDate'];
       $finalDate = $_POST['finDate'];
 
@@ -80,29 +83,23 @@
       $selectCompra->execute(['datai' => $initialDate, 'dataf' => $finalDate]);
       $resultCompra = $selectCompra->fetchAll(PDO::FETCH_ASSOC);
 
+      $html .= "<br>";
       foreach($resultCompra as $row) {
-        // $html .= "<br><br>
-        //       <b>".
-        //       sprintf('%3s', 'ID').
-        //       sprintf('%20s','Data').
-        //       sprintf('%50s','Usuário').
-        //       sprintf('%10s','R$ total').
-        //       "</b>
-        //       <br>";
         $date = new DateTime($row['data']);
         $IDCompra = $row['id_compra'];
         $name    = $row['nome'];
         $total      = number_format($row['total'], 2, ',', '.');
 
-        $nameWidth = strlen($cliente) * 8;
-        $date       = $data->format('d/m/Y');
-        $IDWidth   = strlen($cod_compra) * 11;
+        $nameWidth = strlen($name) * 8;
+        $date       = $date->format('d/m/Y');
+        $IDWidth   = strlen($IDCompra) * 11;
+        $IDWidth = $IDWidth > 32 ? $IDWidth : 32;
         $totalWidth = strlen($total) * 8;
         $totalWidth = $totalWidth > 80 ? $totalWidth : 80;
+
         $html .= "<table border='1'>
         <tr>
-          <td width='$IDWidth' height='30'>ID</td><td width='100' height='30'>Data</td><td width='$nameWidth' height='30'>Usuário</td><td width='$totalWidth' height='30'>Total (R$)</td>
-        </tr>";
+          <b><td width='$IDWidth' height='30'>ID</td><td width='100' height='30'>Data</td><td width='$nameWidth' height='30'>Usuario</td><td width='$totalWidth' height='30'>Total (R$)</td></b></tr>";
 
         
         
@@ -114,45 +111,32 @@
         $selectCompraProduto->execute(['cod_compra' => $row['id_compra']]);
         $resultCompraProduto = $selectCompraProduto->fetchAll(PDO::FETCH_ASSOC);
         
-        // $html .= "<b>".
-        //       sprintf('%20s','Prod').
-        //       sprintf('%5s','Qtd').
-        //       sprintf('%10s','$ unidade').
-        //       sprintf('%10s','$ subtotal').
-        //       "</b><br>";
         $html .= "<br><table border='1'>
         <tr>
-          <td width='$IDWidth' height='30'>Prod</td><td width='100' height='30'>Qtd</td><td width='$nameWidth' height='30'>$ unidade</td><td width='$totalWidth' height='30'>$ subtotal</td>
-        </tr>";
+          <td width='400' height='30'>Produto</td><td width='100' height='30'>Quantidade</td><td width='100' height='30'>Unidade (R$)</td><td width='100' height='30'>Subtotal (R$)</td></tr>";
 
         foreach($resultCompraProduto as $row) {
-          // $produto  = sprintf('%20s',$row['nome']);
-          // $qtd      = sprintf('%5s',$row['quantidade']);
-          // $unit     = sprintf('%10s',number_format($row['valor'], 2, ',', '.'));
-          // $subtotal = sprintf('%10s',number_format($row['subtotal'], 2, ',', '.'));
           $product = $row['nome'];
           $amount = $row['quantidade'];
           $unitPrice = number_format($row['preco'], 2, ',', '.');
           $subtotal = number_format($row['subtotal'], 2, ',', '.');
-          $html .= "
-          <tr>
-            <td width='$IDWidth' height='30'>$product</td><td width='100' height='30'>$amount</td><td width='$nameWidth' height='30'>$unitPrice</td><td width='$totalWidth' height='30'>$subtotal</td>
-          </tr></table>";
           
-
-          $html .= $produto . $qtd . $unit . $subtotal . "<br>";
+          $html .= "
+        <tr>
+          <td width='400' height='30'>$product</td><td width='100' height='30'>$amount</td><td width='100' height='30'>$unitPrice</td><td width='100' height='30'>$subtotal</td></tr>";
         }
-        $html .= "------------------------------------------------------------------------------------------------------------------------<br>";
+        $html .= "</table><br><hr>";
       }
-      header("Location: ./relatorios/relatorio.pdf");
-      if (!createPDF($html, 'relatorios/relatorio.pdf', 'Relatório de vendas')) {
-        echo "Erro ao gerar relatório";
+      $html .= "</html>";
+      if (createPDF($html, 'relatorios/relatorio.pdf', 'Relatorio de vendas')) {
+        header("Location: relatorio.php?success=true");
+      } else {
+        header("Location: relatorio.php?success=false");
       }
-  
-        //header('Location: relatorios/relatorio.pdf');
 
-      $html.="</html>";
-      echo $html;
    }
 ?>
- 
+      </form>
+    </div>
+  </body>
+</html> 
