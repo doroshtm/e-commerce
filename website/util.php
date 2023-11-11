@@ -97,7 +97,7 @@
       $pdf->SetFont('Times', '', 12);
       $pdf->WriteHTML($html);
       ob_end_clean();
-      $download ? $pdf->Output($filename, 'D') : $pdf->Output($filename, 'I');
+      $download ? $pdf->Output($filename, 'D') : $pdf->Output($filename, 'F');
       return true;
     } catch (Exception $e) {
       echo $e->getMessage();
