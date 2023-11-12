@@ -151,7 +151,8 @@
     }
     echo "</body></html>";
     $download = isset($_POST['PDF']) ? $_POST['PDF'] : false;
-    if (!createPDF($html, 'relatorios/relatorio.pdf', 'Relatorio de vendas', $download)) {
+    $file = 'relatorios/relatorio' . date('m/d/Y h:i:s a', time()) . '.pdf';
+    if (!createPDF($html, $file, 'Relatorio de vendas', $download)) {
       header("Location: relatorio.php?message='Erro ao gerar relatório'");
     } else {
       header("Location: relatorios/relatorio.pdf");
