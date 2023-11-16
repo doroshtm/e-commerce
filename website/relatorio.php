@@ -156,7 +156,9 @@
     if (!createPDF($html, $file, 'Relatorio de vendas', $download)) {
       header("Location: relatorio.php?message='Erro ao gerar relatório'");
     } else {
-      header("Location: $file");
+        if (!$download) {
+            header("Location: $file");
+        }
     }
   }
   if (isset($_GET['message'])) {
